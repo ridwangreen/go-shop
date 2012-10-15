@@ -1,4 +1,4 @@
-#detailed breakdown of front-end work
+#summary Detailed breakdown of front-end work
 
 
 = Activity Breakdown =
