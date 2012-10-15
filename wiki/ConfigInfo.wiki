@@ -1,0 +1,9 @@
+#summary Configuration information for the development environment
+
+= AVD =
+
+Name: AVD_goshop
+Target: Android 4.1 - API Level 16
+CPU: ARM
+SD: 600 MiB
+Skin: HVGA
