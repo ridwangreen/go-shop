@@ -12,8 +12,13 @@ public class GoShopActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_go_shop);
         
-        //String[] categories = getResources().getStringArray(R.array.category_array);
-                
+        // Create a content resolver to get category information
+        // Should be stored in XML or plain text
+        // <Category name="Dairy" color="#8f8f8f"> 
+        //	<Item name="foobar" />
+        //	<Item name="fiddly" />
+        // </Category>
+        
     }
     
 
