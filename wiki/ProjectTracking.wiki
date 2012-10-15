@@ -1,8 +1,7 @@
-#High-level division of labor
 
 = Introduction =
 
-This page should list things we need to do
+This page should be a high-level division of labor to track the aspects of the project we still need to complete.
 
 
 = Details =
