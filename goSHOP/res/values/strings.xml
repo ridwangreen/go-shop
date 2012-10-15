@@ -12,5 +12,6 @@
         <item>Frozen Food</item>
     </string-array>
     <string name="add_button_text">+Add</string>
+    <color name="list_divider">#8F8F8F</color>
 
 </resources>
