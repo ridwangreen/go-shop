@@ -10,6 +10,7 @@ package com.example.goshop;
  *
  */
 public class Item extends ListItem{
+
 	
 	public Item(String name){
 		super(name);
@@ -19,7 +20,7 @@ public class Item extends ListItem{
 	public boolean equals(Object o){
 		if (o instanceof Item){
 			Item mystery = (Item) o;
-			return mystery.getName().equals(this.getName());
+			return mystery.getName().equals(getName());
 		}else{
 			return false;
 		}
