@@ -3,8 +3,8 @@
  */
 package com.example.goshop;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+
 
 /**
  * This class will be responsible for managing the list of items.
@@ -13,13 +13,13 @@ import java.util.Set;
  *
  */
 public class ItemManager implements ControllerInterface{
-	protected Set<Category> categories;
+	protected ArrayList<Category> categories;
 	
 	/**
 	 * Builds the item manager.
 	 */
 	public ItemManager() {
-		categories = new HashSet<Category>();
+		categories = new ArrayList<Category>();
 	}
 	
 	/**
@@ -124,6 +124,23 @@ public class ItemManager implements ControllerInterface{
 	 */
 	public boolean buildFromXML() {
 		return false;
+	}
+
+	//TODO: This might be really inefficient 
+	@Override
+	public Item[] getAllItems() {
+		ArrayList<Item> allItemsOrdered = new ArrayList<Item>();
+		for(Category c : categories){
+			allItemsOrdered.addAll(c.getItems());
+		}
+		Item[] toReturn = new Item[allItemsOrdered.size()];
+		return allItemsOrdered.toArray(toReturn);
+	}
+
+	@Override
+	public Category[] getAllCategories() {
+		Category[] toReturn = new Category[categories.size()];
+		return categories.toArray(toReturn);
 	}
 
 }
