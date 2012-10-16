@@ -9,7 +9,7 @@ package com.example.goshop;
  * @author Ross
  *
  */
-public class Item {
+public class Item extends ListItem{
 
 	private String itemName;
 	
