@@ -1,0 +1,50 @@
+/*
+ * Battleship.java
+ *
+ * Version:
+ * $Id$
+ *
+ * Revisions:
+ * $Log$
+ */
+
+/**
+ * The main class for the Battleship game
+ *
+ * @author Rebecca Dudley
+ */
+
+public class Battleship {
+
+	public static void main(String args[]){
+		
+		if(args.length != 2){
+			System.err.println("Usage: java Battleship N config-file");
+		}else{
+			
+			try{
+				Integer.parseInt(args[0]);
+				}
+			
+			catch(NumberFormatException nfe){	
+				System.err.println("Usage: java Battleship N config-file");	
+			}
+			
+			int size = Integer.parseInt(args[0]);
+			if(size < 5){
+				System.err.println("Board must be at least 5 by 5.");
+			}
+			else if(size > 26){
+				System.err.println("Board must be at most 26 by 26.");
+			}else{
+				
+				
+				
+			}
+			
+		}
+		
+		
+	}
+	
+}

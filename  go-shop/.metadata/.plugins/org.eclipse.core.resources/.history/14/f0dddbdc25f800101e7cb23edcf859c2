@@ -1,0 +1,29 @@
+package Controller;
+
+import javax.swing.JSlider;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
+import player.CodeBreaker_AI;
+import player.PlayerAdapter;
+
+public class ResponseListener implements ChangeListener{
+
+	PlayerAdapter players;
+	
+	public ResponseListener(PlayerAdapter players){
+		
+		this.players = players;
+	}
+	
+	@Override
+	public void stateChanged(ChangeEvent bar) {
+		// TODO Auto-generated method stub
+		
+		JSlider response = (JSlider)bar.getSource();
+		int value = response.getValue();
+		CodeBreaker_AI breaker = (CodeBreaker_AI)players.getBreaker();
+		breaker.setResponseTime(value);
+		System.out.println(value);
+	}
+}

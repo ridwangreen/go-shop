@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
+		<item value="257" key="DIALOG_WIDTH"/>
+		<item value="121" key="DIALOG_Y_ORIGIN"/>
+		<item value="380" key="DIALOG_HEIGHT"/>
+		<item value="980" key="DIALOG_X_ORIGIN"/>
+		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
+	</section>
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item value="false" key="wrap"/>
+		<item value="false" key="isRegEx"/>
+		<item value="false" key="casesensitive"/>
+		<item value="false" key="incremental"/>
+		<item value="false" key="wholeword"/>
+		<item value="sizeOf" key="selection"/>
+		<list key="findhistory">
+			<item value="sizeOf"/>
+			<item value="JPan"/>
+			<item value="Jpan"/>
+			<item value="system"/>
+			<item value="facade"/>
+			<item value="add"/>
+			<item value="action"/>
+			<item value="e.getActionCommand()"/>
+		</list>
+		<list key="replacehistory">
+			<item value="action"/>
+			<item value="cGUI.getTimeRemaining()"/>
+			<item value="cGUI.getTimeRemaining"/>
+			<item value=""/>
+			<item value="possibleSquares.get(63)"/>
+			<item value="possibleSquares.get(62)"/>
+			<item value="possibleSquares.get(61)"/>
+			<item value="possibleSquares.get(60)"/>
+		</list>
+	</section>
+</section>

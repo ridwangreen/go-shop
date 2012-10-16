@@ -1,0 +1,52 @@
+/*
+ * Filename:
+ *		GUIButtons.java
+ *
+ * Version:
+ *	   $Id$
+ *
+ * Revision:
+ *	   $Log$
+ */
+package GUI;
+
+
+/**
+ *
+ * @author 
+ *		Shaun DeVos
+ * 		Brian Baum
+ * 		Rebecca Dudley
+ *		Jonathan Johnson
+ *		Jonathan Olin
+ */
+public class GUIButton extends JButton{
+
+
+	private int h;
+	private int w;
+	
+		public GUIButton() {
+
+			super();
+
+		}
+		
+		public void paint(Graphics g){
+			
+			Image butt;
+			try {
+				butt = ImageIO.read(new File("src/button.png"));
+			} catch (IOException e) {
+
+				System.err.println("boo");
+				return;
+			}
+			
+			g.drawImage(butt, 0, 0, 200,100,null);
+			g.drawString(this.getText(), 30, 30);
+			System.out.println("DDDDD");
+		}
+	}
+	
+}

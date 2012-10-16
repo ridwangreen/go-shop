@@ -1,0 +1,20 @@
+package Command;
+
+import system.GameState;
+import system.Peg;
+
+public class Guess extends Command {
+	public Guess(Peg pegs[]){
+		
+	}
+	
+	@Override
+	public void execute() {
+		
+	}
+	
+	@Override
+	public void undo() {
+		// TODO Auto-generated method stub
+	}
+}

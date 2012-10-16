@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item value="/%20se362-mastermind%20--username%20ForeverZeroRO@gmail.com,/%20se362-mastermind%20--username%20ForeverZeroRO@gmail.com" key="mergeFromUrls_https://se362-mastermind.googlecode.com/svn/trunk/%20se362-mastermind%20--username%20ForeverZeroRO@gmail.com"/>
+	<item value="690" key="com.collabnet.subversion.merge.wizards.MergeWizard.size.y"/>
+	<item value="Merge two different trees" key="MergeWizardMainPage.lastInputProvider"/>
+	<item value="/PDS/trunk/pds-se361/src/GUI/LoginScreen.java,/PDS/trunk/pds-se361/src/GUI/LoginScreen.java" key="mergeFromUrls_svn+ssh://rcd1575@linus.se.rit.edu/home/teams/361/w361-03b/svn/PDS/trunk/pds-se361/src/GUI/LoginScreen.java"/>
+	<item value="656" key="com.collabnet.subversion.merge.wizards.MergeWizard.size.x"/>
+	<item value="200" key="MergeWizardRevisionsPageWeights0"/>
+	<item value="200" key="MergeWizardRevisionsPageWeights1"/>
+	<item value="200" key="MergeWizardRevisionsPageWeights2"/>
+	<item value="/PDS/trunk/pds-se361/src/GUI/OrderEditor.java,/PDS/trunk/pds-se361/src/GUI/OrderEditor.java" key="mergeFromUrls_svn+ssh://rcd1575@linus.se.rit.edu/home/teams/361/w361-03b/svn/PDS/trunk/pds-se361/src/GUI/OrderEditor.java"/>
+	<item value="/Checkers/src/CheckerGUI.java" key="mergeToUrl_/Checkers/src/CheckerGUI.java"/>
+	<item value="/Checkers/src/CheckerGUI.java,/Checkers/src/CheckerGUI.java" key="mergeFromUrls_https://checkers-362.googlecode.com/svn/Checkers/src/CheckerGUI.java"/>
+	<item value="0" key="com.collabnet.subversion.merge.wizards.MergeWizard.location.y"/>
+	<item value="355" key="com.collabnet.subversion.merge.wizards.MergeWizard.location.x"/>
+	<item value="/PDS/trunk/pds-se361/src/GUI/Main.java,/PDS/trunk/pds-se361/src/GUI/Main.java" key="mergeFromUrls_svn+ssh://rcd1575@linus.se.rit.edu/home/teams/361/w361-03b/svn/PDS/trunk/pds-se361/src/GUI/Main.java"/>
+</section>

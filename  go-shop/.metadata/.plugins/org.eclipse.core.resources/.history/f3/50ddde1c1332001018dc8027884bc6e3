@@ -1,0 +1,25 @@
+/*
+ * Filename:
+ *		popUpScreen.java
+ *
+ * Version:
+ *	   $Id$
+ *
+ * Revision:
+ *	   $Log$
+ */
+package GUI;
+
+
+/**
+ *
+ * @author 
+ *		Shaun DeVos
+ * 		Brian Baum
+ * 		Rebecca Dudley
+ *		Jonathan Johnson
+ *		Jonathan Olin
+ */
+public class popUpScreen {
+
+}

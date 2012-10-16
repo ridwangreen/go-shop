@@ -1,0 +1,64 @@
+package Controller;
+
+import player.CodeBreaker_AI;
+import player.CodeMaker;
+
+public class PlayerController {
+
+	private Player roster[];
+	private int turn;
+
+	public PlayerController(int makerType, int breakerType) {
+
+		turn = 0;
+		roster = new Player[2];
+
+		if (makerType == PlayerType.LOCAL.ordinal()) {
+			maker = new CodeMaker_Local();
+		} else if (makerTyper == PlayerType.REMOTE.ordinal()) {
+			maker = new CodeMaker_Remote();
+		} else {
+			maker = new CodeMaker_AI();
+		}
+
+		roster[0] = maker;
+
+		if (breakerType == PlayerType.LOCAL.ordinal()) {
+			breaker = new CodeBreaker_Local();
+		} else if (breakerTyper == PlayerType.REMOTE.ordinal()) {
+			breaker = new CodeBreaker_Remote();
+		} else {
+			breaker = new CodeBreaker_AI();
+		}
+
+		roster[1] = breaker;
+	}
+
+	/**
+	 * The method for making a turn if the player is an AI
+	 * It checks if the player is an AI and if it then the player
+	 * will make move.  Otherwise it does nothing
+	 */
+	public void nextTurnAI() {
+		
+		if (turn > 1) {
+			turn = 0;
+		}
+		if (roster[turn].getClass().equals(CodeMaker_AI)
+				|| roster[turn].getClass().equals(CodeBreaker_AI)) {
+			nextTurn();
+		}
+	}
+	
+	/**
+	 * 
+	 */
+	public void nextTurn(){
+		
+		if (turn > 1) {
+			turn = 0;
+		}
+		roster[turn].makeMove();
+		turn++;
+	}
+}

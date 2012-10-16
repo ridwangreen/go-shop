@@ -1,0 +1,581 @@
+/*
+ * OrderEditor.java
+ * 
+ * Version:
+ *     $Id$
+ *     
+ * Revision:
+ *     $Log$
+ */
+
+package GUI;
+
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.*;
+
+/**
+ * 
+ * @author __USER__
+ */
+public class OrderEditor extends  JFrame {
+
+	private static final long	serialVersionUID	= 1L;  //TODO
+	
+	/**
+	 * Creates new form order
+	 */
+	public OrderEditor() {
+		initComponents();
+	}
+
+	private void initComponents() {
+
+	optionsButtons = new ButtonGroup();
+	sizeOptions = new ButtonGroup();
+	top = new JPanel();
+	options = new JPanel();
+	salad = new JRadioButton();
+	pizzaLogs = new JRadioButton();
+	pizza = new JRadioButton();
+	pizzaOptions = new JPanel();
+	size = new JLabel();
+	small = new JRadioButton();
+	medium = new JRadioButton();
+	large = new JRadioButton();
+	toppings = new JLabel();
+	half = new JLabel();
+	first = new JLabel();
+	second = new JLabel();
+	pepperoni = new JLabel();
+	sausage = new JLabel();
+	onions = new JLabel();
+	peppers = new JLabel();
+	mushrooms = new JLabel();
+	checkPanel = new JPanel();
+	box1s = new JCheckBox();
+	box1f = new JCheckBox();
+	box2f = new JCheckBox();
+	box2s = new JCheckBox();
+	box3f = new JCheckBox();
+	box3s = new JCheckBox();
+	box4f = new JCheckBox();
+	box4s = new JCheckBox();
+	box5f = new JCheckBox();
+	box5s = new JCheckBox();
+	currentOrderPanel = new JPanel();
+	currentOrderList = new JScrollPane();
+	orderList = new JList();
+	currentOrder = new JLabel();
+	bottomButtons = new JPanel();
+	back = new JButton();
+	addToOrder = new JButton();
+	deleteFromOrder = new JButton();
+	placeOrder = new JButton();
+	customerInfoPanel = new JPanel();
+	name = new JLabel();
+	nameTextField = new JTextField();
+	phone = new JLabel();
+	phoneTextField = new JTextField();
+	address = new JLabel();
+	addressDropDown = new JComboBox();
+	pastOrders = new JButton();
+	
+	GroupLayout.Alignment leading = GroupLayout.Alignment.LEADING;
+	GroupLayout.Alignment trailing = GroupLayout.Alignment.TRAILING;
+	GroupLayout.Alignment baseline = GroupLayout.Alignment.BASELINE;
+	int defaultSize = GroupLayout.DEFAULT_SIZE;
+	LayoutStyle.ComponentPlacement unrelated = 
+		LayoutStyle.ComponentPlacement.UNRELATED;
+	LayoutStyle.ComponentPlacement related = 
+		LayoutStyle.ComponentPlacement.RELATED;
+	int preferredSize = GroupLayout.PREFERRED_SIZE;
+	
+	
+	setDefaultCloseOperation( WindowConstants.EXIT_ON_CLOSE);
+	setResizable(false);
+	
+	
+	optionsButtons.add(salad);
+	salad.setText("Salad");
+	salad.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent evt) {
+			setEnabled(false);
+		}
+	});
+	
+	optionsButtons.add(pizzaLogs);
+	pizzaLogs.setText("Pizza Logs");
+	pizzaLogs.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent evt) {
+			setEnabled(false);
+		}
+	});
+	
+	optionsButtons.add(pizza);
+	pizza.setText("Pizza");
+	pizza.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent evt) {
+			setEnabled(true);
+		}
+	});
+	
+	
+	GroupLayout optionsLayout = new GroupLayout(options);
+	options.setLayout(optionsLayout);
+	GroupLayout.ParallelGroup foodOptionGroup = 
+		optionsLayout.createParallelGroup(leading);
+	GroupLayout.SequentialGroup layoutGroup = 
+		optionsLayout.createSequentialGroup();
+	layoutGroup.addContainerGap().addGroup(foodOptionGroup);
+	layoutGroup.addContainerGap(defaultSize, Short.MAX_VALUE);
+	foodOptionGroup.addComponent(salad).addComponent(pizzaLogs);
+	foodOptionGroup.addComponent(pizza);
+	optionsLayout.setHorizontalGroup(
+			optionsLayout.createParallelGroup(leading).addGroup(layoutGroup)
+	);
+	
+	
+	GroupLayout.SequentialGroup containerLayout = 
+		optionsLayout.createSequentialGroup();
+	containerLayout.addContainerGap();
+	containerLayout.addComponent(salad).addPreferredGap(unrelated);
+	containerLayout.addComponent(pizzaLogs).addPreferredGap(unrelated);
+	containerLayout.addComponent(pizza).addContainerGap(
+			defaultSize, Short.MAX_VALUE);
+	GroupLayout.ParallelGroup verticalGroup = 
+		optionsLayout.createParallelGroup(leading).addGroup(containerLayout);
+	optionsLayout.setVerticalGroup(verticalGroup);
+	
+	
+	GroupLayout topLayout = new GroupLayout(top);
+	top.setLayout(topLayout);
+	GroupLayout.SequentialGroup horizLayout = 
+		topLayout.createSequentialGroup();
+	horizLayout.addComponent(
+			options, preferredSize, defaultSize, preferredSize);
+	horizLayout.addContainerGap(143, Short.MAX_VALUE);
+	topLayout.setHorizontalGroup(horizLayout);
+	
+	
+	GroupLayout.ParallelGroup topVertGroup = 
+		topLayout.createParallelGroup(leading);
+	topVertGroup.addComponent(options,preferredSize,defaultSize,preferredSize);
+	GroupLayout.SequentialGroup vertSeq = topLayout.createSequentialGroup();
+	topVertGroup.addGroup(vertSeq.addContainerGap(14, Short.MAX_VALUE));
+	topLayout.setVerticalGroup(topVertGroup);
+	pizzaOptions.setRequestFocusEnabled(false);
+	
+	//The text for all the Pizza options
+	
+	size.setText("Size:");
+	small.setText("Small");
+	medium.setText("Medium");
+	large.setText("Large");
+	
+	sizeOptions.add(small);
+	sizeOptions.add(medium);
+	sizeOptions.add(large);
+	
+	
+	//The text for all the Topping check boxes
+	
+	toppings.setText("Toppings:");
+	half.setText("Half:");
+	first.setText("First");
+	second.setText("Second");
+	pepperoni.setText("Pepperoni");
+	sausage.setText("Sausage");
+	onions.setText("Onions");
+	peppers.setText("Peppers");
+	mushrooms.setText("Mushrooms");
+	
+	
+	 GroupLayout checkPanelLayout = new GroupLayout(checkPanel);
+	checkPanel.setLayout(checkPanelLayout);
+	GroupLayout.ParallelGroup firstGroup = 
+		checkPanelLayout.createParallelGroup(leading);
+	firstGroup.addComponent(box1f).addComponent(box2f);
+	firstGroup.addComponent(box3f).addComponent(box4f).addComponent(box5f);
+	GroupLayout.ParallelGroup secondGroup = 
+		checkPanelLayout.createParallelGroup(leading);
+	secondGroup.addComponent(box1s).addComponent(box2s);
+	secondGroup.addComponent(box3s).addComponent(box4s).addComponent(box5s);
+	GroupLayout.SequentialGroup boxsGroup = checkPanelLayout.createSequentialGroup();
+	boxsGroup.addGroup(firstGroup).addGap(48,48,48).addGroup(secondGroup);
+	GroupLayout.SequentialGroup horizBoxGroup = 
+		checkPanelLayout.createSequentialGroup();
+	horizBoxGroup.addGroup(boxsGroup).addContainerGap(36, Short.MAX_VALUE);
+	checkPanelLayout.setHorizontalGroup(
+			checkPanelLayout.createParallelGroup(leading)
+			.addGroup(horizBoxGroup)
+	);
+	
+	
+	checkPanelLayout.setVerticalGroup(
+	checkPanelLayout.createParallelGroup(leading)
+	.addGroup(checkPanelLayout.createSequentialGroup()
+	.addGroup(checkPanelLayout.createParallelGroup(leading)
+	.addGroup(checkPanelLayout.createSequentialGroup()
+	.addComponent(box1f)
+	.addPreferredGap(related)
+	.addComponent(box2f)
+	.addPreferredGap(related)
+	.addComponent(box3f))
+	.addGroup(checkPanelLayout.createSequentialGroup()
+	.addComponent(box1s)
+	.addPreferredGap(related)
+	.addComponent(box2s)
+	.addPreferredGap(related)
+	.addComponent(box3s)))
+	.addPreferredGap(related)
+	.addGroup(checkPanelLayout.createParallelGroup(trailing)
+	.addGroup(checkPanelLayout.createSequentialGroup()
+	.addComponent(box4f)
+	.addPreferredGap(related)
+	.addComponent(box5f))
+	.addGroup(checkPanelLayout.createSequentialGroup()
+	.addComponent(box4s)
+	.addPreferredGap(related)
+	.addComponent(box5s))))
+	);
+	
+	GroupLayout pizzaOptionsLayout = new GroupLayout(pizzaOptions);
+	pizzaOptions.setLayout(pizzaOptionsLayout);
+	pizzaOptionsLayout.setHorizontalGroup(
+	pizzaOptionsLayout.createParallelGroup(leading)
+	.addGroup(pizzaOptionsLayout.createSequentialGroup()
+	.addGroup(pizzaOptionsLayout.createParallelGroup(leading)
+	.addGroup(pizzaOptionsLayout.createSequentialGroup()
+	.addContainerGap()
+	.addGroup(pizzaOptionsLayout.createParallelGroup(leading)
+	.addComponent(size)
+	.addGroup(pizzaOptionsLayout.createSequentialGroup()
+	.addComponent(small)
+	.addPreferredGap(unrelated)
+	.addGroup(pizzaOptionsLayout.createParallelGroup(trailing)
+	.addGroup(pizzaOptionsLayout.createSequentialGroup()
+	.addComponent(medium)
+	.addPreferredGap(unrelated)
+	.addComponent(large))
+	.addGroup(leading, pizzaOptionsLayout.createSequentialGroup()
+	.addGroup(pizzaOptionsLayout.createParallelGroup(trailing)
+	.addComponent(first)
+	.addComponent(toppings))
+	.addGap(38, 38, 38)
+	.addComponent(second))))
+	.addGroup(pizzaOptionsLayout.createSequentialGroup()
+	.addGroup(pizzaOptionsLayout.createParallelGroup(leading)
+	.addComponent(onions)
+	.addComponent(peppers)
+	.addComponent(mushrooms))
+	.addGap(23, 23, 23)
+	.addComponent(checkPanel, defaultSize, defaultSize, Short.MAX_VALUE))))
+	.addGroup(pizzaOptionsLayout.createSequentialGroup()
+	.addContainerGap()
+	.addComponent(pepperoni))
+	.addGroup(pizzaOptionsLayout.createSequentialGroup()
+	.addContainerGap()
+	.addComponent(sausage))
+	.addGroup(pizzaOptionsLayout.createSequentialGroup()
+	.addGap(31, 31, 31)
+	.addComponent(half)))
+	.addContainerGap(defaultSize, Short.MAX_VALUE))
+	);
+	
+	//
+	
+	pizzaOptionsLayout.setVerticalGroup(
+		pizzaOptionsLayout.createParallelGroup(
+				leading)
+		.addGroup(trailing,
+				pizzaOptionsLayout.createSequentialGroup()
+			.addComponent(size)
+			.addGap(9, 9, 9)
+			.addGroup(pizzaOptionsLayout.createParallelGroup(
+					baseline)
+				.addComponent(small)
+				.addComponent(medium)
+				.addComponent(large))
+			.addGap(30, 30, 30)
+			.addGroup(pizzaOptionsLayout.createParallelGroup(
+					trailing)
+				.addGroup(pizzaOptionsLayout.createSequentialGroup()
+				.addGap(30, 30, 30)
+				.addComponent(half)
+				.addPreferredGap(related,
+						defaultSize, Short.MAX_VALUE))
+			.addGroup(pizzaOptionsLayout.createSequentialGroup()
+				.addPreferredGap(related)
+				.addComponent(toppings)
+				.addPreferredGap(unrelated)
+				.addGroup(pizzaOptionsLayout.createParallelGroup(
+						baseline)
+					.addComponent(second)
+					.addComponent(first))
+				.addGap(18, 18, 18)))
+		.addPreferredGap(related)
+		.addGroup(pizzaOptionsLayout.createParallelGroup(
+				leading)
+			.addGroup(pizzaOptionsLayout.createSequentialGroup()
+				.addComponent(pepperoni)
+				.addPreferredGap(related)
+				.addComponent(sausage)
+				.addGap(6, 6, 6)
+				.addComponent(onions)
+				.addPreferredGap(related)
+				.addComponent(peppers)
+				.addPreferredGap(related)
+				.addComponent(mushrooms))
+			.addComponent(checkPanel, defaultSize, 
+					defaultSize, Short.MAX_VALUE))
+		.addContainerGap())
+	);
+	
+	currentOrderList.setViewportView(orderList);
+	currentOrder.setText("Current Order:");
+	
+	GroupLayout currentOrderPanelLayout = 
+		new GroupLayout(currentOrderPanel);
+	currentOrderPanel.setLayout(currentOrderPanelLayout);
+	currentOrderPanelLayout.setHorizontalGroup(
+		currentOrderPanelLayout.createParallelGroup(
+				leading)
+		.addGroup(currentOrderPanelLayout.createSequentialGroup()
+			.addGroup(currentOrderPanelLayout.createParallelGroup(
+					leading)
+				.addGroup(currentOrderPanelLayout.createSequentialGroup()
+				.addContainerGap()
+				.addComponent(currentOrder))
+			.addComponent(currentOrderList,
+					 preferredSize, 205, preferredSize))
+		.addContainerGap(defaultSize, Short.MAX_VALUE))
+	);
+	
+	currentOrderPanelLayout.setVerticalGroup(
+	currentOrderPanelLayout.createParallelGroup(leading)
+	.addGroup(currentOrderPanelLayout.createSequentialGroup()
+	.addComponent(currentOrder)
+	.addPreferredGap(related)
+	.addComponent(currentOrderList, defaultSize, 352, Short.MAX_VALUE)
+	.addContainerGap())
+	);
+	
+	back.setText("Back");
+	addToOrder.setText("Add Item");
+	deleteFromOrder.setText("Delete Item");
+	placeOrder.setText("Place Order");
+	
+	 GroupLayout bottomButtonsLayout = 
+			new  GroupLayout(bottomButtons);
+	bottomButtons.setLayout(bottomButtonsLayout);
+	bottomButtonsLayout.setHorizontalGroup(
+		bottomButtonsLayout.createParallelGroup(
+				leading)
+		.addGroup(bottomButtonsLayout.createSequentialGroup()
+			.addComponent(back, preferredSize, 111,
+					preferredSize)
+			.addGap(0, 0, 0)
+			.addComponent(addToOrder, preferredSize, 129,
+					preferredSize)
+			.addGap(0, 0, 0)
+			.addComponent(deleteFromOrder, preferredSize, 110,
+					preferredSize)
+			.addGap(0, 0, 0)
+			.addComponent(placeOrder, defaultSize, 136,
+					Short.MAX_VALUE))
+	);
+	bottomButtonsLayout.setVerticalGroup(
+	bottomButtonsLayout.createParallelGroup(leading)
+	.addGroup(bottomButtonsLayout.createParallelGroup(baseline)
+	.addComponent(placeOrder, preferredSize, 38, preferredSize)
+	.addComponent(back, defaultSize, 38, Short.MAX_VALUE)
+	.addComponent(addToOrder, preferredSize, 38, preferredSize)
+	.addComponent(deleteFromOrder, preferredSize, 38, preferredSize))
+	);
+	
+	name.setText("Name:");
+	phone.setText("Phone:");
+	address.setText("Address:");
+	pastOrders.setText("Past Orders");
+	
+	addressDropDown.addItem("RIT");
+	addressDropDown.addItem("University of Rochester");
+	addressDropDown.addItem("Nazareth College");
+	addressDropDown.addItem("St. John Fisher");
+	addressDropDown.addItem("Roberts Wesleyan College");
+	addressDropDown.addItem("Monroe Community College");
+	
+	//Top panel containing the Name TextField, Phone TextField, Address DropDown
+	
+	 GroupLayout customerInfoPanelLayout = new  GroupLayout(customerInfoPanel);
+	customerInfoPanel.setLayout(customerInfoPanelLayout);
+	customerInfoPanelLayout.setHorizontalGroup(
+		customerInfoPanelLayout.createParallelGroup(leading)
+			.addGroup(customerInfoPanelLayout.createSequentialGroup()
+			.addContainerGap()
+			.addGroup(customerInfoPanelLayout.createParallelGroup(
+					leading, false)
+			.addGroup(customerInfoPanelLayout.createSequentialGroup()
+				.addComponent(address)
+				.addPreferredGap(related)
+				.addComponent(addressDropDown))
+			.addGroup(customerInfoPanelLayout.createSequentialGroup()
+				.addComponent(name)
+				.addPreferredGap(related)
+				.addComponent(nameTextField, preferredSize, 110,
+						preferredSize)
+				.addPreferredGap(related)
+				.addComponent(phone)
+				.addGap(5, 5, 5)
+				.addComponent(phoneTextField, preferredSize, 115,
+						preferredSize)))
+		.addGap(18, 18, 18)
+		.addComponent(pastOrders, preferredSize, 110,
+				preferredSize)
+		.addContainerGap(22, Short.MAX_VALUE))
+	);
+	
+	customerInfoPanelLayout.setVerticalGroup(
+	customerInfoPanelLayout.createParallelGroup(leading)
+	.addGroup(customerInfoPanelLayout.createSequentialGroup()
+	.addContainerGap()
+	.addGroup(customerInfoPanelLayout.createParallelGroup(leading)
+	.addGroup(customerInfoPanelLayout.createSequentialGroup()
+	.addComponent(pastOrders, defaultSize, 44, Short.MAX_VALUE)
+	.addContainerGap())
+	.addGroup(customerInfoPanelLayout.createSequentialGroup()
+	.addGroup(customerInfoPanelLayout.createParallelGroup(baseline)
+	.addComponent(name)
+	.addComponent(nameTextField, preferredSize, defaultSize, preferredSize)
+	.addComponent(phone)
+	.addComponent(phoneTextField, preferredSize, defaultSize, preferredSize))
+	.addPreferredGap(related)
+	.addGroup(customerInfoPanelLayout.createParallelGroup(baseline)
+	.addComponent(address)
+	.addComponent(addressDropDown, preferredSize, defaultSize, preferredSize))
+	.addGap(6, 6, 6))))
+	);
+	
+	 GroupLayout layout = new  GroupLayout(getContentPane());
+	getContentPane().setLayout(layout);
+	layout.setHorizontalGroup(
+	layout.createParallelGroup(leading)
+	.addComponent(bottomButtons, defaultSize, defaultSize, Short.MAX_VALUE)
+	.addGroup(layout.createSequentialGroup()
+	.addGroup(layout.createParallelGroup(trailing, false)
+	.addComponent(customerInfoPanel, leading, defaultSize, defaultSize, Short.MAX_VALUE)
+	.addGroup(leading, layout.createSequentialGroup()
+	.addContainerGap()
+	.addGroup(layout.createParallelGroup(leading, false)
+	.addComponent(top, defaultSize, defaultSize, Short.MAX_VALUE)
+	.addComponent(pizzaOptions, preferredSize, defaultSize, preferredSize))
+	.addPreferredGap(related)
+	.addComponent(currentOrderPanel, preferredSize, defaultSize, preferredSize)))
+	.addContainerGap(defaultSize, Short.MAX_VALUE))
+	);
+	layout.setVerticalGroup(
+	layout.createParallelGroup(leading)
+	.addGroup(layout.createSequentialGroup()
+	.addComponent(customerInfoPanel, preferredSize, defaultSize, preferredSize)
+	.addPreferredGap(related)
+	.addGroup(layout.createParallelGroup(leading, false)
+	.addGroup(layout.createSequentialGroup()
+	.addComponent(top, preferredSize, defaultSize, preferredSize)
+	.addPreferredGap(related)
+	.addComponent(pizzaOptions, preferredSize, defaultSize, preferredSize))
+	.addComponent(currentOrderPanel, preferredSize, defaultSize, preferredSize))
+	.addPreferredGap(related, defaultSize, Short.MAX_VALUE)
+	.addComponent(bottomButtons, preferredSize, defaultSize, preferredSize))
+	);
+	
+	setEnabled(false);
+	
+	pack();
+	}// </editor-fold>
+	
+	
+		public void setEnabled(boolean enabled) {
+			for (Component c : pizzaOptions.getComponents()) {
+				c.setEnabled(enabled);
+			}
+			box1f.setEnabled(enabled);
+			box1s.setEnabled(enabled);
+			box2f.setEnabled(enabled);
+			box2s.setEnabled(enabled);
+			box3f.setEnabled(enabled);
+			box3s.setEnabled(enabled);
+			box4f.setEnabled(enabled);
+			box4s.setEnabled(enabled);
+			box5f.setEnabled(enabled);
+			box5s.setEnabled(enabled);
+		}
+	
+		/**
+		 * @param args
+		 *            the command line arguments
+		 */
+		public static void main(String args[]) {
+			java.awt.EventQueue.invokeLater(new Runnable() {
+				public void run() {
+					new OrderEditor().setVisible(true);
+				}
+			});
+		}
+	
+		//GEN-BEGIN:variables
+		// Variables declaration - do not modify
+		private  JLabel address;
+		private  JComboBox addressDropDown;
+		private  JButton back;
+		private  JPanel bottomButtons;
+		private  JCheckBox box1f;
+		private  JCheckBox box1s;
+		private  JCheckBox box2f;
+		private  JCheckBox box2s;
+		private  JCheckBox box3f;
+		private  JCheckBox box3s;
+		private  JCheckBox box4f;
+		private  JCheckBox box4s;
+		private  JCheckBox box5f;
+		private  JCheckBox box5s;
+		private  JLabel currentOrder;
+		private  JScrollPane currentOrderList;
+		private  JPanel currentOrderPanel;
+		private  JButton deleteFromOrder;
+		private  JLabel first;
+		private  JLabel half;
+		private  JButton addToOrder;
+		private  JPanel checkPanel;
+		private  JPanel customerInfoPanel;
+		private  JRadioButton large;
+		private  JRadioButton medium;
+		private  JLabel mushrooms;
+		private  JLabel name;
+		private  JTextField nameTextField;
+		private  JLabel onions;
+		private  JPanel options;
+		private  ButtonGroup optionsButtons;
+		private  JList orderList;
+		private  JButton pastOrders;
+		private  JLabel pepperoni;
+		private  JLabel peppers;
+		private  JLabel phone;
+		private  JTextField phoneTextField;
+		private  JRadioButton pizza;
+		private  JRadioButton pizzaLogs;
+		private  JPanel pizzaOptions;
+		private  JButton placeOrder;
+		private  JRadioButton salad;
+		private  JLabel sausage;
+		private  JLabel second;
+		private  JLabel size;
+		private  ButtonGroup sizeOptions;
+		private  JRadioButton small;
+		private  JPanel top;
+		private  JLabel toppings;
+		// End of variables declaration//GEN-END:variables
+	
+}

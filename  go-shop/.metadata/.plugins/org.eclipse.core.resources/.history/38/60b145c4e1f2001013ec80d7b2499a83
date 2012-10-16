@@ -1,0 +1,11 @@
+package GUI;
+
+import javax.swing.JFrame;
+
+public class ChoosePlayer extends JFrame{
+	
+	public ChoosePlayer(){
+		
+		
+	}
+}

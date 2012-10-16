@@ -1,0 +1,80 @@
+package GUI;
+
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
+import control.SixAxisController;
+
+public class PastOrderView extends JFrame {
+
+	/**
+	 * Yeah.
+	 */
+	private static final long	serialVersionUID	= 1L;
+
+	private JButton				back;
+	private JPanel				bottom;
+	private JButton				copy;
+	private SixAxisController	listener;
+	private JPanel				listPanel;
+	private JList				previousOrdersList;
+	private JScrollPane			previousOrderPane;
+	
+
+	public PastOrderView( SixAxisController controller ) {
+		listener = controller;
+		initComponents();
+	}
+
+	private void initComponents() {
+
+		setLayout( new BorderLayout() );
+		setTitle( "Past Orders" );
+
+		back = new JButton( "Back" );
+		copy = new JButton( "Copy" );
+
+		back.addActionListener( listener );
+		copy.addActionListener( listener );
+
+		listPanel = new JPanel();
+		previousOrderPane = new JScrollPane();
+		previousOrdersList = new JList();
+		previousOrderPane.setViewportView( previousOrdersList );
+		listPanel.add( previousOrderPane );
+
+		add( listPanel, BorderLayout.NORTH );
+
+		bottom = new JPanel();
+		bottom.setLayout( new BorderLayout() );
+		JPanel backPanel = new JPanel();
+		JPanel copyPanel = new JPanel();
+		backPanel.add( back );
+		copyPanel.add( copy );
+		bottom.add( backPanel, BorderLayout.WEST );
+		bottom.add( copyPanel, BorderLayout.EAST );
+
+		add( bottom, BorderLayout.SOUTH );
+
+		setResizable( false );
+		pack();
+	}
+
+	public static void main( String args[] ) {
+		java.awt.EventQueue.invokeLater( new Runnable() {
+
+			public void run() {
+				new PastOrderView( null ).setVisible( true );
+			}
+		} );
+	}
+
+}

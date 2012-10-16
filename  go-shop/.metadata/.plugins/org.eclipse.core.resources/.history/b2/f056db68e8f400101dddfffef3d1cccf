@@ -1,0 +1,28 @@
+package system;
+
+import Command.NewGame;
+import Controller.PlayerController;
+
+/*
+ * @File Game.java
+ * 
+ * @Authors Alex Kahn, John Neville, Alex Canter, Becca Dudley
+ * 
+ * @Class Description is now our main
+ */
+
+public class Game {
+	public static void main(String[] args){		
+		// Make game pegs
+		Peg guessPegs[][] = GameState.getInstance().getGuessPegs();
+		Peg feedbackPegs[][] = GameState.getInstance().getFeedbackPegs();
+		
+		// Add the observers
+		PlayerController playerController = new PlayerController(guessPegs, feedbackPegs);
+		GameState.getInstance().addObserver(PlayerController);
+		
+		// Start a new game
+		NewGame newGame = new NewGame();
+		GameState.getInstance().pushCommand(newGame);
+	}
+}

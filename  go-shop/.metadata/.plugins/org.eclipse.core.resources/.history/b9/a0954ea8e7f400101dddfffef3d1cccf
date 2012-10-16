@@ -1,0 +1,13 @@
+package Controller;
+
+/*
+ * @File GameController.java
+ * 
+ * @Authors Becca Dudley
+ * 
+ * @Class Description the controller for the game.  It obseves the gamestate
+ * 		and communicates the changes to the classes that need to know
+ */
+public class GameController {
+
+}

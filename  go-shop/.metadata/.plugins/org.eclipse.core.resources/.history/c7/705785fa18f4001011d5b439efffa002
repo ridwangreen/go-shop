@@ -1,0 +1,39 @@
+package Controller;
+
+import player.CodeBreaker_AI;
+import player.CodeMaker;
+
+public class PlayerController {
+	
+	private Player maker;
+	private Player breaker;
+	
+	public PlayerController(int makerType, int breakerType){
+		
+		if(makerType == PlayerType.LOCAL.ordinal()){
+			maker = new CodeMaker_Local();
+		}else if(makerTyper == PlayerType.REMOTE.ordinal()){
+			maker = new CodeMaker_Remote();
+		}else{
+			maker = new CodeMaker_AI();
+		}
+		
+		if(breakerType == PlayerType.LOCAL.ordinal()){
+			breaker = new CodeBreaker_Local();
+		}else if(breakerTyper == PlayerType.REMOTE.ordinal()){
+			breaker = new CodeBreaker_Remote();
+		}else{
+			breaker = new CodeBreaker_AI();
+		}
+	}
+	
+	public CodeMaker getCodeMaker(){
+	
+		return maker;
+	}
+	
+	public CodeBreaker getCodeBreaker(){
+		
+		return breaker;
+	}
+}

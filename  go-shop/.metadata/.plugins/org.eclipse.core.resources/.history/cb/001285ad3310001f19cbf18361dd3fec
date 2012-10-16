@@ -1,0 +1,27 @@
+
+
+public class Stuff {
+	
+	public static void main(String args[]){
+		
+		String jamie = "Jamie";
+		String name[][] = new String[5][5];
+		for(int r = 0; r < name.length; r++){
+			name[r][r] += jamie.charAt(r);
+			for(int c = r + 1; c < name[r].length; c++){
+				name[r][c] += jamie.charAt(r);
+			}
+			
+		}
+		for(int r = 0; r < name.length; r++){
+			for(int c = 0; c < name[r].length; c++){
+				System.out.print(name[r][c] + " ");
+			}
+			System.out.println();
+		}
+		
+	}
+	
+	
+	
+}

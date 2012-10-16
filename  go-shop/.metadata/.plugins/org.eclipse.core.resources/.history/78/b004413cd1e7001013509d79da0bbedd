@@ -1,0 +1,47 @@
+package GUI;
+import java.awt.Color;
+import java.awt.Dimension;
+
+import javax.swing.JButton;
+
+public class Peg extends JButton{
+	
+	private Color color;
+	private int Px;
+	private int Py;
+	
+	public Peg(Color color, int size, int x, int y){
+
+		this.setPreferredSize(new Dimension(size, size));
+		this.color = color;
+		Px = x;
+		Py = y;	
+		super.setBackground(color);
+	}
+	
+	public void setColor(Color newColor){
+
+		color = newColor;
+	}
+	
+	public void setPx(int newX){
+		
+		Px = newX;
+	}
+	
+	public int getPx(){
+		
+		return Px;
+	}
+	
+	public void setPy(int newY){
+		
+		Py = newY;
+	}
+	
+	public int getPy(){
+		
+		return Py;
+	}
+	
+}

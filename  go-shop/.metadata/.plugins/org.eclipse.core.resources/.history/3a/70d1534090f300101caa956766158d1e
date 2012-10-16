@@ -1,0 +1,19 @@
+package Command;
+
+import system.GameState;
+import system.Peg;
+
+public class SetCode extends Command {
+	public SetCode() {
+		this.pegs = pegs;
+	}
+	
+	@Override
+	public void execute() {
+	}
+	
+	@Override
+	public void undo() {
+		// TODO Auto-generated method stub
+	}
+}

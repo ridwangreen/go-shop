@@ -1,0 +1,48 @@
+package GUI;
+
+import java.awt.Dimension;
+import java.awt.GridLayout;
+
+import javax.swing.JButton;
+import javax.swing.JPanel;
+
+public class TopPanel extends JPanel {
+	
+	private JButton makeGuess;
+	private JButton leaveFeedback;
+	private JButton undo;
+	private JButton setCode;
+	private JButton topButtons[];
+
+	public TopPanel() {
+
+		topButtons = new JButton[4];
+		String makeGuessString = "<html>" + "Make" + "<br>" + "Guess" + "</html>";
+		String feedbackString = "<html>" + "Leave" + "<br>" + "Feedback" + "</html>";
+		String undoString = "<html>" + "Undo" + "<br>" + "Move" + "</html>";
+		String setCodeString = "<html>" + "Set" + "<br>" + "Code" + "</html>";
+		makeGuess = new JButton(makeGuessString);
+		makeGuess.setPreferredSize(new Dimension(62,50));
+		topButtons[0] = makeGuess;
+		leaveFeedback = new JButton(feedbackString);
+		leaveFeedback.setPreferredSize(new Dimension(82,50));
+		topButtons[1] = leaveFeedback;
+		undo = new JButton(undoString);
+		undo.setPreferredSize(new Dimension(60,50));
+		topButtons[2] = undo;
+		setCode = new JButton(setCodeString);
+		setCode.setPreferredSize(new Dimension(60,50));
+		topButtons[3] = setCode;
+		add(makeGuess);
+		add(leaveFeedback);
+		add(undo);
+		add(setCode);
+		setVisible(true);
+	}
+	
+	public void setTopButtonEnabled(int buttonNumber, boolean isEnabled){
+		
+		topButtons[buttonNumber].setEnabled(isEnabled);
+	}
+	
+}

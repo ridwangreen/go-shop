@@ -1,0 +1,35 @@
+/*
+ * Filename:
+ *		overrideScrre.java
+ *
+ * Version:
+ *	   $Id$
+ *
+ * Revision:
+ *	   $Log$
+ */
+package GUI;
+
+import control.SixAxisController;
+
+
+/**
+ *
+ * @author 
+ *		Shaun DeVos
+ * 		Brian Baum
+ * 		Rebecca Dudley
+ *		Jonathan Johnson
+ *		Jonathan Olin
+ */
+public class overrideScreen {
+
+	public overrideScreen( SixAxisController controller, String messageString ) {
+
+		listener = controller;
+		this.messageString = messageString;
+		initComponents();
+
+	}
+	
+}
