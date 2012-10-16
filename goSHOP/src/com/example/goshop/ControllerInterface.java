@@ -57,4 +57,11 @@ public interface ControllerInterface {
 	 */
 	public boolean editItem(Item item, String newName);
 	
+	/**
+	 * 
+	 * @return An ordered list of a category followed by its items, followed
+	 * 		   by the next category, etc.
+	 */
+	public List<ListItem> getShoppingList();
+	
 }
