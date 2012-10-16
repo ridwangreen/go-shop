@@ -1,4 +1,5 @@
 #summary Configuration information for the development environment
+#labels Config,AVD
 
 = AVD =
 
