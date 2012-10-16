@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Delete resource &apos;SSE Pokemon (Domain)&apos;" deleteContents="false" description="Delete resource &apos;SSE Pokemon (Domain)&apos;" element1="/SSE Pokemon (Domain)" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1306265100284"/>
-</session>

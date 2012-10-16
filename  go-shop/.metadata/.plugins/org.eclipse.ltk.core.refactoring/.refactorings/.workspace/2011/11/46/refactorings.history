@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">&#x0A;<refactoring comment="Delete resource &apos;Checkers/src/CheckerGUI.java&apos;" deleteContents="false" description="Delete resource &apos;Checkers/src/CheckerGUI.java&apos;" element1="/Checkers/src/CheckerGUI.java" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1320763816212"/>&#x0A;<refactoring comment="Delete resource &apos;Checkers&apos;" deleteContents="false" description="Delete resource &apos;Checkers&apos;" element1="/Checkers" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1320764772952"/>
-</session>
