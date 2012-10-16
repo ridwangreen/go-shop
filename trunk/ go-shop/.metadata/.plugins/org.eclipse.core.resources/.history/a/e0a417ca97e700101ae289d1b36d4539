@@ -1,0 +1,56 @@
+package GUI;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+/*
+ * @File NameGame.java
+ * 
+ * @Authors Alex Kahn, John Neville, Alex Canter, Becca Dudley
+ * 
+ * @Class Description this is the gui
+ */
+
+public class Board extends JFrame {
+	
+	private Peg guessPegs[][];
+	private Peg codePegs[];
+	private Peg feedbackPegs[][];
+	private GuessPanel guessPanel;
+	
+	public Board(){
+		
+		guessPanel = new GuessPanel();
+		codePegs = guessPanel.getCodePegs();
+		guessPegs = guessPanel.getGuessPegs();
+		setLayout(new BorderLayout());
+		add(guessPanel, BorderLayout.CENTER);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		this.pack();
+	}
+	
+	public void setCodeEnabled(boolean isEnabled){
+		
+		guessPanel.setCodeEnabled(isEnabled);
+	}
+	
+	public void setEnabledRow(int row, boolean isEnabled){
+		
+		guessPanel.setEnabledRow(row, isEnabled);
+	}
+	
+	public static void main(String args[]){
+		
+		Board bo = new Board();
+		bo.setVisible(true);
+		bo.setCodeEnabled(true);
+		bo.setEnabledRow(5, true);
+		
+	}
+
+}

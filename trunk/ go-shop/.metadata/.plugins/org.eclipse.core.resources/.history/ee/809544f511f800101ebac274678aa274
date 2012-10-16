@@ -1,0 +1,102 @@
+package Controller;
+
+import java.util.Observable;
+import java.util.Observer;
+
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+
+import system.GameState;
+import system.Peg;
+import Command.Command;
+import Command.EndGame;
+import Command.NewGame;
+import GUI.Board;
+
+/*
+ * @File BoardController.java
+ * 
+ * @Authors Becca Dudley
+ * 
+ * @Class Description the controller for the gameboard GUI
+ * 				It updates the GUI based on what is happening in the game
+ */
+public class BoardController{
+
+	private Board gameBoard;// The board GUI
+	private PlayerAdapter players; // the playerController of the game
+
+	/**
+	 * Constructor: Takes in pegs, makes new board
+	 * 
+	 * @param guessPegs
+	 * @param feedbackPegs
+	 * @param players
+	 *            The PlayerController containing the current players
+	 */
+	public BoardController(Peg guessPegs[][], Peg feedbackPegs[][]) {
+
+		gameBoard = new Board(guessPegs, feedbackPegs, players);
+		gameBoard.setVisible(true);
+	}
+
+	public void endGame(){
+		
+		gameBoard.setEnabledItem(0, true);
+		gameBoard.setEnabledItem(1, false);
+		gameBoard.reset();
+	}
+
+	public void newGame(int breaker) {
+
+		gameBoard.setEnabledItem(0, false);
+		gameBoard.setEnabledItem(1, true);
+		
+		if (breaker != PlayerType.AI.ordinal()) {
+			gameBoard.setEnabledAI(false);
+		}else{
+			gameBoard.setBarEnabled(true);
+		}
+		if(breaker == PlayerType.LOCAL.ordinal()){
+			gameBoard.setCodeEnabled(true);
+			gameBoard.setOptionEnabled(2, true);
+			gameBoard.setOptionEnabled(0, true);
+		}
+	}
+	
+	public void guess(int turn){
+		
+		gameBoard.setEnabledGuessRow(turn, false);
+	}
+	
+	public void feedback(int turn){
+		
+		gameBoard.setEnabledGuessRow(turn, true);
+		gameBoard.setOptionEnabled(0, true);
+		gameBoard.setOptionEnabled(1, true);
+	}
+	
+	public void setCode(){
+		
+		gameBoard.setCodeEnabled(false);
+		gameBoard.setOptionEnabled(2, false);
+		if(players.getBreakerType() == PlayerType.LOCAL){
+			
+			gameBoard.setEnabledGuessRow(0, true);
+			gameBoard.setOptionEnabled(0, true);
+			gameBoard.setOptionEnabled(1, true);	
+		}
+		gameBoard.hideCode(true);
+	}
+	
+	/**
+	 * The setter for the player controller
+	 * 
+	 * @param players
+	 */
+	public void setPlayerColntroller(PlayerAdapter players){
+		
+		this.players = players;
+	}
+
+}

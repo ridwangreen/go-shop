@@ -1,0 +1,52 @@
+package GUI;
+
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+
+import Controller.EndGameListener;
+import Controller.NewGameListener;
+import Controller.PlayerController;
+
+public class GameMenu extends JMenuBar{
+	
+	private JMenuItem menuItems[];
+	private JMenu AIDifficulty;
+	
+	public GameMenu(PlayerController players){
+		
+		JMenu file = new JMenu("File");
+		JMenuItem newGame = new JMenuItem("New Game");
+		newGame.addActionListener(new NewGameListener());
+		JMenuItem endGame = new JMenuItem("End Game");
+		endGame.addActionListener(new EndGameListener());
+		menuItems = new JMenuItem[2];
+		menuItems[0] = newGame;
+		menuItems[1]= endGame;
+ 		file.add(newGame);
+		file.add(endGame);
+		add(file);
+		
+		AIDifficulty = new JMenu("AI Difficulty");
+		JMenuItem easy = new JMenuItem("Easy");
+		JMenuItem medium = new JMenuItem("Medium");
+		JMenuItem hard = new JMenuItem("Hard");
+		AIDifficulty.add(easy);
+		AIDifficulty.add(medium);
+		AIDifficulty.add(hard);
+		add(AIDifficulty);
+		
+		setVisible(true);
+	}
+	
+	public void setEnabledItem(int item, boolean isEnabled){
+		
+		menuItems[item].setEnabled(isEnabled);
+	}
+	
+	public void setEnabledAI(boolean isEnabled){
+		
+		AIDifficulty.setEnabled(isEnabled);
+	}
+
+}

@@ -1,0 +1,131 @@
+/*
+ * ManagerReport.java
+ * 
+ * Version:
+ *     $Id$
+ *     
+ * Revision:
+ *     $Log$
+ */
+
+package GUI;
+
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.util.Vector;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+
+import control.SixAxisController;
+
+/**
+ * Brings up a manager only access screen to view a running list of daily stats
+ *
+ * @author 
+ *		Shaun DeVos
+ * 		Brian Baum
+ * 		Rebecca Dudley
+ *		Jonathan Johnson
+ *		Jonathan Olin
+ */
+
+public class ManagerReport extends JFrame {
+
+	//Variables
+	
+	/**
+	 * yeah.
+	 */
+	private static final long	serialVersionUID	= 1L;
+	
+	private SixAxisController listener;
+	private JButton back;
+	private JPanel reportPanel;
+	private JTextArea reportArea;
+	private JScrollPane reportPane;
+	private JPanel bottom;
+
+	/**
+	 * Creates the GUI for outputting the manager report.
+	 *
+	 * @param controller
+	 */
+	public ManagerReport(SixAxisController controller) {
+		listener = controller;
+		initComponents();
+	}
+
+	private void initComponents() {
+		
+		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+		setLayout(new BorderLayout());
+		setTitle("Manager Report");
+		
+		back = new JButton("Back");
+		back.addActionListener( listener );
+
+		reportPanel = new JPanel();
+		reportPane = new JScrollPane();
+		reportArea = new JTextArea();
+		reportPane.setViewportView( reportArea );
+		reportPanel.setLayout( new BorderLayout() );
+		reportPanel.add( reportPane, BorderLayout.CENTER );
+		add( reportPanel, BorderLayout.CENTER );
+
+		add(back, BorderLayout.SOUTH);
+		
+		pack();
+		setResizable(false);
+	
+	}
+
+	/**
+	 * 
+	 */
+	public void addReport(Vector<String> vector) {
+		reportArea = new JTextArea();
+		reportArea.setBounds( 100, 100, 100, 100 );
+		for(String line : vector){
+			reportArea.setText( line );
+			reportArea.setText( "apples \n Oranges" );
+		}
+	}
+	
+	/**
+	 * changes the visibility of the window and resets all of the components to
+	 * not selected.
+	 * 
+	 * @param
+	 * 		make_visible - true if the window is to be visible, false otherwise
+	 * @override
+	 * 		setVisible - Component
+	 * @return
+	 * 		void
+	 */
+	public void setVisible( boolean make_visible ) {
+		super.setVisible( make_visible );
+	}
+
+	/**
+	
+	/**
+	 * 
+	 *
+	 * @param args
+	 * void
+	 */
+//	public static void main( String args[] ) {
+//		java.awt.EventQueue.invokeLater( new Runnable() {
+//
+//			public void run() {
+//				SixAxisController controller = new SixAxisController();
+//				new ManagerReport(controller).setVisible(true);
+//			}
+//		} );
+//	}
+
+}

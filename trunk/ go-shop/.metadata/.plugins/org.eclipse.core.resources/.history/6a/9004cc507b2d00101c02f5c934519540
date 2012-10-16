@@ -1,0 +1,63 @@
+import java.awt.BorderLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
+
+public class ManagerReport extends javax.swing.JFrame {
+
+	private JButton back;
+	private JPanel listPanel;
+	private JList previousOrdersList;
+	private JScrollPane previousOrderPane;
+	private JPanel bottom;
+	
+
+	public ManagerReport() {
+		initComponents();
+	}
+
+	private void initComponents() {
+		
+		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+		setLayout(new BorderLayout());
+		setTitle("Manager Report");
+		
+		back = new JButton("Back");
+		
+		listPanel = new JPanel();
+		previousOrderPane = new JScrollPane();
+		previousOrdersList = new JList();
+		previousOrderPane.setViewportView(previousOrdersList);
+		listPanel.add(previousOrderPane);
+		
+		add(listPanel, BorderLayout.NORTH);
+		
+		bottom = new JPanel();
+		bottom.setLayout(new BorderLayout());
+		add(back, BorderLayout.WEST);
+		
+		
+		add(bottom, BorderLayout.SOUTH);
+		
+		setResizable(false);
+		pack();
+		setVisible(true);
+		
+	}
+	
+	public static void main(String args[]) {
+		java.awt.EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				new ManagerReport().setVisible(true);
+			}
+		});
+	}
+
+}

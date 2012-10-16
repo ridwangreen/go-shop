@@ -1,0 +1,17 @@
+:normalEnd:
+file: \Checkers\src\CheckerGUI.java
+fromUrl: https://checkers-362.googlecode.com/svn/Checkers/src/CheckerGUI.java
+fromRevision: HEAD
+toUrl: https://checkers-362.googlecode.com/svn/Checkers/src/CheckerGUI.java
+toRevision: HEAD
+reintegrate: false
+force: false
+recurse: false
+ignore: false
+depth: -2
+
+workspaceUrl: https://checkers-362.googlecode.com/svn/Checkers/src/CheckerGUI.java
+workspaceRevision: 17
+lowerRevision: 0
+upperRevision: 0
+merge -rHEAD:HEAD https://checkers-362.googlecode.com/svn/Checkers/src/CheckerGUI.java C:/Users/Becca Dudley/workspace/Checkers/src/CheckerGUI.java

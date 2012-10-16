@@ -1,0 +1,31 @@
+/*
+ * Main.java
+ * 
+ * Version:
+ *     $Id$
+ *     
+ * Revision:
+ *     $Log$
+ */
+
+/**
+ * The Main display page.  This page continuously updates to the timer in the
+ * PDS program.  The orders that are currently running continue to display
+ * current station/progress and all information associated with the order.
+ * In this screen the user has the option to create a new order, view existing
+ * orders and view the manager report.
+ *
+ * @author 
+ *		Shaun DeVos
+ * 		Brian Baum
+ * 		Rebecca Dudley
+ *		Jonathan Johnson
+ *		Jonathan Olin
+ *
+ */
+
+package GUI;
+
+public class Main {
+
+}

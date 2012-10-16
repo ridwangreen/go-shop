@@ -1,0 +1,38 @@
+/*
+ * Filename:
+ *		popUpScreen.java
+ *
+ * Version:
+ *	   $Id$
+ *
+ * Revision:
+ *	   $Log$
+ */
+package GUI;
+
+import java.awt.BorderLayout;
+
+
+/**
+ *
+ * @author 
+ *		Shaun DeVos
+ * 		Brian Baum
+ * 		Rebecca Dudley
+ *		Jonathan Johnson
+ *		Jonathan Olin
+ */
+public class popUpScreen {
+
+	overrideScreen.setLayout( new BorderLayout() );
+	overrideScreen.add( labelPanel, BorderLayout.NORTH );
+	overrideScreen.add( okPanel, BorderLayout.WEST );
+	overrideScreen.add( cancelPanel, BorderLayout.EAST );
+	setDefaultCloseOperation( javax.swing.WindowConstants.EXIT_ON_CLOSE );
+	overrideScreen.pack();
+	overrideScreen.setResizable( false );
+	overrideScreen.setVisible( false );
+	copy.addActionListener( listener );
+	pack();
+	
+}

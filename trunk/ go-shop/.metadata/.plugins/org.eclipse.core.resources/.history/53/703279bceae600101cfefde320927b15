@@ -1,0 +1,77 @@
+package GUI;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.GridLayout;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+/*
+ * @File NameGame.java
+ * 
+ * @Authors Alex Kahn, John Neville, Alex Canter, Becca Dudley
+ * 
+ * @Class Description this is the gui
+ */
+
+public class Board extends JFrame {
+	
+	private Peg guessPegs[][];
+	private Peg codePegs[];
+	
+	public Board(){
+		
+		guessPegs = new Peg[10][4];
+		codePegs = new Peg[4];
+		this.setLayout(new BorderLayout());
+		JPanel guessPanel = new JPanel();
+		guessPanel.setLayout(new GridLayout(11, 4));
+		for(int r = 0; r < 11; r++){
+			for(int c = 0; c < 4; c++){
+				
+				Peg peggy;
+				if(r == 10){
+					peggy = new Peg(Color.gray, c, r);
+					peggy.setEnabled(false);
+					codePegs[c] = peggy;
+				}else{
+					peggy = new Peg(Color.LIGHT_GRAY, c, r);
+					peggy.setEnabled(false);
+					guessPegs[r][c] = peggy;
+				}
+				guessPanel.add(peggy, r, c);
+			}
+		}
+		this.add(guessPanel, BorderLayout.CENTER);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.pack();
+	}
+	
+	public void setCodeEnabled(boolean isEnabled){
+		
+		if(isEnabled){
+			for(int x = 0; x < 4; x++){
+				codePegs[x].setEnabled(isEnabled);
+			}
+		}
+	}
+	
+	public void setEnabledRow(int row, boolean isEnabled){
+		
+		if(isEnabled){
+			for(int x = 0; x < 4; x++){
+				guessPegs[row][x].setEnabled(isEnabled);
+			}
+		}
+	}
+	
+	public static void main(String args[]){
+		
+		Board bo = new Board();
+		bo.setVisible(true);
+		bo.setCodeEnabled(true);
+		bo.setEnabledRow(5, true);
+		
+	}
+
+}

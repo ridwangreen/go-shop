@@ -1,0 +1,28 @@
+package GUI;
+
+import java.awt.GridLayout;
+
+import javax.swing.JButton;
+import javax.swing.JPanel;
+
+public class BottomPanel extends JPanel{
+	
+	private JButton makeGuess;
+	private JButton leaveFeedback;
+	private JButton undo;
+	private JButton setCode;
+
+	public BottomPanel() {
+
+		setLayout(new GridLayout(1, 4));
+		makeGuess = new JButton("Make Guess");
+		leaveFeedback = new JButton("Leave Feedback");
+		undo = new JButton("Undo Move");
+		setCode = new JButton("Set Code");
+		add(makeGuess);
+		add(leaveFeedback);
+		add(undo);
+		add(setCode);
+		setVisible(true);
+	}
+}

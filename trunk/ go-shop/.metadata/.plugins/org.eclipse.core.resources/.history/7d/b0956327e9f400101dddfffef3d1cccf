@@ -1,0 +1,36 @@
+package Controller;
+
+import java.util.Observable;
+import java.util.Observer;
+
+import system.GameState;
+import system.Peg;
+
+/*
+ * @File GameController.java
+ * 
+ * @Authors Becca Dudley
+ * 
+ * @Class Description the controller for the game.  It obseves the gamestate
+ * 		and communicates the changes to the classes that need to know
+ */
+public class GameController  implements Observer {
+	
+	private BoardController bc;
+	private Peg guessPegs[][];
+	private Peg feedbackPegs[][];
+
+	public GameController(){
+		
+		guessPegs = GameState.getInstance().getGuessPegs();
+		feedbackPegs = GameState.getInstance().getFeedbackPegs();
+		
+		bc = new BoardController(guessPegs, feedbackPegs);
+	}
+	
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		// TODO Auto-generated method stub
+		
+	}
+}

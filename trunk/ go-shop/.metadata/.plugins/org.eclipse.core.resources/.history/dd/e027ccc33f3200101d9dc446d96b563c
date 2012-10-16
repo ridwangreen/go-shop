@@ -1,0 +1,68 @@
+/*
+ * Filename:
+ *		overrideScrre.java
+ *
+ * Version:
+ *	   $Id$
+ *
+ * Revision:
+ *	   $Log$
+ */
+package GUI;
+
+import java.awt.BorderLayout;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import control.SixAxisController;
+
+
+/**
+ *
+ * @author 
+ *		Shaun DeVos
+ * 		Brian Baum
+ * 		Rebecca Dudley
+ *		Jonathan Johnson
+ *		Jonathan Olin
+ */
+public class overrideScreen extends JFrame{
+
+	private SixAxisController listener;
+	private JPanel warningPanel;
+	private JPanel overWritePanel;
+	private JLabel warning;
+	private JButton overWrite;
+	
+	public overrideScreen( SixAxisController controller ) {
+
+		listener = controller;
+		initComponents();
+
+	}
+	
+	private void initComponents(){
+		
+		setLayout( new BorderLayout() );
+		warningPanel = new JPanel();
+		overWritePanel = new JPanel();
+		warning = new JLabel();
+		warning.setText( "Warning, you are about to overwrite past order" );
+		warningPanel.add( warning );
+		add( warningPanel, BorderLayout.NORTH );
+		overWrite = new JButton();
+		overWrite.setText( "Overwrite" );
+		overWrite.addActionListener( listener );
+		overWritePanel.add( overWrite );
+		add( overWritePanel, BorderLayout.WEST );
+		pack();
+		setResizable( false );
+		setVisible( true );
+
+		
+	}
+	
+}

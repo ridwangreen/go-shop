@@ -1,0 +1,37 @@
+package Controller;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import system.GameState;
+import system.Peg;
+import Command.Guess;
+
+/*
+ * @File MakeGues.java
+ * 
+ * @Authors Becca Dudley
+ * 
+ * @Class Description this is the actionlistener for the make guess button
+ */
+public class MakeGuessListener implements ActionListener{
+
+	private PlayerController players;
+	
+	public MakeGuessListener(PlayerController players){
+		
+		this.players = players;
+	}
+	
+	/**
+	 * when the button is clicked inform the gamestate
+	 */
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		//GameState.getInstance().pushCommand(new Guess());
+		
+		players.nextTurn();
+	}
+
+}

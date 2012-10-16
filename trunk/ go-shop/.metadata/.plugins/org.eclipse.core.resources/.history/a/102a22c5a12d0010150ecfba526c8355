@@ -1,0 +1,105 @@
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
+public class PastOrderView extends javax.swing.JFrame {
+
+	private JButton back;
+	private JPanel listPanel;
+	private JList previousOrdersList;
+	private JScrollPane previousOrderPane;
+	private JPanel bottom;
+	private JButton copy;
+
+	public PastOrderView() {
+		initComponents();
+	}
+
+	private void initComponents() {
+
+		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+		setLayout(new BorderLayout());
+		setTitle("Past Orders");
+
+		back = new JButton("Back");
+		copy = new JButton("Copy");
+
+		listPanel = new JPanel();
+		previousOrderPane = new JScrollPane();
+		previousOrdersList = new JList();
+		previousOrderPane.setViewportView(previousOrdersList);
+		listPanel.add(previousOrderPane);
+
+		add(listPanel, BorderLayout.NORTH);
+
+		bottom = new JPanel();
+		bottom.setLayout(new BorderLayout());
+		JPanel backPanel = new JPanel();
+		JPanel copyPanel = new JPanel();
+		backPanel.add(back);
+		copyPanel.add(copy);
+		bottom.add(backPanel, BorderLayout.WEST);
+		bottom.add(copyPanel, BorderLayout.EAST);
+
+		add(bottom, BorderLayout.SOUTH);
+
+		final JFrame overideScreen = new JFrame();
+		JLabel warning = new JLabel(
+				"Waring you are about to overide previous Order");
+		JPanel labelPanel = new JPanel();
+		labelPanel.add(warning);
+		JButton ok = new JButton("Ok");
+		JButton cancel = new JButton("Cancel");
+
+		JPanel okPanel = new JPanel();
+		JPanel cancelPanel = new JPanel();
+		okPanel.add(ok);
+		cancelPanel.add(cancel);
+		cancel.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent evt){
+				overideScreen.setVisible(false);
+			}
+		});
+		overideScreen.setLayout(new BorderLayout());
+		overideScreen.add(labelPanel, BorderLayout.NORTH);
+		overideScreen.add(okPanel, BorderLayout.WEST);
+		overideScreen.add(cancelPanel, BorderLayout.EAST);
+		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+		overideScreen.pack();
+		overideScreen.setResizable(false);
+		overideScreen.setVisible(false);
+
+		copy.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+
+				overideScreen.setVisible(true);
+				
+			}
+		});
+		
+		setResizable(false);
+		pack();
+		setVisible(true);
+
+	}
+
+	public static void main(String args[]) {
+		java.awt.EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				new PastOrderView().setVisible(true);
+			}
+		});
+	}
+
+}

@@ -1,0 +1,89 @@
+package Controller;
+
+import java.util.Observable;
+import java.util.Observer;
+
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+
+import system.GameState;
+import system.Peg;
+import Command.Command;
+import Command.EndGame;
+import Command.Feedback;
+import Command.Guess;
+import Command.NewGame;
+import Command.SetCode;
+
+/*
+ * @File GameController.java
+ * 
+ * @Authors Becca Dudley
+ * 
+ * @Class Description the controller for the game.  It obseves the gamestate
+ * 		and communicates the changes to the classes that need to know
+ */
+public class GameController implements Observer {
+
+	private BoardController bc;
+	private Peg guessPegs[][];
+	private Peg feedbackPegs[][];
+	private PlayerController players;
+
+	public GameController() {
+
+		guessPegs = GameState.getInstance().getGuessPegs();
+		feedbackPegs = GameState.getInstance().getFeedbackPegs();
+
+		bc = new BoardController(guessPegs, feedbackPegs);
+	}
+
+	@Override
+	public void update(Observable gameState, Object arg1) {
+		// TODO Auto-generated method stub
+
+		GameState gameStateTemp = (GameState) gameState;
+		Command last = gameStateTemp.getLastCommand();
+		if (last instanceof NewGame) {
+
+			int response = JOptionPane.showConfirmDialog(null,
+					"Would you like to use an existing log?", null,
+					JOptionPane.YES_NO_OPTION);
+			if (response == JOptionPane.YES_OPTION) {
+				JFileChooser logFile = new JFileChooser();
+				logFile.setDialogTitle("Choose Log File");
+				int returnVal = logFile.showDialog(null, "Open Log");
+			}
+			Object[] options = { "Local Player", "Remote Player", "AI" };
+			int maker = JOptionPane.showOptionDialog(null,
+					"What will the CodeMaker be?", null,
+					JOptionPane.YES_NO_CANCEL_OPTION,
+					JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+			int breaker = JOptionPane.showOptionDialog(null,
+					"What will the CodeBreaker be?", null,
+					JOptionPane.YES_NO_CANCEL_OPTION,
+					JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+
+			players = new PlayerController(maker, breaker);
+			bc.setPlayerColntroller(players);
+			bc.newGame(breaker);
+
+		} else if (last instanceof EndGame) {
+			bc.endGame();
+
+		} else if (last instanceof Feedback) {
+			players.nextTurnAI();
+
+		} else if (last instanceof Guess) {
+			if (players.getBreaker().getClass().equals(CodeBreaker_Local)) {
+				int turn = gameStateTemp.getTurn().getTurnNumber();
+				bc.guess(turn);
+				
+			}
+		}else if(last instanceof SetCode){
+			if (players.getMaker().getClass().equals(CodeMaker_Local)) {
+				int turn = gameStateTemp.getTurn().getTurnNumber();
+				bc.setCode(turn);
+		}
+	}
+}

@@ -1,0 +1,12 @@
+package GUI;
+
+import javax.swing.JMenuBar;
+
+public class GameMenu extends JMenuBar{
+	
+	public FileMenu(){
+		
+		
+	}
+
+}

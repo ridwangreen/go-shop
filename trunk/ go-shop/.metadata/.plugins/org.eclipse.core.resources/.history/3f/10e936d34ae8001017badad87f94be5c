@@ -1,0 +1,86 @@
+package GUI;
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+
+/*
+ * @File NameGame.java
+ * 
+ * @Authors Alex Kahn, John Neville, Alex Canter, Becca Dudley
+ * 
+ * @Class Description this is the gui
+ */
+
+public class Board extends JFrame {
+	
+	private GuessPanel guessPanel;
+	private FeedbackPanel feedbackPanel;
+	private TopPanel topPanel;
+	private JButton hideButton;
+	private BottomPanel bottomPanel;
+	private boolean codeIsHidden;
+	
+	public Board(){
+		
+		guessPanel = new GuessPanel();
+		feedbackPanel = new FeedbackPanel();
+		topPanel = new TopPanel();
+		bottomPanel = new BottomPanel();
+		setLayout(new BorderLayout());
+		add(guessPanel, BorderLayout.CENTER);
+		add(feedbackPanel, BorderLayout.WEST);
+		add(topPanel, BorderLayout.NORTH);
+		add(bottomPanel, BorderLayout.SOUTH);
+		codeIsHidden = false;
+		hideButton = feedbackPanel.getHideButton();
+		hideButton.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				if(codeIsHidden){
+					hideButton.setText("Hide");
+				}else{
+					hideButton.setText("Show");
+				}
+				codeIsHidden = !codeIsHidden;
+				hideCode(codeIsHidden);	
+			}
+		});
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.pack();
+		setResizable(false);
+	}
+	
+	public void setCodeEnabled(boolean isEnabled){	
+		guessPanel.setCodeEnabled(isEnabled);
+	}
+	
+	public void setEnabledGuessRow(int row, boolean isEnabled){
+		guessPanel.setEnabledRow(row, isEnabled);
+	}
+	
+	public void setEnabledFeedbackRow(int row, boolean isEnabled){
+		feedbackPanel.setEnabledRow(3, isEnabled);
+	}
+	
+	public void hideCode(boolean isHidden){
+		guessPanel.hideCode(isHidden);
+	}
+	
+	public void setTopButtonEnabled(int buttonNumber, boolean isEnabled){
+		topPanel.setTopButtonEnabled(buttonNumber, isEnabled);
+	}
+	
+	public static void main(String args[]){
+		
+		Board bo = new Board();
+		bo.setVisible(true);
+		bo.setEnabledFeedbackRow(3, true);
+		bo.setEnabledGuessRow(2, false);
+		bo.setEnabledGuessRow(4, true);
+		
+	}
+
+}

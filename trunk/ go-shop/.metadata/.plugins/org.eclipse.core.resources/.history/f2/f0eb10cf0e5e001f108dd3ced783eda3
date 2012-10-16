@@ -1,0 +1,10 @@
+
+public class BlankPiece extends FrenzyPiece{
+	
+	public BlankPiece(int x, int y, int boardLength){
+		
+		super(x,y,boardLength);
+		
+	}
+
+}

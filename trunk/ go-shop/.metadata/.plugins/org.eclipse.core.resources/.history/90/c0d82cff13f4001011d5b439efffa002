@@ -1,0 +1,22 @@
+package Controller;
+
+public class Roster {
+	
+	private CodeMaker maker;
+	private CodeBreaker breaker;
+	
+	public Roster(int makerType, int breakerType){
+		
+		
+	}
+	
+	public CodeMaker getCodeMaker(){
+	
+		return maker;
+	}
+	
+	public CodeBreaker getCodeBreaker(){
+		
+		return breaker;
+	}
+}

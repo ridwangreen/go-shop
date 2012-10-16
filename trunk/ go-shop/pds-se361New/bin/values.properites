@@ -1,0 +1,49 @@
+#Stations
+
+	preparation : 5
+	oven : 20
+	delivery : 3
+
+#Timer
+	
+	timer : .1
+	
+#Food Data
+	
+	#Large Pizza
+	
+		largePizzaCookTime = 20;
+		largePizzaOvenSpace = 4;
+		largePizzaPrepTime = 15;
+		largePizzaPrice = 16.00;
+		largePizzaToppingsPrice = 2.0;
+	
+	#Medium Pizza
+	
+		mediumPizzaCookTime = 15;
+		mediumPizzaOvenSpace = 2;
+		mediumPizzaPrepTime = 10;
+		mediumPizzaPrice = 11.00;
+		mediumPizzaToppingsPrice = 1.50;
+		
+	#Small Pizza
+		
+		smallPizzaCookTime = 13;
+		smallPizzaOvenSpace = 1;
+		smallPizzaPrepTime = 8;
+		smallPizzaPrice = 8.00;
+		smallPizzaToppingsPrice = 1.00;
+			
+	#Salad
+		
+		saladCookTime = 0;
+		saladOvenSpace = 0;
+		saladPrepTime = 5;
+		saladPrice = 5.00;
+
+	#Pizza Log
+		
+		pizzaLogCookTime = 10;
+		pizzaLogOvenSpace = 1;
+		pizzaLogPrepTime = 0;
+		pizzaLogPrice = 6.00;

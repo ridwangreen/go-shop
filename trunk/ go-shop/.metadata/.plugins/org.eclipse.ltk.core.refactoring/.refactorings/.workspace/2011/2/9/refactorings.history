@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete resource &apos;pds-se361New&apos;" deleteContents="false" description="Delete resource &apos;pds-se361New&apos;" element1="/pds-se361New" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1298734023235"/>
+</session>

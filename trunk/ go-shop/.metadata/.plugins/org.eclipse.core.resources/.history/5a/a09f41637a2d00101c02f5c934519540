@@ -1,0 +1,78 @@
+import java.awt.BorderLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
+
+public class ManagerReport extends javax.swing.JFrame {
+
+	private JButton back;
+	private JPanel bottom;
+	private JList previousOrdersList;
+	private JScrollPane previousOrderPane;
+	private JLabel title;
+	private JPanel top;
+
+	public ManagerReport() {
+		initComponents();
+	}
+
+	private void initComponents() {
+		
+		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+		setLayout(new BorderLayout());
+		
+		back = new JButton("Back");
+		title = new JLabel("Manager Report");
+		top = new JPanel();
+		top.setLayout(new GridBagLayout());
+		
+
+		GridBagConstraints gridBagConstraints;
+		gridBagConstraints = new GridBagConstraints();
+		gridBagConstraints.gridx = 0;
+		gridBagConstraints.gridy = 0;
+		gridBagConstraints.gridwidth = 4;
+		gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+		gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
+		gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 10);
+		top.add(title, gridBagConstraints);
+
+		gridBagConstraints = new GridBagConstraints();
+		gridBagConstraints.gridx = 15;
+		gridBagConstraints.gridy = 0;
+		gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+		gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_END;
+		top.add(back, gridBagConstraints);
+		
+		add(top, BorderLayout.NORTH);
+		
+		bottom = new JPanel();
+		previousOrderPane = new JScrollPane();
+		previousOrdersList = new JList();
+		previousOrderPane.setViewportView(previousOrdersList);
+		bottom.add(previousOrderPane);
+		
+		add(bottom, BorderLayout.CENTER);
+		
+		setResizable(false);
+		pack();
+		setVisible(true);
+		
+	}
+	
+	public static void main(String args[]) {
+		java.awt.EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				new ManagerReport().setVisible(true);
+			}
+		});
+	}
+
+}

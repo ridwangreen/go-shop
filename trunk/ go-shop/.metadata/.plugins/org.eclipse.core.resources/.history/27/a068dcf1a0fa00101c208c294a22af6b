@@ -1,0 +1,60 @@
+package player;
+
+import java.util.Observable;
+import java.util.Observer;
+
+import Command.Feedback;
+import system.Peg;
+import system.PegColor;
+
+/*
+ * @Class Name CodeMaker_AI
+ * 
+ * @author Alex Kahn
+ * 
+ * @description needs to make a computer controlled AI
+ *
+ * @date 10-9-2011
+ */
+public class CodeMaker_AI extends CodeMaker_Local implements Observer {
+
+	// makes one AI with a code to crack
+	public CodeMaker_AI() {
+		createCode();
+		code = new Peg[4];
+	}
+
+	// makes the code to be tested against
+	public void createCode() {
+
+		for (int i = 0; i <= 4; i++) {
+			
+			Peg peg = new Peg(color_selecter(guesser(1, 4)));
+			code[i] = peg;
+		}
+
+	}
+
+	public void makeMove() {
+		CodeMaker.setCode(code);
+	}
+	public static int guesser(int min, int max) {
+		return (int) ((max - min + 1) * Math.random() + min);
+	}
+
+	public static PegColor color_selecter(int num) {
+		if (num == 1) {
+			return PegColor.BLUE;
+		} else if (num == 2) {
+			return PegColor.YELLOW;
+		} else if (num == 3)
+			return PegColor.GREEN;
+		else
+			return PegColor.RED;
+	}
+
+	public void update(Observable arg0, Object arg1) {
+		if (arg1 instanceof Feedback)
+			makeMove();
+	}
+}

@@ -1,0 +1,47 @@
+/*
+ * PlayerBoard.java
+ *
+ * Version:
+ * $Id$
+ *
+ * Revisions:
+ * $Log$
+ */
+
+/**
+ * The game board for the battleship game that the player sees
+ *
+ * @author Rebecca Dudley
+ */
+public class PlayerBoard {
+
+	public int size;
+	public BoardObject[][] gameBoard;
+	 
+	/**
+	  * Creates a new board dimensions size
+	  * 
+	  *  @param size
+	  */
+	public PlayerBoard(int size){
+		
+		gameBoard = new BoardObject[size+1][size +1];
+		for(int c = 1; c < size + 1; c++){
+			
+			gameBoard[0][c] =  new Water();
+			
+		}
+		
+	}
+	
+	/**
+	 * prints the game board
+	 * 
+	 */
+	public void printBoard(){
+		
+		for
+		
+	}
+	
+}

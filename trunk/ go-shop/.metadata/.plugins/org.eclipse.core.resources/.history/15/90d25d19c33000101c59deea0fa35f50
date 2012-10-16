@@ -1,0 +1,587 @@
+/*
+ * Filename:
+ *	   SixAxisController.java
+ *
+ * Version:
+ *	   $Id$
+ *
+ * Revision:
+ *	   $Log$
+ */
+package control;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Iterator;
+import java.util.Vector;
+
+import foodItems.FoodItem;
+import foodItems.Pizza;
+import foodItems.PizzaLog;
+import foodItems.TossedSalad;
+
+import orders.*;
+import persistance.ConstantValues;
+import persistance.Database;
+import GUI.*;
+
+/**
+ * The controller program for the Pizza Delivery System.
+ * 
+ * @author 
+ *		Shaun DeVos
+ * 		Brian Baum
+ * 		Rebecca Dudley
+ *		Jonathan Johnson
+ *		Jonathan Olin
+ */
+public class SixAxisController implements ActionListener{
+
+	/**
+	 * Holds the orders in a hash table
+	 */
+	OrderManager manager_Of_Orders;
+	
+	/**
+	 * All the current orders
+	 */
+	Vector<String> all_current_orders;
+	
+	/**
+	 * All past orders and startup/closing information passes through this
+	 * object
+	 */
+	Database program_Data = null;
+	
+	/**
+	 * The Main User interface page
+	 */
+	MainGUIPage main_order_screen = null;
+	
+	/**
+	 * The Login Screen
+	 */
+	LoginScreen login_screen = null;
+
+	/**
+	 * A Manager Report object to allow to manipulation of the statistics
+	 */
+	ManagerReport report_screen = null;
+	
+	/**
+	 * Menu that allows the viewing, changing, and creating of order specifics
+	 * and change them.
+	 */
+	OrderEditor order_edit_screen = null;
+
+	/**
+	 * The User Interface for viewing all the passed orders and allowing access
+	 * to them
+	 */
+	PastOrderView old_order_screen = null;
+
+	/**
+	 * The temporary order object to add items to and then add to the
+	 * OrderManager
+	 */
+	Order new_order = null;
+
+	/**
+	 * An instance of constant values that stores all common program variables
+	 * and all of the statistics for the program.
+	 */
+	ConstantValues all_Constants;
+	
+	/**
+	 * Default Sorting Command value
+	 * (used by timer to update without noticing any changes)
+	 */
+	int last_sorting_command_option = -1;
+	
+	/**
+	 * A temporary list of the items that were selected on the screen
+	 */
+	Vector<String> item_selections;
+	
+	/**
+	 * All of the items created and to be added to the order
+	 */
+	Vector<FoodItem> items_in_order;
+	
+	/**
+	 * Default Constructor
+	 */
+	public SixAxisController() {
+		
+	}
+	
+	/**
+	 * The 'Controller' of the Model View Controller in the PDS program. 
+	 * Communicates with the User Interface 
+	 *
+	 * @param
+	 * 		table_of_orders - the table that contains all current order
+	 * 		information
+	 * @param
+	 * 		info_base - object containing all the static values and past
+	 * 		orders.
+	 */
+	public SixAxisController( OrderManager table_of_orders,
+			Database info_base, ConstantValues all_Cons) {
+		
+		program_Data = info_base;
+		manager_Of_Orders = table_of_orders;
+		all_Constants = all_Cons;
+		
+	}
+	
+	/**
+	 * The setter for all the main GUI pages.
+	 * @param oldOrders 
+	 *
+	 * @param 
+	 * 		main  - the main GUI for current order display and user options
+	 * @param 
+	 * 		login - the login prompt in the GUI for a manager to access company
+	 * 		information
+	 * @param 
+	 * 		edit  - the order edit screen in the GUI 
+	 * @return
+	 * 		void
+	 */
+	public void setGUIs(MainGUIPage mainGUI, LoginScreen loginGUI,
+			OrderEditor editorGUI, PastOrderView oldOrders) {
+		
+		main_order_screen = mainGUI;
+		login_screen = loginGUI;
+		order_edit_screen = editorGUI;
+		old_order_screen = oldOrders;
+	}
+	
+	/**
+	 * Sets all the visibilities of every GUI window to which view is intended
+	 *
+	 * @param 
+	 * 		main - MainGUIPage visibility
+	 * @param 
+	 * 		login - LoginScreen visibility
+	 * @param 
+	 * 		report - ManagerReport visibility
+	 * @param 
+	 * 		edit - OrderEditor visibility
+	 * @param 
+	 * 		oldOrder - PastOrderView visibility
+	 * @return
+	 * 		void
+	 */
+	public void setAllGUIVisibilities(boolean main, boolean login,
+			boolean report, boolean edit, boolean oldOrder) {
+		
+		main_order_screen.setVisible( main );
+		login_screen.setVisible( login );
+		if( report_screen != null ) {
+			report_screen.setVisible( report );
+		}	
+		order_edit_screen.setVisible( edit );
+		if( old_order_screen != null ) {
+			old_order_screen.setVisible( oldOrder );
+		}
+	}
+	
+	/**
+	 * The 'getter' for the toppings on a pizza
+	 *
+	 * @param
+	 * 		pizza - The pizza to get the toppings from
+	 * @return
+	 * 		Vector<String>
+	 */
+	public void putToppingsIntoList( FoodItem pizza) {
+		
+		Vector<String> toppings = (( Pizza )pizza ).getToppings();
+		Iterator<String> toppingsIt = toppings.iterator();
+		
+		while( toppingsIt.hasNext() ) {
+			order_edit_screen.addItemToList( (String) toppingsIt.next() );
+		}
+	}
+	
+	/**
+	 * Reacts when an event is triggered by an action event in the GUI.
+	 * Extracts the string identifier of the acting object and decides
+	 * accordingly.
+	 *
+	 * @param
+	 * 		new_event - The event triggered by the GUI 
+	 * @return
+	 * 		void
+	 */
+	public void actionPerformed( ActionEvent new_event ) {
+		
+		//TODO 
+		//MAke this all a gigantic switch!!!  (via enum perhaps? *scratches
+		//chin*)
+		
+		String command = new_event.getActionCommand();
+		System.out.println( "command = " + command );
+		
+		//BACK on LOGINSCREEN, MANAGERREPORT, and ORDEREDITOR	
+		
+		if( command.equals( "Back" ))	backCommand();
+			
+		//LOGIN on the LOGINSCREEN
+		
+		else if( command.equals( "Login" )) loginCommand();
+
+		//  -----------------MAINGUIPAGE COMMANDS---------------------
+				
+		//TODO
+		//Please give me a design pattern for the love of god!(or some deity)	
+		
+		else if( command.equals( "Manager Report" )) managerReportCommand();
+		else if( command.equals( "Add New Order" )) newOrderCommand();
+		else if( command.equals( "Edit Order" )) editOrderCommand();
+		else if( command.equals( "New Order" )) newOrderCommand();
+		else if( command.equals( "Cancel Order" )) cancelOrderCommand();
+		else if( command.equals( "Order Number" )) sortingCommand( 0 );
+		else if( command.equals( "Name" )) sortingCommand( 1 );
+		else if( command.equals( "Phone #" )) sortingCommand( 2 );
+		else if( command.equals( "Time Elapsed" )) sortingCommand( 3 );
+		else if( command.equals( "ETA" )) sortingCommand( 4 );
+		else if( command.equals( "Current State" ))	sortingCommand( 5 );
+		else
+		
+		//-------------------ORDEREDITOR COMMANDS--------------------
+
+		if(command.equals( "Past Orders" ))
+			setAllGUIVisibilities( true, false, false, true, true );
+			
+		else if(command.equals( "Add Item" )) addItemCommand();
+		else if(command.equals( "Delete Item" )) deleteItemCommand();		
+		else if(command.equals( "Place Order" )) placeOrderCommand();
+	}
+
+	//-----------------------ALL COMMAND CODING-----------------------
+	
+	/**
+	 * Carry's out the Back Button action command
+	 *
+	 * @return
+	 * 		void
+	 */
+	private void backCommand() {
+		if( login_screen.isVisible()
+				|| ( report_screen != null && report_screen.isVisible() )
+				|| order_edit_screen.isVisible() ) {
+			setAllGUIVisibilities( true, false, false, false, false );
+		} else
+		
+		//BACK on PASTORDERVIEW
+		
+		if( old_order_screen.isVisible() ) {
+			
+			setAllGUIVisibilities( true, false, false, true, false );
+		}
+	}
+	
+	/**
+	 * Carry's out the login action
+	 *
+	 * @return
+	 * 		void
+	 */
+	private void loginCommand() {
+		System.out.println(login_screen.getName() + " "
+				+ login_screen.getPassword());
+		setAllGUIVisibilities( true, false, true, false, false );
+		}
+	
+	/**
+	 * Carry's out the manager Reoprt action
+	 *
+	 * @return
+	 * 		void
+	 */
+	private void managerReportCommand() {
+		if( report_screen == null ) {
+			report_screen = new ManagerReport( this );
+		}
+		setAllGUIVisibilities( true, true, false, false, false );
+	}
+	
+	/**
+	 * Carry's out the edit order action
+	 *
+	 * @return
+	 * 		void
+	 */
+	private void editOrderCommand() {
+		
+		setAllGUIVisibilities( true, false, false, true, false );
+		String order_from_list = main_order_screen.getListSelection();
+		if( order_from_list != null ) {
+			String[] order_details = order_from_list.split( " " );
+		
+			//TODO parse error checking
+		
+			System.out.println(Integer.parseInt( order_details[0] ));
+			
+			Order order_being_changed = manager_Of_Orders.getOrder(
+					Integer.parseInt( order_details[0] ));
+			order_edit_screen.setNameTextField(
+					order_being_changed.getNameOwner() );
+			order_edit_screen.setPhoneTextField(
+					order_being_changed.getPhoneNumber() );
+			order_edit_screen.setListElements( order_being_changed.getFoods() );
+		} else {
+		
+			//TODO A screen stating that no selection was made???
+		}
+	}
+	
+	/**
+	 * Carry's out the new order command
+	 *
+	 * @return
+	 * 		void
+	 */
+	private void newOrderCommand() {
+		setAllGUIVisibilities( true, false, false, true, false );
+		order_edit_screen.resetFields();
+	}
+	
+	/**
+	 * Carry's out the cancellation of an order
+	 *
+	 * @return
+	 * 		void
+	 */
+	private void cancelOrderCommand() {
+		
+		String order_to_cancel = main_order_screen.getListSelection();
+		if( order_to_cancel != null ) {
+			
+			System.out.println(order_to_cancel);
+			
+			String[] order_info = order_to_cancel.split( " " );
+			manager_Of_Orders.removeOrder(
+					Integer.parseInt( order_info[ 0 ] ));
+			main_order_screen.deleteItemsFromOrderList();
+		}
+	}	
+
+	/**
+	 * Carry's out the order number action and updates the GUI
+	 * (timer class uses -1 to update GUI)
+	 * 
+	 * 0 = Order Number
+	 * 1 = Name
+	 * 2 = Phone #
+	 * 3 = Time Elapsed
+	 * 4 = ETA
+	 * 5 = Current State
+	 * Default = Order Number
+	 * 
+	 * @return
+	 * 		void
+	 */
+	public void sortingCommand( int which_sort) {
+		
+		OrderComparator comparator;
+		
+		//figure out which comparator is required
+		
+		switch (which_sort) {
+		case 0:
+			comparator = new OrderIDComparator();;
+			break;
+		case 1:
+			comparator = new OrderNameComparator();
+			break;
+		case 2:
+			comparator = new OrderPhoneComparator();
+			break;
+		case 3:
+			comparator = new OrderDurationComparator();
+			break;
+		case 4:
+			comparator = new OrderETAComparator();
+			break;
+		case 5:
+			comparator = new OrderStateComparator();
+			break;
+		default:
+			comparator = new OrderIDComparator();
+			break;
+		}
+		Vector<Order> all_current_orders =
+			manager_Of_Orders.getSortedOrderList( comparator );
+		
+		if( all_current_orders != null && all_current_orders.size() > 0 ) {
+					
+			//loop through the table of current orders and add them to the GUI
+			
+			Iterator<Order> traverse_orders = all_current_orders.iterator(); 
+			Vector<String> all_order_strings = new Vector<String>();
+			
+			while( traverse_orders.hasNext() ) {
+				all_order_strings.add( traverse_orders.next().mainGUIToString() );
+			}
+			main_order_screen.addAllOrders( all_order_strings );
+		} else {
+			System.out.println("No Current Orders to sort >.<");
+		}
+	}
+
+	/**
+	 * Carry's out the place order action
+	 *
+	 * @return
+	 * 		void
+	 */
+	private void placeOrderCommand() {
+		
+		//TODO before the command is called needs to check to see if data is valid
+		
+		String phone_num = order_edit_screen.getPhoneTextField();
+		String address = order_edit_screen.getOrderAddress();
+		String name = order_edit_screen.getNameTextField();
+		int new_order_id;
+		
+		//Only proceed if we have all the information required for an Order
+		
+		if( items_in_order != null && items_in_order.size() > 0 &&
+				phone_num != null &&
+				address != null &&
+				name != null) {
+
+			Iterator<FoodItem> food_to_add = items_in_order.iterator();
+
+			//Use the ID from the first item in the list
+			
+			new_order_id = items_in_order.firstElement().getOrderID();
+			new_order = new Order(new_order_id, phone_num,
+					address, name, all_Constants);
+			
+			//Add all of the food items to the order
+			
+			while( food_to_add.hasNext() ) {
+				
+				FoodItem new_food = food_to_add.next();
+				if( new_order.addFoodItem( new_food ) != true ) {
+					
+					//TODO Error message
+				}
+			}
+		
+			System.out.println("Created: " + new_order.mainGUIToString());
+			
+			//Add the order to the OrderManager and the GUI
+			
+			manager_Of_Orders.addNewOrder(new_order_id, new_order );
+			main_order_screen.addOrderToList( new_order.mainGUIToString() );
+			setAllGUIVisibilities( true, false, false, false, false );
+			
+			//Wiping old data
+			this.new_order = null;
+			this.item_selections = null;
+			
+		} else {
+			
+			//entry order ignored from system
+			//TODO ERROR SCREEN STATING THE ERROR in this case no order info yet
+			//or could have a missing info screen stating what fields are empty
+			
+			System.err.println("Error: order not created properly");
+		}
+	}
+	
+	/**
+	 * Carry's out the delete item action
+	 *
+	 * @return
+	 * 		void
+	 */
+	private void deleteItemCommand() {
+		order_edit_screen.removeItemFromList();
+	}
+	
+	/**
+	 * Carry's out the add item action
+	 *
+	 * @return
+	 * 		void
+	 */
+	private void addItemCommand() {
+		
+		String item = order_edit_screen.getFoodTypeSelection();
+		int food_identifier_in_list = order_edit_screen.getLastListIndex();
+		FoodItem newFood = null;
+		
+		if(item != null) {
+		
+			//if there hasn't been any items added to the order list yet
+			
+			if(items_in_order == null || items_in_order.size() == 0) {
+				items_in_order = new Vector<FoodItem>();
+			}
+			
+			//A FoodItem needs to know its type
+			
+			int new_order_id = manager_Of_Orders.getNewOrderID();
+			
+			//A Pizza cannot be made without knowing everything about it
+			
+			if(item.equals( "Salad" )) {
+				newFood = new TossedSalad( all_Constants, new_order_id,
+						food_identifier_in_list );
+				System.out.println( newFood );
+			} else
+			if(item.equals( "Pizza Logs" )) {
+				newFood = new PizzaLog( all_Constants, new_order_id,
+						food_identifier_in_list );
+				System.out.println( newFood );
+			} else
+			if(item.equals( "Pizza" )) {
+				
+				char size = order_edit_screen.getPizzaSizeSelections();
+				Vector<String> toppings =
+					order_edit_screen.getPizzaToppingsSelections();
+				
+				if(size != ' ' && toppings.size() > 0) {
+					
+					//Add the word "pizza" followed by it's size
+					
+					System.out.println( size + " " + item );
+					order_edit_screen.addItemToList( size + " " + item);
+
+					//Add the toppings to the list
+					
+					Iterator<String> toppingsIt = toppings.iterator();
+
+					while( toppingsIt.hasNext() ) {
+						String next_topping = toppingsIt.next();
+						System.out.println( "\t" + next_topping);
+						order_edit_screen.addItemToList(
+								"\t" + next_topping );
+					}
+					
+					newFood = new Pizza( all_Constants, toppings,
+							food_identifier_in_list, new_order_id, size );
+				} else
+					
+				//If no toppings
+					
+				if(size != ' ') {
+					order_edit_screen.addItemToList( size + " " + item);
+				
+				//If not enough information
+					
+				} else {
+					System.out.println("Error: Pizza missing size");
+				}	
+			}
+			items_in_order.add( newFood );
+		};
+	}
+}
