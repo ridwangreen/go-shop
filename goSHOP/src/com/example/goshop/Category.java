@@ -14,11 +14,10 @@ import java.util.ArrayList;
 public class Category extends ListItem{
 
 	private ArrayList<Item> items;
-	private String name;
 	
 	public Category(String name){
+		super(name);
 		items = new ArrayList<Item>();
-		this.name = name;
 	}
 	
 	/**
@@ -46,18 +45,6 @@ public class Category extends ListItem{
 	 */
 	public boolean remove(Item i ) {
 		return items.remove(i);
-	}
-	
-	/**
-	 * 
-	 * @param newName the new name of the category
-	 */
-	public void editName(String newName) {
-		this.name = newName;
-	}
-	
-	public String getName() {
-		return this.name;
 	}
 	
 	public ArrayList<Item> getItems(){

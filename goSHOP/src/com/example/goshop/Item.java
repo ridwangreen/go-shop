@@ -10,26 +10,16 @@ package com.example.goshop;
  *
  */
 public class Item extends ListItem{
-
-	private String itemName;
 	
 	public Item(String name){
-		itemName = name;
-	}
-	
-	public void editName(String newName){
-		itemName = newName;
-	}
-	
-	public String getName(){
-		return itemName;
+		super(name);
 	}
 	
 	@Override
 	public boolean equals(Object o){
 		if (o instanceof Item){
 			Item mystery = (Item) o;
-			return mystery.getName().equals(itemName);
+			return mystery.getName().equals(this.getName());
 		}else{
 			return false;
 		}
