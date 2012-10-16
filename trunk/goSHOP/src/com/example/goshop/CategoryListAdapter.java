@@ -16,6 +16,7 @@ public class CategoryListAdapter extends ArrayAdapter<Category>{
 	
 	@Override
 	public View getView (int position, View convertView, ViewGroup parent){
+		
 		return null;
 	}
 
