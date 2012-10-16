@@ -10,7 +10,7 @@ public abstract class ListItem {
 	public String getName() {
 		return this.name;
 	}
-	
+
 	public void editName(String newName) {
 		this.name = newName;
 	}
