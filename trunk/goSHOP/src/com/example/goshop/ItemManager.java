@@ -12,7 +12,7 @@ import java.util.Set;
  * @author Charles Lander (cjl1750@rit.edu)
  *
  */
-public class ItemManager {
+public class ItemManager implements ControllerInterface{
 	protected Set<Category> categories;
 	
 	/**
