@@ -4,6 +4,7 @@
 package com.example.goshop;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -124,6 +125,12 @@ public class ItemManager implements ControllerInterface{
 	 */
 	public boolean buildFromXML() {
 		return false;
+	}
+
+	@Override
+	public List<ListItem> getShoppingList() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	

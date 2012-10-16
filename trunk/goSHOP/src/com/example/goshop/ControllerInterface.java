@@ -3,6 +3,8 @@
  */
 package com.example.goshop;
 
+import java.util.List;
+
 /**
  * This is the interface that the controller for Go SHOP must adhere too.
  * 
