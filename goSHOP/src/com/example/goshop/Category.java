@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * @author Ross
  *
  */
-public class Category {
+public class Category extends ListItem{
 
 	private ArrayList<Item> items;
 	private String name;

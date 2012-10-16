@@ -126,21 +126,6 @@ public class ItemManager implements ControllerInterface{
 		return false;
 	}
 
-	//TODO: This might be really inefficient 
-	@Override
-	public Item[] getAllItems() {
-		ArrayList<Item> allItemsOrdered = new ArrayList<Item>();
-		for(Category c : categories){
-			allItemsOrdered.addAll(c.getItems());
-		}
-		Item[] toReturn = new Item[allItemsOrdered.size()];
-		return allItemsOrdered.toArray(toReturn);
-	}
-
-	@Override
-	public Category[] getAllCategories() {
-		Category[] toReturn = new Category[categories.size()];
-		return categories.toArray(toReturn);
-	}
+	
 
 }

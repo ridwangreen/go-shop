@@ -57,15 +57,4 @@ public interface ControllerInterface {
 	 */
 	public boolean editItem(Item item, String newName);
 	
-	/**
-	 * 
-	 * @return
-	 */
-	public Item[] getAllItems();
-
-	/**
-	 * 
-	 * @return
-	 */
-	public Category[] getAllCategories();
 }
