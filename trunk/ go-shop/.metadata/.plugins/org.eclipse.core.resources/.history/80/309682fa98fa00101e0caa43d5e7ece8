@@ -1,9 +1,0 @@
-package player;
-
-public class CodeMaker_Remote extends CodeMaker{
-
-	public void makeMove() {
-		
-	}
-
-}

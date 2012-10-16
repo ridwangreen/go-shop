@@ -1,9 +1,0 @@
-package Controller;
-
-public enum PlayerType {
-
-	LOCAL,
-	REMOTE,
-	AI
-	
-}
