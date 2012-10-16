@@ -3,7 +3,7 @@
  */
 package com.example.goshop;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 
 /**
  * Data holder for Category name, color, and array of 
@@ -13,11 +13,11 @@ import java.util.HashSet;
  */
 public class Category {
 
-	private HashSet<Item> items;
+	private ArrayList<Item> items;
 	private String name;
 	
 	public Category(String name){
-		items = new HashSet<Item>();
+		items = new ArrayList<Item>();
 		this.name = name;
 	}
 	
@@ -60,5 +60,8 @@ public class Category {
 		return this.name;
 	}
 	
+	public ArrayList<Item> getItems(){
+		return items;
+	}
 	
 }
