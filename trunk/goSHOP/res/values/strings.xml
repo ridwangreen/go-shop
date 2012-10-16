@@ -13,5 +13,6 @@
     </string-array>
     <string name="add_button_text">+Add</string>
     <color name="list_divider">#8F8F8F</color>
+    <string name="empty_item_name">&lt;NO_NAME&gt;</string>
 
 </resources>
