@@ -50,5 +50,6 @@ public class CategoryListAdapter extends ArrayAdapter<Category>{
 	    
 	    return rowView;
 	}
+	
 
 }
