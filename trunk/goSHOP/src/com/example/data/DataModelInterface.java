@@ -12,21 +12,29 @@ import java.util.List;
  * @author Charles Lander (cjl1750@rit.edu)
  *
  */
-public interface ControllerInterface {
+public interface DataModelInterface {
 	
 	/**
 	 * 
 	 * @param toAdd the category to add
 	 * @return if the category was added
 	 */
-	public boolean addCategory(Category toAdd);
+	public boolean addCategory(String categoryName);
+	
+	/**
+	 * 
+	 * @param categoryName
+	 * @param color
+	 * @return
+	 */
+	public boolean addCategory(String categoryName, int color);
 	
 	/**
 	 * 
 	 * @param toRemove the category to remove
 	 * @return if the category was removed
 	 */
-	public boolean removeCategory(Category toRemove);
+	public boolean removeCategory(String categoryToRemove);
 	
 	/**
 	 * 
@@ -34,7 +42,7 @@ public interface ControllerInterface {
 	 * @param newName the new name of the category
 	 * @return if the category was edited
 	 */
-	public boolean editCategory(Category toEdit, String newName);
+	public boolean editCategory(String categoryToEdit, String newCategoryName);
 	
 	/**
 	 * 
@@ -42,7 +50,7 @@ public interface ControllerInterface {
 	 * @param toAdd the category to add it to
 	 * @return if it was added
 	 */
-	public boolean addItem(Item item, Category toAdd);
+	public boolean addItem(String itemName, String categoryToAdd);
 	
 	/**
 	 * 
@@ -50,7 +58,7 @@ public interface ControllerInterface {
 	 * @param toRemove the category to remove it from (may be null)
 	 * @return if it was removed
 	 */
-	public boolean removeItem(Item item, Category toRemove);
+	public boolean removeItem(String itemName, String categoryToRemoveFrom);
 	
 	/**
 	 * 
@@ -58,7 +66,7 @@ public interface ControllerInterface {
 	 * @param newName the new name of the item
 	 * @return  if the item was edited
 	 */
-	public boolean editItem(Item item, String newName);
+	public boolean editItem(String itemName, String newItemName);
 	
 	/**
 	 * 
@@ -66,5 +74,10 @@ public interface ControllerInterface {
 	 * 		   by the next category, etc.
 	 */
 	public List<ListItem> getShoppingList();
+	
+	public List<Category> getCategories();
+	
+	// TODO: REMOVE THIS, USED FOR TESTING
+	public void makeShoppingList();
 	
 }

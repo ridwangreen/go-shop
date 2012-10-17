@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import android.graphics.Color;
+
 
 
 /**
@@ -15,16 +17,16 @@ import java.util.List;
  * @author Charles Lander (cjl1750@rit.edu)
  *
  */
-public class ItemManager implements ControllerInterface{
-	protected ArrayList<Category> categories;
-	protected HashMap<Integer, ArrayList<Item>> items;		// I'm really tired right now. Idk if we'll keep this. I'm just typing.
+public class ItemManager implements DataModelInterface{
+	protected HashMap<String, Category> categories;
+	protected ArrayList<Category> orderedCategories;
 	
 	/**
 	 * Builds the item manager.
 	 */
 	public ItemManager() {
-		categories = new ArrayList<Category>();
-		items = new HashMap<Integer, ArrayList<Item>>();
+		categories = new HashMap<String, Category>();
+		orderedCategories = new ArrayList<Category>();
 	}
 	
 	/**
@@ -33,12 +35,20 @@ public class ItemManager implements ControllerInterface{
 	 * @param addTo the category to add the item to
 	 * @return if the item was added successfully 
 	 */
-	public boolean addItem(Item item, Category addTo) {
-		if(addTo != null) {
-			return addTo.addItem(item);
+	public boolean addItem(String itemName, String categoryToAdd) {
+		if(itemName != null && !itemName.isEmpty() && categoryToAdd != null && !categoryToAdd.isEmpty()) {
+			
+			Category cat = categories.get(categoryToAdd);	// Find concrete category to add to
+			
+			if( cat == null ){		// Category does not exist
+				return false;
+			}
+			
+			return cat.addItem(new Item(itemName));
 		} 
-		return false;
+		return false;	// Either the item name or the category ID was null or empty
 	}
+	
 	
 	/**
 	 * 
@@ -46,17 +56,18 @@ public class ItemManager implements ControllerInterface{
 	 * @param removeFrom the category to remove the item from (may be null if unknown)
 	 * @return if the item was removed successfully 
 	 */
-	public boolean removeItem(Item item, Category removeFrom) {
-		if(removeFrom != null) {
+	@Override
+	public boolean removeItem(String itemName, String categoryToRemoveFrom) {
+		/*if(removeFrom != null) {
 			return removeFrom.remove(item);
 		} else {
 			for(Category cat : categories) {
-				if(cat.contains(item)) {
+				if(cat.contains(item)) {				IMPLEMENT LATER
 					cat.remove(item);
 					return true;
 				}
 			}
-		}
+		}*/
 		return false;
 	}
 	
@@ -65,14 +76,23 @@ public class ItemManager implements ControllerInterface{
 	 * @param category to add
 	 * @return if the category was added
 	 */
-	public boolean addCategory(Category category) {
-		if(category != null) {
-			int catIndex = categories.size();
-			categories.add(category);
-			items.put(catIndex, category.getItems());
+	public boolean addCategory(String categoryName) {
+		return addCategory(categoryName, Color.BLACK);
+	}
+	
+	public boolean addCategory(String categoryName, int color) {
+		
+		if(categoryName != null && !categoryName.isEmpty()) {
+			if (categories.containsKey(categoryName)){
+				return false;
+			}
+			Category newCategory= new Category(categoryName, color);
+			categories.put(categoryName, newCategory);
+			orderedCategories.add(newCategory);
 			return true;
+			
 		} else {
-			return false;
+			return false;		// Category name was null or empty, or the category already exists
 		}
 	}
 	
@@ -81,12 +101,19 @@ public class ItemManager implements ControllerInterface{
 	 * @param category to be removed
 	 * @return if the category was removed
 	 */
-	public boolean removeCategory(Category category) {
-		if(category != null) {
-			return categories.remove(category);
+	public boolean removeCategory(String categoryToRemove) {
+		/*if(categoryToRemove != null && !categoryToRemove.isEmpty()) {
+			if( categories.containsKey(categoryToRemove) ){
+				
+				
+				
+			}else{
+				return false;		IMPLEMENT LATER
+			}
 		} else {
 			return false;
-		}
+		}*/
+		return false;
 	}
 	/**
 	 * 
@@ -94,13 +121,14 @@ public class ItemManager implements ControllerInterface{
 	 * @param newName the new name to give it
 	 * @return if the item has been edited successfully. 
 	 */
-	public boolean editItem(Item item, String newName) {
-		item.editName(newName);
+	public boolean editItem(String itemName, String newItemName) {
+		/*item.editName(newName);
 		if(item.getName().equals(newName)) {
 			return true;
-		} else {
+		} else {					IMPLEMENT LATER
 			return false;
-		}
+		}*/
+		return false;
 	}
 	
 	/**
@@ -109,13 +137,14 @@ public class ItemManager implements ControllerInterface{
 	 * @param newName the new name of the category
 	 * @return if the category has been edited successfully. 
 	 */
-	public boolean editCategory(Category cat, String newName) {
-		cat.editName(newName);
+	public boolean editCategory(String categoryToEdit, String newCategoryName) {
+		/*cat.editName(newName);
 		if(cat.equals(newName)) {
 			return true;
 		} else {
-			return false;
-		}
+			return false;			IMPLEMENT LATER
+		}*/
+		return false;
 	}
 	
 	/**
@@ -138,7 +167,7 @@ public class ItemManager implements ControllerInterface{
 	public List<ListItem> getShoppingList() {
 		// TODO This shouldn't pass the full category, that's redundant
 		ArrayList<ListItem> shoppingList = new ArrayList<ListItem>();
-		for(Category c : categories){
+		for(Category c : orderedCategories){
 			shoppingList.add(c);
 			for(Item i : c.getItems()){
 				shoppingList.add(i);
@@ -147,6 +176,40 @@ public class ItemManager implements ControllerInterface{
 		return shoppingList;
 	}
 
-	
+	public void makeShoppingList(){
+		//ArrayList<ListItem> listCache = new ArrayList<ListItem>();
+		
+		String[] categoryNames = {"Dairy", "Fruit", "Vegetables", "Random"};
+		Integer[] colors = {Color.parseColor("#1515da"),  Color.parseColor("#bb0c29"), 
+							Color.parseColor("#15da1a"), Color.parseColor("#6415da")};
+		/*Item i1;
+		Item i2;
+		Item i3;*/
+		
+		int i = 0;
+		for(String cName : categoryNames){
+			/*Category curCat = new Category(cName, colors[i]);
+			i1 = new Item("foo");
+			i2 = new Item("bar");
+			i3 = new Item("fiddly");
+			listCache.add(curCat);
+			listCache.add(i1);
+			listCache.add(i2);
+			listCache.add(i3);*/
+			this.addCategory(cName, colors[i]);
+			this.addItem("foo", cName);
+			this.addItem("bar", cName);
+			this.addItem("fiddly", cName);
+			i++;
+		}
+		//ListItem[] allItems = new ListItem[listCache.size()];
+		//return listCache;
+    	
+    }
+
+	@Override
+	public List<Category> getCategories() {
+		return this.orderedCategories;
+	}
 
 }
