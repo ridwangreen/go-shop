@@ -5,6 +5,8 @@ package com.example.goshop;
 
 import java.util.ArrayList;
 
+import android.graphics.Color;
+
 /**
  * Data holder for Category name, color, and array of 
  * items
@@ -14,10 +16,18 @@ import java.util.ArrayList;
 public class Category extends ListItem{
 
 	private ArrayList<Item> items;
+	private int color;
+	
+	public Category(String name, int color){
+		super(name);
+		items = new ArrayList<Item>();
+		this.color = color;
+	}
 	
 	public Category(String name){
 		super(name);
 		items = new ArrayList<Item>();
+		this.color = Color.BLACK;
 	}
 	
 	/**
