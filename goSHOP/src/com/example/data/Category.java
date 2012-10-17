@@ -16,6 +16,8 @@ import android.graphics.Color;
  */
 public class Category extends ListItem{
 
+	public static final Category DEFAULT_CATEGORY = new Category("General", Color.BLACK);
+	
 	private ArrayList<Item> items;
 	private int color;
 	
@@ -58,11 +60,25 @@ public class Category extends ListItem{
 		return items.remove(i);
 	}
 	
+	public int getColor(){
+		return color;
+	}
+	
 	public ArrayList<Item> getItems(){
 		return items;
 	}
 	public String toString(){
 		return getName();
+	}
+	
+	public boolean equals(Object o){
+		if( o instanceof Category){
+			return ((Category) o).getName().equals(this.getName());
+		}else if(o instanceof String){
+			return o.equals(this.getName());	
+		}else{
+			return false;
+		}
 	}
 	
 }
