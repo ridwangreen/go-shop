@@ -11,16 +11,19 @@
         android:layout_height="0dp"
         android:layout_weight="2"
         android:entries="@array/category_array" />
-    
-    <ListView
+
+    <!-- <ListView
+        android:id="@+id/shopping_list"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="10"
-        android:divider="@color/list_divider"
-        android:dividerHeight="2dp"
-        android:entries="@array/category_array" >
-        
-    </ListView>
+        android:layout_weight="10" >
+    </ListView> -->
+    
+   <!--  <ListView
+        android:id="@+id/shopping_list"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+    </ListView> -->
     
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -30,6 +33,7 @@
 	    android:layout_weight="1">
 	    
 	    <EditText 
+	        android:id="@+id/quick_add_text"
 	        android:layout_width="0dp"
 	        android:layout_height="fill_parent"
 	        android:hint="@string/add_item_hint"
@@ -39,7 +43,8 @@
 	        android:layout_width="0dp"
 	        android:layout_height="fill_parent"
 	        android:layout_weight="1"
-	        android:text="@string/add_button_text"/>
+	        android:text="@string/add_button_text"
+	        android:onClick="addQuickItem"/>
 	    
     </LinearLayout>
 

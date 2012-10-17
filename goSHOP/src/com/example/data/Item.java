@@ -1,7 +1,8 @@
 /**
  * 
  */
-package com.example.goshop;
+package com.example.data;
+
 
 /**
  * Data holder for each individual shopping list item.
@@ -24,5 +25,9 @@ public class Item extends ListItem{
 		}else{
 			return false;
 		}
+	}
+	
+	public String toString(){
+		return getName();
 	}
 }

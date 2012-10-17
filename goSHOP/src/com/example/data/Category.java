@@ -1,9 +1,10 @@
 /**
  * 
  */
-package com.example.goshop;
+package com.example.data;
 
 import java.util.ArrayList;
+
 
 import android.graphics.Color;
 
@@ -59,6 +60,9 @@ public class Category extends ListItem{
 	
 	public ArrayList<Item> getItems(){
 		return items;
+	}
+	public String toString(){
+		return getName();
 	}
 	
 }
