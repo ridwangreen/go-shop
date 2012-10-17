@@ -4,20 +4,19 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.data.DataModelInterface;
 import com.example.data.ItemManager;
-import com.example.data.ListItem;
 
 
 public class GoShopActivity extends Activity {
 	
 	private ShoppingListAdapter shoppingListAdapter;
-	private ArrayAdapter categoryListAdapter;
+	private CategoryListAdapter categoryListAdapter;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,16 +44,21 @@ public class GoShopActivity extends Activity {
         getMenuInflater().inflate(R.menu.activity_go_shop, menu);
         return true;
     }
-    
+     
    public void addQuickItem(View view){
     	EditText editText = (EditText) findViewById(R.id.quick_add_text);
     	Spinner categoryList = (Spinner) findViewById(R.id.category_list);
-    	String itemName = editText.getText().toString();
-    	System.out.println(itemName);
     	
-    }
-    
-   
-    
+    	String itemName = editText.getText().toString();
+    	String categoryName = categoryList.getSelectedItem().toString();
+
+    	shoppingListAdapter.addItem(itemName, categoryName);
+    	
+    	editText.setText("");
+    	int duration = Toast.LENGTH_SHORT;
+
+    	Toast toast = Toast.makeText(this, "Item Added", duration);
+    	toast.show();
+    }    
     
 }
