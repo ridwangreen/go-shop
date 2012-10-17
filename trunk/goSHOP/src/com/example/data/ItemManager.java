@@ -1,10 +1,12 @@
 /**ItemManager.java
  * 
  */
-package com.example.goshop;
+package com.example.data;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+
 
 
 /**
@@ -15,12 +17,14 @@ import java.util.List;
  */
 public class ItemManager implements ControllerInterface{
 	protected ArrayList<Category> categories;
+	protected HashMap<Integer, ArrayList<Item>> items;		// I'm really tired right now. Idk if we'll keep this. I'm just typing.
 	
 	/**
 	 * Builds the item manager.
 	 */
 	public ItemManager() {
 		categories = new ArrayList<Category>();
+		items = new HashMap<Integer, ArrayList<Item>>();
 	}
 	
 	/**
@@ -63,7 +67,10 @@ public class ItemManager implements ControllerInterface{
 	 */
 	public boolean addCategory(Category category) {
 		if(category != null) {
-			return categories.add(category);
+			int catIndex = categories.size();
+			categories.add(category);
+			items.put(catIndex, category.getItems());
+			return true;
 		} else {
 			return false;
 		}
@@ -129,8 +136,15 @@ public class ItemManager implements ControllerInterface{
 
 	@Override
 	public List<ListItem> getShoppingList() {
-		// TODO Auto-generated method stub
-		return null;
+		// TODO This shouldn't pass the full category, that's redundant
+		ArrayList<ListItem> shoppingList = new ArrayList<ListItem>();
+		for(Category c : categories){
+			shoppingList.add(c);
+			for(Item i : c.getItems()){
+				shoppingList.add(i);
+			}
+		}
+		return shoppingList;
 	}
 
 	

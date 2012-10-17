@@ -1,4 +1,4 @@
-package com.example.goshop;
+package com.example.data;
 
 public abstract class ListItem {
 	private String name;
@@ -14,4 +14,6 @@ public abstract class ListItem {
 	public void editName(String newName) {
 		this.name = newName;
 	}
+	
+	
 }
