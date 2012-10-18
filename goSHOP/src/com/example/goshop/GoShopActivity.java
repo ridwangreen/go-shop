@@ -1,8 +1,10 @@
 package com.example.goshop;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -44,7 +46,20 @@ public class GoShopActivity extends Activity {
         getMenuInflater().inflate(R.menu.activity_go_shop, menu);
         return true;
     }
-     
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.addCategory1:
+            	Intent intent = new Intent(this, AddCategoryActivity.class);
+            	startActivity(intent);
+            	
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
    public void addQuickItem(View view){
     	EditText editText = (EditText) findViewById(R.id.quick_add_text);
     	Spinner categoryList = (Spinner) findViewById(R.id.category_list);
