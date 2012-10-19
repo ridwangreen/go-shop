@@ -10,7 +10,8 @@
         android:layout_column="0"
         android:layout_gravity="right"
         android:layout_row="1"
-        android:text="Add Category" />
+        android:text="Add Category" 
+        android:onClick="addCategory"/>
 
     <EditText
         android:id="@+id/editText1"
