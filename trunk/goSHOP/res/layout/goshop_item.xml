@@ -22,8 +22,8 @@
    <Button
        android:id="@+id/item_delete_button"
        android:layout_width="33dp"
-       android:onClick="deleteItem"
        android:layout_height="36dp"
-       android:background="@drawable/ic_menu_delete" />
+       android:background="@drawable/ic_menu_delete"
+       android:onClick="removeQuickItem" />
     
 </LinearLayout>
