@@ -1,12 +1,10 @@
 package com.example.goshop;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -78,7 +76,9 @@ public class ShoppingListAdapter extends ArrayAdapter<ListItem>{
 	}
 	
 	public boolean addCategory(String categoryName, int color){
-		return data.addCategory(categoryName, color);
+		boolean bool = data.addCategory(categoryName, color);
+		refreshData();
+		return bool;
 	}
 	
 	public boolean isSelectedListItemCategory(int index){
