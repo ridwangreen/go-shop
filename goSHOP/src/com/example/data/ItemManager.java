@@ -32,7 +32,7 @@ public class ItemManager implements DataModelInterface{
 		orderedCategories = new ArrayList<Category>();
 		nestedData = new LinkedList<ArrayList<ListItem>>();
 		
-		addCategory("Default");
+		//addCategory("Default");
 		
 		buildFromXML();
 		
