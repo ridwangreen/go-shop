@@ -82,7 +82,7 @@ public class ShoppingListAdapter extends ArrayAdapter<ListItem>{
 	}
 	
 	public boolean isSelectedListItemCategory(int index){
-		if(index >= shoppingList.size()) {
+		if(index > shoppingList.size()) {
 			return false;
 		}else {
 			ListItem selected = shoppingList.get(index);
@@ -97,11 +97,25 @@ public class ShoppingListAdapter extends ArrayAdapter<ListItem>{
 		super.notifyDataSetChanged();
 	}
 
-	public boolean removeItem(String name){
+	public boolean removeItem(String name) {
 		boolean bool = data.removeItem(name, null);
 		refreshData();
 		return bool;
 	}
+	
+	public boolean removeCategory(String name) {
+		for(int i =0; i < data.getNestedData().size(); i++) {
+			if(data.getNestedData().get(i).get(0).getName().equals(name)) {
+				data.getNestedData().remove(i);
+				
+				refreshData();
+				return true;
+			}
+		}
+		refreshData();
+		return false;
+	}
+	
 	/**
 	 * If the flatIndex 	is for an item, will return its parent's category index.
 	 * If the flatIndex 	is for a Category, will return the category index.

@@ -54,5 +54,20 @@ public class CategoryListAdapter extends ArrayAdapter<Category>{
 		this.add(category);
 		this.categories.add(category);
 	}
+	
+	public void removeCategory(Category category) {
+		this.remove(category);
+		this.categories.remove(category);
+	}
+	
+	public void removeCategory(String name) {
+		for(int i = 0; i < categories.size(); i++ ) {
+			if(categories.get(i).getName().equals(name)) {
+				Category cat = categories.remove(i);
+				this.remove(cat);
+				return;
+			}
+		}
+	}
 
 }

@@ -21,6 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name="AddCategoryActivity"></activity>
+        <activity android:name="RemoveCategoryActivity"></activity>
     </application>
 
 </manifest>
