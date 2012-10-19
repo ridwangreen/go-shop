@@ -46,6 +46,7 @@ public class CategoryListAdapter extends ArrayAdapter<Category>{
 	    Category curCategory = categories.get(position);
 	    textView.setText(curCategory.getName());
 	    textView.setTextColor(curCategory.getColor());
+	    textView.setTextSize(36);
 	    
 	    return rowView;
 	}
