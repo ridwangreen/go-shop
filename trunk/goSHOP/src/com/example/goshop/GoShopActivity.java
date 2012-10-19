@@ -21,8 +21,11 @@ import com.example.data.ItemManager;
 
 public class GoShopActivity extends Activity {
 	private static int ADD_CATEGORY_REQUEST_CODE = 12354;
+	private static int REMOVE_CATEGORY_REQUEST_CODE = 123456789;
+	public static String DATA_MODEL = "datamodeler";
 	private ShoppingListAdapter shoppingListAdapter;
 	private CategoryListAdapter categoryListAdapter;
+	public static DataModelInterface data;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,7 +35,7 @@ public class GoShopActivity extends Activity {
        ListView shoppingList = (ListView) findViewById(R.id.shopping_list_view);
        Spinner categoryList = (Spinner) findViewById(R.id.category_list);
               
-       DataModelInterface data = new ItemManager();
+       data = new ItemManager();
        
        shoppingListAdapter = new ShoppingListAdapter(this, data);
        categoryListAdapter = new CategoryListAdapter(this, data);
@@ -81,8 +84,11 @@ public class GoShopActivity extends Activity {
             case R.id.addCategory1:
             	Intent intent = new Intent(this, AddCategoryActivity.class);
             	startActivityForResult(intent, ADD_CATEGORY_REQUEST_CODE);
-            	
                 return true;
+            case R.id.removeCategory:
+            	Intent intent1 = new Intent(this, RemoveCategoryActivity.class);
+            	startActivityForResult(intent1, REMOVE_CATEGORY_REQUEST_CODE);
+            	return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -99,6 +105,14 @@ public class GoShopActivity extends Activity {
         	categoryListAdapter.addCategory(new Category(newCategoryName, Color.BLACK));
         	
         	Toast toast = Toast.makeText(this, "Category Added", Toast.LENGTH_SHORT);
+        	toast.show();
+
+        } else if (resultCode == RESULT_OK && requestCode == REMOVE_CATEGORY_REQUEST_CODE) {
+        	String toRemove = data.getStringExtra(RemoveCategoryActivity.REMOVE_CATEGORY_ID);
+        	shoppingListAdapter.removeCategory(toRemove);
+        	categoryListAdapter.removeCategory(toRemove);
+        	
+        	Toast toast = Toast.makeText(this, "Category Removed", Toast.LENGTH_SHORT);
         	toast.show();
 
         }

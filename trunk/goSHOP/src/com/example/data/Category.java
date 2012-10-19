@@ -20,6 +20,7 @@ public class Category extends ListItem{
 	public Category(String name, int color){
 		super(name);
 		this.color = color;
+		this.setCategory(true);
 	}
 	
 	public Category(String name){

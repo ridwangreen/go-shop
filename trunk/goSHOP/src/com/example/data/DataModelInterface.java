@@ -3,6 +3,8 @@
  */
 package com.example.data;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -79,5 +81,5 @@ public interface DataModelInterface {
 	
 	public int getCategoryIndex(String categoryName);
 	
-	
+	public LinkedList<ArrayList<ListItem>> getNestedData();
 }
