@@ -97,8 +97,6 @@ public class GoShopActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        System.out.println("Resulting Activities");
-    	// If the request went well (OK) and the request was PICK_CONTACT_REQUEST
         if (resultCode == RESULT_OK && requestCode == ADD_CATEGORY_REQUEST_CODE) {
         	String newCategoryName = data.getStringExtra(AddCategoryActivity.ADDED_CATEGORY_ID);
         	shoppingListAdapter.addCategory(newCategoryName, Color.BLACK);
