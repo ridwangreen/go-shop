@@ -123,9 +123,9 @@ public class GoShopActivity extends Activity {
     	Spinner categoryList = (Spinner) findViewById(R.id.category_list);
     	
     	String itemName = editText.getText().toString();
-    	String categoryName = categoryList.getSelectedItem().toString();
+    	Object categoryName = categoryList.getSelectedItem();
 
-    	shoppingListAdapter.addItem(itemName, categoryName);
+    	shoppingListAdapter.addItem(itemName, categoryName.toString());
     	
     	editText.setText("");
     	int duration = Toast.LENGTH_SHORT;
