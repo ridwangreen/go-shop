@@ -190,7 +190,7 @@ public class ItemManager implements DataModelInterface{
 	 * @return if the list was built successfully
 	 */
 	public boolean buildFromXML() {
-		makeShoppingList();
+		//makeShoppingList();	//TODO If we need test cases uncomment this
 		return false;
 	}
 
