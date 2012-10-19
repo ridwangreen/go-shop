@@ -77,7 +77,7 @@ public interface DataModelInterface {
 	
 	public List<Category> getCategories();
 	
-	// TODO: REMOVE THIS, USED FOR TESTING
-	public void makeShoppingList();
+	public int getCategoryIndex(String categoryName);
+	
 	
 }

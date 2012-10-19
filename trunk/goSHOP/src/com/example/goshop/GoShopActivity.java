@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -31,11 +33,34 @@ public class GoShopActivity extends Activity {
        Spinner categoryList = (Spinner) findViewById(R.id.category_list);
        
        DataModelInterface data = new ItemManager();
-       data.makeShoppingList();
        
        shoppingListAdapter = new ShoppingListAdapter(this, data);
        categoryListAdapter = new CategoryListAdapter(this, data);
        
+       
+       // TODO this shit doesn't work.
+       shoppingList.setOnItemClickListener(new OnItemClickListener() {
+    	      public void onItemClick(AdapterView<?> myAdapter, View myView, int position, long mylng) {
+    	    	  
+				  ListView shoppingList = (ListView) findViewById(R.id.shopping_list_view);
+			   
+			   	  int itemIndex = shoppingList.getSelectedItemPosition();
+			   	   
+			   	  // On Category selection
+			   	  if( shoppingListAdapter.isSelectedListItemCategory(itemIndex)){
+				   
+			   		  Spinner categoryList = (Spinner) findViewById(R.id.category_list);
+				   
+			   		  // I need to find the category by FLAT LIST index!!!!
+			   		  int catIndex = shoppingListAdapter.getCategoryIndexFromFlatIndex(itemIndex);
+				   
+			   		  categoryList.setSelection(catIndex);
+				   
+				   }else{
+					  return;  // On item selection
+				   }
+    	      }                 
+    	});
        
        shoppingList.setAdapter(shoppingListAdapter);
        categoryList.setAdapter(categoryListAdapter);
@@ -91,5 +116,9 @@ public class GoShopActivity extends Activity {
     	Toast toast = Toast.makeText(this, "Item Added", duration);
     	toast.show();
     }    
+   
+   public void deleteItem(View view){
+	   
+   }
     
 }
