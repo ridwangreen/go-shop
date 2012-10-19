@@ -124,14 +124,19 @@ public class GoShopActivity extends Activity {
     	
     	String itemName = editText.getText().toString();
     	Object categoryName = categoryList.getSelectedItem();
-
-    	shoppingListAdapter.addItem(itemName, categoryName.toString());
-    	
-    	editText.setText("");
-    	int duration = Toast.LENGTH_SHORT;
-
-    	Toast toast = Toast.makeText(this, "Item Added", duration);
-    	toast.show();
+    	if(categoryName == null) {
+	    	Toast butter = Toast.makeText(this, "Could not add Item, no category found.", Toast.LENGTH_LONG);
+	    	butter.show();
+    	} else {
+	    	
+	    	shoppingListAdapter.addItem(itemName, categoryName.toString());
+	    	
+	    	editText.setText("");
+	    	int duration = Toast.LENGTH_SHORT;
+	
+	    	Toast toast = Toast.makeText(this, "Item Added", duration);
+	    	toast.show();
+    	}
     }   
    
    public void removeQuickItem(View view) {
