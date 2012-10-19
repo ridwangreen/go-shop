@@ -4,7 +4,7 @@
 package com.example.data;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 import android.graphics.Color;
@@ -18,15 +18,22 @@ import android.graphics.Color;
  *
  */
 public class ItemManager implements DataModelInterface{
-	protected HashMap<String, Category> categories;
-	protected ArrayList<Category> orderedCategories;
+	
+	private final int NESTED_CAT_INDEX = 0;		// Categories will always be at index 0 in the nested data
+	private final String DEFAULT_CAT_NAME = "Default";
+	
+	protected List<Category> orderedCategories;
+	private LinkedList<ArrayList<ListItem>> nestedData;
 	
 	/**
 	 * Builds the item manager.
 	 */
 	public ItemManager() {
-		categories = new HashMap<String, Category>();
 		orderedCategories = new ArrayList<Category>();
+		nestedData = new LinkedList<ArrayList<ListItem>>();
+		
+		buildFromXML();
+		
 	}
 	
 	/**
@@ -38,14 +45,20 @@ public class ItemManager implements DataModelInterface{
 	public boolean addItem(String itemName, String categoryToAdd) {
 		if(itemName != null && !itemName.isEmpty() && categoryToAdd != null && !categoryToAdd.isEmpty()) {
 			
-			Category cat = categories.get(categoryToAdd);	// Find concrete category to add to
+			int categoryIndex = getCategoryIndex(categoryToAdd);
 			
-			if( cat == null ){		// Category does not exist
-				return false;
+			if( categoryIndex < 0 ){ // Category was not found, add to default
+				return addToDefault(itemName);
+		
+			}else{
+				
+				// Find the category list and add to it
+				ArrayList<ListItem> category = nestedData.get(categoryIndex);
+				return category.add(new Item(itemName));
 			}
 			
-			return cat.addItem(new Item(itemName));
 		} 
+		
 		return false;	// Either the item name or the category ID was null or empty
 	}
 	
@@ -83,17 +96,30 @@ public class ItemManager implements DataModelInterface{
 	public boolean addCategory(String categoryName, int color) {
 		
 		if(categoryName != null && !categoryName.isEmpty()) {
-			if (categories.containsKey(categoryName)){
+		
+			// If the category already exists, return false
+			if (getCategoryIndex(categoryName) >= 0){
 				return false;
 			}
+			
+			// Create the new Category object
 			Category newCategory= new Category(categoryName, color);
-			categories.put(categoryName, newCategory);
-			orderedCategories.add(newCategory);
+			
+			// Create the nested list, with the new Category as the head
+			ArrayList<ListItem> newCategoryList = new ArrayList<ListItem>();
+			newCategoryList.add(newCategory);
+			
+			// add the new nested list to the nested data
+			nestedData.add(newCategoryList);
+			
+			// Rebuild the ordered category list
+			buildOrderedCategories();
 			return true;
 			
 		} else {
 			return false;		// Category name was null or empty, or the category already exists
 		}
+		
 	}
 	
 	/**
@@ -102,6 +128,7 @@ public class ItemManager implements DataModelInterface{
 	 * @return if the category was removed
 	 */
 	public boolean removeCategory(String categoryToRemove) {
+		buildOrderedCategories();
 		/*if(categoryToRemove != null && !categoryToRemove.isEmpty()) {
 			if( categories.containsKey(categoryToRemove) ){
 				
@@ -138,6 +165,7 @@ public class ItemManager implements DataModelInterface{
 	 * @return if the category has been edited successfully. 
 	 */
 	public boolean editCategory(String categoryToEdit, String newCategoryName) {
+		buildOrderedCategories();
 		/*cat.editName(newName);
 		if(cat.equals(newName)) {
 			return true;
@@ -160,6 +188,7 @@ public class ItemManager implements DataModelInterface{
 	 * @return if the list was built successfully
 	 */
 	public boolean buildFromXML() {
+		makeShoppingList();
 		return false;
 	}
 
@@ -167,12 +196,11 @@ public class ItemManager implements DataModelInterface{
 	public List<ListItem> getShoppingList() {
 		// TODO This shouldn't pass the full category, that's redundant
 		ArrayList<ListItem> shoppingList = new ArrayList<ListItem>();
-		for(Category c : orderedCategories){
-			shoppingList.add(c);
-			for(Item i : c.getItems()){
-				shoppingList.add(i);
-			}
+		
+		for(ArrayList<ListItem> category : nestedData){
+			shoppingList.addAll(category);
 		}
+		
 		return shoppingList;
 	}
 
@@ -200,8 +228,10 @@ public class ItemManager implements DataModelInterface{
 			this.addItem("foo", cName);
 			this.addItem("bar", cName);
 			this.addItem("fiddly", cName);
+			System.out.println(nestedData);
 			i++;
 		}
+	
 		//ListItem[] allItems = new ListItem[listCache.size()];
 		//return listCache;
     	
@@ -210,6 +240,68 @@ public class ItemManager implements DataModelInterface{
 	@Override
 	public List<Category> getCategories() {
 		return this.orderedCategories;
+	}
+	
+	/**
+	 * Takes the category from each 'Category' list in the nested data
+	 * (the Category object is always the head element in each nested category list,
+	 * so retrieval is always O(1)) and puts it into a list that reflects the index
+	 * of the category list in the nested data
+	 */
+	private void buildOrderedCategories(){
+		List<Category> categories = new ArrayList<Category>();
+		
+		for (ArrayList<ListItem> catList : nestedData){
+			categories.add((Category) catList.get(NESTED_CAT_INDEX));
+		}
+		
+		orderedCategories = categories;
+	}
+	
+	public int getCategoryIndex(String categoryName){
+		
+		int catIndex = 0;
+		for(ArrayList<ListItem> cats : nestedData){
+			if(cats.get(NESTED_CAT_INDEX).getName().equals(categoryName)){
+				return catIndex;
+			}
+			catIndex++;
+		}
+		
+		return -1;
+	}
+	
+	private boolean addToDefault(String itemName){
+		ArrayList<ListItem> defaultList;
+		boolean rebuildCategories = false;
+		
+		// check if the default category already exists. If not, make it
+		if ( nestedData.peek().get(NESTED_CAT_INDEX).getName().equals(DEFAULT_CAT_NAME)){
+			defaultList = nestedData.peek();
+			
+		}else{
+			
+			// Create the default list with head category, and add it to the
+			// front of the nested data
+			defaultList = new ArrayList<ListItem>();
+			Category defaultCategory = new Category(DEFAULT_CAT_NAME, Color.BLACK);
+			defaultList.add(defaultCategory);
+			nestedData.addFirst(defaultList);
+			rebuildCategories = true;
+		}
+		
+		// Add the new item to the default list. If the default list
+		// had to be created, rebuild the category list
+		defaultList.add(new Item(itemName));
+		if ( rebuildCategories ){
+			buildOrderedCategories();
+		}
+		
+		return true;
+	}
+	
+	private boolean removeFromDefault(String itemName){
+		return false;
 	}
 
 }

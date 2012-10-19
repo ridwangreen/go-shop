@@ -1,5 +1,6 @@
 package com.example.goshop;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
@@ -67,6 +68,11 @@ public class ShoppingListAdapter extends ArrayAdapter<ListItem>{
 		return data.addCategory(categoryName, color);
 	}
 	
+	public boolean isSelectedListItemCategory(int index){
+		ListItem selected = shoppingList.get(index);
+		
+		return (selected instanceof Category);
+	}
 	
 	private void refreshData(){
 		shoppingList = data.getShoppingList();
@@ -75,5 +81,31 @@ public class ShoppingListAdapter extends ArrayAdapter<ListItem>{
 		super.notifyDataSetChanged();
 	}
 
+	/**
+	 * If the flatIndex 	is for an item, will return its parent's category index.
+	 * If the flatIndex 	is for a Category, will return the category index.
+	 * @param flatIndex 	index for the item in the flat listItem array
+	 * @return				Category index
+	 */
+	public int getCategoryIndexFromFlatIndex(int flatIndex){
+		
+		ListItem listItem = shoppingList.get(flatIndex);
+		
+		if( listItem instanceof Category){
+			
+			return data.getCategoryIndex(listItem.getName());
+			
+		}else{
+			flatIndex--;
+			while( flatIndex >= 0){
+				listItem = shoppingList.get(flatIndex);
+				if( listItem instanceof Category){
+					return data.getCategoryIndex(listItem.getName());
+				}
+			}
+			// ERROR there was, for some reason, no parent category
+			return 0;
+		}
+	}
 	
 }
