@@ -81,7 +81,7 @@ public class ShoppingListAdapter extends ArrayAdapter<ListItem>{
 	}
 	
 	public boolean isSelectedListItemCategory(int index){
-		if(index > shoppingList.size()) {
+		if(index > shoppingList.size() || index < 0) {
 			return false;
 		}else {
 			ListItem selected = shoppingList.get(index);
