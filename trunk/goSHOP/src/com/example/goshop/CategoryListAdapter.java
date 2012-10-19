@@ -22,7 +22,6 @@ import com.example.data.DataModelInterface;
 public class CategoryListAdapter extends ArrayAdapter<Category>{
 
 	private Context context;
-	private DataModelInterface data;
 	private List<Category> categories;
 	
 	public CategoryListAdapter(Context context, DataModelInterface data) {

@@ -70,7 +70,6 @@ public class ShoppingListAdapter extends ArrayAdapter<ListItem>{
 	}
 	
 	public void addItem(String newItem, String curCategory){
-		
 		data.addItem(newItem, curCategory);
 		refreshData();
 	}
