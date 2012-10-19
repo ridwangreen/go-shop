@@ -304,10 +304,6 @@ public class ItemManager implements DataModelInterface{
 		return true;
 	}
 	
-	private boolean removeFromDefault(String itemName){
-		return false;
-	}
-	
 	public LinkedList<ArrayList<ListItem>> getNestedData() {
 		return nestedData;
 	}
