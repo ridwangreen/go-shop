@@ -12,12 +12,12 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.data.Category;
 import com.example.data.DataModelInterface;
 import com.example.data.ItemManager;
-
 
 public class GoShopActivity extends Activity {
 	private static int ADD_CATEGORY_REQUEST_CODE = 12354;
@@ -31,7 +31,7 @@ public class GoShopActivity extends Activity {
 	   
        ListView shoppingList = (ListView) findViewById(R.id.shopping_list_view);
        Spinner categoryList = (Spinner) findViewById(R.id.category_list);
-       
+              
        DataModelInterface data = new ItemManager();
        
        shoppingListAdapter = new ShoppingListAdapter(this, data);
@@ -64,7 +64,7 @@ public class GoShopActivity extends Activity {
        
        shoppingList.setAdapter(shoppingListAdapter);
        categoryList.setAdapter(categoryListAdapter);
-
+      
     }
     
 
@@ -96,7 +96,10 @@ public class GoShopActivity extends Activity {
         if (resultCode == RESULT_OK && requestCode == ADD_CATEGORY_REQUEST_CODE) {
         	String newCategoryName = data.getStringExtra(AddCategoryActivity.ADDED_CATEGORY_ID);
         	shoppingListAdapter.addCategory(newCategoryName, Color.BLACK);
-        	categoryListAdapter.add(new Category(newCategoryName, Color.BLACK));
+        	categoryListAdapter.addCategory(new Category(newCategoryName, Color.BLACK));
+        	
+        	Toast toast = Toast.makeText(this, "Category Added", Toast.LENGTH_SHORT);
+        	toast.show();
 
         }
     }
@@ -115,7 +118,17 @@ public class GoShopActivity extends Activity {
 
     	Toast toast = Toast.makeText(this, "Item Added", duration);
     	toast.show();
-    }    
+    }   
+   
+   public void removeQuickItem(View view) {
+	   TextView stringToRemove = (TextView) findViewById(R.id.item_name);
+	  
+	   System.out.println(stringToRemove.getText());
+	   System.out.println(findViewById(R.id.item_delete_button));
+	   System.out.println(view.getTag());
+	   shoppingListAdapter.removeItem(view.getTag().toString());
+	   System.out.println(view.getResources());
+   }
    
    public void deleteItem(View view){
 	   

@@ -50,6 +50,9 @@ public class CategoryListAdapter extends ArrayAdapter<Category>{
 	    
 	    return rowView;
 	}
-	
+	public void addCategory(Category category) {
+		this.add(category);
+		this.categories.add(category);
+	}
 
 }

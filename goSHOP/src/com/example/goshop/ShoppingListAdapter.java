@@ -6,6 +6,7 @@ import java.util.List;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -42,11 +43,23 @@ public class ShoppingListAdapter extends ArrayAdapter<ListItem>{
 	    
 	    TextView textView = (TextView) rowView.findViewById(R.id.item_name);
 	    textView.setText(listItem.getName());
-	    
+	    Button deleteButton = (Button) rowView.findViewById(R.id.item_delete_button);
+    	
+	    deleteButton.setTag(textView.getText());
+    	/*deleteButton.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				System.out.println(this);
+				System.out.println(v.getResources());
+				System.out.println();
+				
+			}
+    		
+    	}); */
 	    if(shoppingList.get(position) instanceof Category){
 	    	Category curCategory = (Category) listItem;
 	    	CheckBox checkbox = (CheckBox) rowView.findViewById(R.id.item_checkbox);
-	    	Button deleteButton = (Button) rowView.findViewById(R.id.item_delete_button);
 	    	
 	    	checkbox.setVisibility(View.GONE);
 	    	deleteButton.setVisibility(View.GONE);
@@ -69,9 +82,12 @@ public class ShoppingListAdapter extends ArrayAdapter<ListItem>{
 	}
 	
 	public boolean isSelectedListItemCategory(int index){
-		ListItem selected = shoppingList.get(index);
-		
-		return (selected instanceof Category);
+		if(index >= shoppingList.size()) {
+			return false;
+		}else {
+			ListItem selected = shoppingList.get(index);
+			return (selected instanceof Category);
+		}
 	}
 	
 	private void refreshData(){
@@ -81,6 +97,11 @@ public class ShoppingListAdapter extends ArrayAdapter<ListItem>{
 		super.notifyDataSetChanged();
 	}
 
+	public boolean removeItem(String name){
+		boolean bool = data.removeItem(name, null);
+		refreshData();
+		return bool;
+	}
 	/**
 	 * If the flatIndex 	is for an item, will return its parent's category index.
 	 * If the flatIndex 	is for a Category, will return the category index.

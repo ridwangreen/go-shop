@@ -71,17 +71,19 @@ public class ItemManager implements DataModelInterface{
 	 */
 	@Override
 	public boolean removeItem(String itemName, String categoryToRemoveFrom) {
-		/*if(removeFrom != null) {
-			return removeFrom.remove(item);
-		} else {
-			for(Category cat : categories) {
-				if(cat.contains(item)) {				IMPLEMENT LATER
-					cat.remove(item);
-					return true;
+		if(categoryToRemoveFrom != null) {
+			return false;
+		}else {
+			for(int i = 0; i < nestedData.size(); i++ ) {
+				for(int j = 0; j< nestedData.get(i).size(); j++ ) {
+					if(nestedData.get(i).get(j).getName().equals(itemName)) {
+						nestedData.get(i).remove(j);
+						return true;
+					}
 				}
 			}
-		}*/
-		return false;
+			return false;
+		}
 	}
 	
 	/**
