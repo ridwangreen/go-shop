@@ -29,8 +29,13 @@ public class RemoveCategoryActivity extends Activity {
 		 Spinner spinner = (Spinner) findViewById(R.id.category_list);
 		 System.out.println(spinner.getSelectedItem());
 		 Intent intent = getIntent();
-		 intent.putExtra(REMOVE_CATEGORY_ID, spinner.getSelectedItem().toString());
-		 setResult(RESULT_OK, intent);
-		 finish();
+		 if(spinner.getSelectedItem() == null) {
+			 setResult(RESULT_CANCELED);
+			 finish();
+		 } else {
+			 intent.putExtra(REMOVE_CATEGORY_ID, spinner.getSelectedItem().toString());
+			 setResult(RESULT_OK, intent);
+			 finish();
+		 }
 	 }
 }
