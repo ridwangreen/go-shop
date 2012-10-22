@@ -98,9 +98,11 @@ public class GoShopActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == ADD_CATEGORY_REQUEST_CODE) {
+        	
         	String newCategoryName = data.getStringExtra(AddCategoryActivity.ADDED_CATEGORY_ID);
-        	shoppingListAdapter.addCategory(newCategoryName, Color.BLACK);
-        	categoryListAdapter.addCategory(new Category(newCategoryName, Color.BLACK));
+        	int color = ShoppingListAdapter.getRandomColor();
+        	shoppingListAdapter.addCategory(newCategoryName, color);
+        	categoryListAdapter.addCategory(new Category(newCategoryName, color));
         	
         	Toast toast = Toast.makeText(this, "Category Added", Toast.LENGTH_SHORT);
         	toast.show();
@@ -122,6 +124,8 @@ public class GoShopActivity extends Activity {
     	
     	String itemName = editText.getText().toString();
     	Object categoryName = categoryList.getSelectedItem();
+    	
+    	//TODO It's technically fine if the category name is null, just add it to default
     	if(categoryName == null) {
 	    	Toast butter = Toast.makeText(this, "Could not add Item, no category found.", Toast.LENGTH_LONG);
 	    	butter.show();
@@ -140,15 +144,11 @@ public class GoShopActivity extends Activity {
    public void removeQuickItem(View view) {
 	   TextView stringToRemove = (TextView) findViewById(R.id.item_name);
 	  
-	   System.out.println(stringToRemove.getText());
+	   System.out.println("Deleting item" + stringToRemove.getText());
 	   System.out.println(findViewById(R.id.item_delete_button));
 	   System.out.println(view.getTag());
 	   shoppingListAdapter.removeItem(view.getTag().toString());
 	   System.out.println(view.getResources());
-   }
-   
-   public void deleteItem(View view){
-	   
    }
     
 }

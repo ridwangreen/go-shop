@@ -1,8 +1,10 @@
 package com.example.goshop;
 
 import java.util.List;
+import java.util.Random;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,12 +23,22 @@ public class ShoppingListAdapter extends ArrayAdapter<ListItem>{
 	private Context context;
 	private List<ListItem> shoppingList;
 	
+	// Used for testing
+	private static final Random randomGen = new Random();		
+	private static final Integer[] colors = {Color.parseColor("#1515da"),  Color.parseColor("#bb0c29"), 
+			Color.parseColor("#15da1a"), Color.parseColor("#6415da")};
+	
 	public ShoppingListAdapter(Context context, DataModelInterface data){
 		super(context, R.layout.goshop_item);
 		this.data = data;
 		this.context = context;
 		shoppingList = data.getShoppingList();
 		super.addAll(shoppingList);
+	}
+	
+	public static int getRandomColor(){
+		int rando = randomGen.nextInt(colors.length + 1);
+		return colors[rando];
 	}
 	
 	@Override
