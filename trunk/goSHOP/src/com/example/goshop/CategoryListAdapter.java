@@ -50,6 +50,12 @@ public class CategoryListAdapter extends ArrayAdapter<Category>{
 	    
 	    return rowView;
 	}
+	
+	@Override
+	public View getDropDownView(int position, View convertView, ViewGroup parent){
+		return getView(position, convertView, parent);
+	}
+	
 	public void addCategory(Category category) {
 		this.add(category);
 		this.categories.add(category);
