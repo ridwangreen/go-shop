@@ -4,37 +4,38 @@
     android:layout_height="match_parent"
     android:columnCount="1" 
     android:orientation="vertical">
-
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="@string/text_add_category" />
-
+        android:text="@string/text_add_category"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
  
-    <LinearLayout 
-        android:orientation="horizontal">
-        
-        <Button
-        android:id="@+id/button1"
-        android:layout_width="112dp"
-        android:layout_column="0"
-        android:layout_gravity="right"
-        android:layout_row="1"
-        android:onClick="addCategory"
-        android:text="Add Category" />
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
 
-    	<EditText
-	        android:id="@+id/editText1"
-	        android:layout_column="0"
-	        android:layout_gravity="left"
-	        android:layout_row="1"
-	        android:ems="10" >
-	
-	        <requestFocus />
-    	</EditText>
-        
-    </LinearLayout>
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:onClick="addCategory"
+            android:text="@string/text_add_category" />
+
+        <AutoCompleteTextView
+            android:id="@+id/editText1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/button1"
+            android:layout_alignBottom="@+id/button1"
+            android:layout_toLeftOf="@+id/button1"
+            android:ems="10" />
+
+    </RelativeLayout>
 	
 
 
