@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.example.data.Category;
 import com.example.data.DataModelInterface;
+import com.example.data.ItemManager;
 import com.example.data.ListItem;
 
 public class ShoppingListAdapter extends ArrayAdapter<ListItem>{
@@ -159,4 +160,12 @@ public class ShoppingListAdapter extends ArrayAdapter<ListItem>{
 		}
 	}
 	
+	public void save(Context ctx){
+		data.save(ctx);
+	}
+	
+	//TODO Delete after testing
+	public void load(Context ctx) {
+		((ItemManager) data).buildFromXML(ctx);
+	}
 }

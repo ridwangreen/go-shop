@@ -34,7 +34,7 @@ public class GoShopActivity extends Activity {
        ListView shoppingList = (ListView) findViewById(R.id.shopping_list_view);
        Spinner categoryList = (Spinner) findViewById(R.id.category_list);
               
-       DataModelInterface data = new ItemManager();
+       DataModelInterface data = new ItemManager(getApplicationContext());
        
        shoppingListAdapter = new ShoppingListAdapter(this, data);
        categoryListAdapter = new CategoryListAdapter(this, data);
@@ -67,6 +67,18 @@ public class GoShopActivity extends Activity {
        shoppingList.setAdapter(shoppingListAdapter);
        categoryList.setAdapter(categoryListAdapter);
       
+    }
+    
+    @Override
+    public void onPause() {
+    	super.onPause();
+    	shoppingListAdapter.save(getApplicationContext());
+    }
+    
+    @Override
+    public void onResume() {
+    	super.onResume();
+    	shoppingListAdapter.load(getApplicationContext());
     }
     
 
