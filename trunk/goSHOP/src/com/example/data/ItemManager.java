@@ -132,18 +132,18 @@ public class ItemManager implements DataModelInterface{
 	 * @return if the category was removed
 	 */
 	public boolean removeCategory(String categoryToRemove) {
-		buildOrderedCategories();
-		/*if(categoryToRemove != null && !categoryToRemove.isEmpty()) {
-			if( categories.containsKey(categoryToRemove) ){
-				
-				
-				
-			}else{
-				return false;		IMPLEMENT LATER
+		
+		for(int catListIndex = 0; catListIndex < nestedData.size(); catListIndex++ ) {
+			List<ListItem> categoryList = nestedData.get(catListIndex);
+			
+			// If a category is found that matches the category to remove
+			if(categoryList.get(NESTED_CAT_INDEX).getName().equals(categoryToRemove)){
+				nestedData.remove(catListIndex);
+				buildOrderedCategories();
+				return true;
 			}
-		} else {
-			return false;
-		}*/
+		}
+		
 		return false;
 	}
 	/**
@@ -308,6 +308,32 @@ public class ItemManager implements DataModelInterface{
 		return nestedData;
 	}
 
+	@Override
+	public List<ListItem> findCategoryList(String name) {
+		if(name == null || name.isEmpty()){
+			name = DEFAULT_CAT_NAME;
+		}
+		
+		int catIndex = getCategoryIndex(name);
+		return nestedData.get(catIndex);
+	}
+	
+	public void moveAllItemsToCategory(String categoryToPullFrom, String categoryToGoTo){
+		List<ListItem> fromCategory = findCategoryList(categoryToPullFrom);
+		List<ListItem> toCategory = findCategoryList(categoryToGoTo);
+		
+		for( ListItem item : fromCategory){
+			if(item instanceof Item){
+				toCategory.add(item);
+			}
+		}
+		
+		Category fromCatObject = (Category) fromCategory.get(NESTED_CAT_INDEX);
+		fromCategory = new ArrayList<ListItem>();
+		fromCategory.add(fromCatObject);
+		
+	}
+	
 	@Override
 	public void clearList() {
 		// TODO Auto-generated method stub
