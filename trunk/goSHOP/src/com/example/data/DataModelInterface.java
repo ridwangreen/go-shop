@@ -82,4 +82,6 @@ public interface DataModelInterface {
 	public int getCategoryIndex(String categoryName);
 	
 	public LinkedList<ArrayList<ListItem>> getNestedData();
+	
+	public void clearList();
 }

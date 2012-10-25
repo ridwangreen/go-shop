@@ -16,8 +16,8 @@ public class RemoveCategoryActivity extends Activity {
 		 
 		 Spinner categoryList = (Spinner) findViewById(R.id.category_list);
 		 
-		 categoryListAdapter = new CategoryListAdapter(this, GoShopActivity.data);
-		 categoryList.setAdapter(categoryListAdapter);
+		 /*categoryListAdapter = new CategoryListAdapter(this, GoShopActivity.data);
+		 categoryList.setAdapter(categoryListAdapter);*/
 	 }
 	 @Override 
 	 public void onPause() {

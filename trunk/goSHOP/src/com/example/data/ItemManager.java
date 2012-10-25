@@ -308,4 +308,13 @@ public class ItemManager implements DataModelInterface{
 		return nestedData;
 	}
 
+	@Override
+	public void clearList() {
+		// TODO Auto-generated method stub
+		orderedCategories = new ArrayList<Category>();
+		nestedData = new LinkedList<ArrayList<ListItem>>();
+		
+		addCategory("Default");
+	}
+
 }

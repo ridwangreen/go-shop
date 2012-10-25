@@ -25,7 +25,6 @@ public class GoShopActivity extends Activity {
 	public static String DATA_MODEL = "datamodeler";
 	private ShoppingListAdapter shoppingListAdapter;
 	private CategoryListAdapter categoryListAdapter;
-	public static DataModelInterface data;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,7 +34,7 @@ public class GoShopActivity extends Activity {
        ListView shoppingList = (ListView) findViewById(R.id.shopping_list_view);
        Spinner categoryList = (Spinner) findViewById(R.id.category_list);
               
-       data = new ItemManager();
+       DataModelInterface data = new ItemManager();
        
        shoppingListAdapter = new ShoppingListAdapter(this, data);
        categoryListAdapter = new CategoryListAdapter(this, data);
@@ -89,6 +88,8 @@ public class GoShopActivity extends Activity {
             	Intent intent1 = new Intent(this, RemoveCategoryActivity.class);
             	startActivityForResult(intent1, REMOVE_CATEGORY_REQUEST_CODE);
             	return true;
+            case R.id.clearList:
+            	shoppingListAdapter.clearData();
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -100,7 +101,7 @@ public class GoShopActivity extends Activity {
         if (resultCode == RESULT_OK && requestCode == ADD_CATEGORY_REQUEST_CODE) {
         	
         	String newCategoryName = data.getStringExtra(AddCategoryActivity.ADDED_CATEGORY_ID);
-        	int color = ShoppingListAdapter.getRandomColor();
+        	int color = data.getIntExtra(AddCategoryActivity.CATEGORY_COLOR_ID, Color.BLACK);
         	shoppingListAdapter.addCategory(newCategoryName, color);
         	categoryListAdapter.addCategory(new Category(newCategoryName, color));
         	
