@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import android.content.Context;
+
 
 /**
  * This is the interface that the controller for Go SHOP must adhere too.
@@ -86,5 +88,7 @@ public interface DataModelInterface {
 	public List<ListItem> findCategoryList(String name);
 	
 	public void clearList();
+	
+	public void save(Context ctx);
 	
 }
