@@ -108,6 +108,11 @@ public class ShoppingListAdapter extends ArrayAdapter<ListItem>{
 		super.notifyDataSetChanged();
 	}
 
+	public void clearData(){
+		data.clearList();
+		refreshData();
+	}
+	
 	public boolean removeItem(String name) {
 		boolean bool = data.removeItem(name, null);
 		refreshData();

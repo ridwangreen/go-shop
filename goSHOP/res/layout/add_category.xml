@@ -4,40 +4,83 @@
     android:layout_height="match_parent"
     android:columnCount="1" 
     android:orientation="vertical">
-
-    <TextView
-        android:layout_width="wrap_content"
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1">
+        
+        <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:layout_gravity="center_horizontal"
-        android:text="@string/text_add_category"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:background="#83de7c"
+        android:gravity="center"
+        android:text="@string/text_addCategory"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:typeface="serif" />
+
+    </LinearLayout>
+    
  
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="horizontal"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="0dp"
+        android:layout_weight="15"
+        android:layout_marginTop="10dp">
 
-        <Button
-            android:id="@+id/button1"
+        <TextView 
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/label_categoryName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:onClick="addCategory"
-            android:text="@string/text_add_category" />
-
+            android:text="@string/text_categoryName"
+       		android:layout_centerHorizontal="true"/>
+        
         <AutoCompleteTextView
-            android:id="@+id/editText1"
+            android:id="@+id/editText_categoryName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/button1"
-            android:layout_alignBottom="@+id/button1"
-            android:layout_toLeftOf="@+id/button1"
-            android:ems="10" />
+            android:layout_below="@+id/label_categoryName" />
 
     </RelativeLayout>
 	
-
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_weight="45">
+	    
+	    <TextView 
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:text="Color:"/>
+	    
+	    <Spinner xmlns:android="http://schemas.android.com/apk/res/android"
+	        android:id="@+id/color_selector"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:entries="@array/valid_colors">
+	    
+	    </Spinner>
+	    
+	</LinearLayout>
+	
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_weight="1">
+	    
+	    <Button xmlns:android="http://schemas.android.com/apk/res/android"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="Save"
+	        android:onClick="addCategory">
+	       
+	    </Button>
+	    
+	</LinearLayout>
 
 
 
