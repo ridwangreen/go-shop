@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import android.content.Context;
 import android.graphics.Color;
 
 
@@ -343,7 +344,7 @@ public class ItemManager implements DataModelInterface{
 		
 	}
 	
-	@Override
+	
 	public void resetData() {
 		// TODO Auto-generated method stub
 		orderedCategories = new ArrayList<Category>();
@@ -357,6 +358,24 @@ public class ItemManager implements DataModelInterface{
 	public boolean removeItem(int positionInShoppingList) {
 		
 		return false;
+	}
+
+	@Override
+	public boolean editItem(String itemName, String newItemName) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void clearList() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void save(Context ctx) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
