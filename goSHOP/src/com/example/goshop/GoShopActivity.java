@@ -71,17 +71,21 @@ public class GoShopActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
+    	Intent intent;
         switch (item.getItemId()) {
             case R.id.addCategory1:
-            	Intent intent = new Intent(this, AddCategoryActivity.class);
+            	intent = new Intent(this, AddCategoryActivity.class);
             	startActivityForResult(intent, ADD_CATEGORY_REQUEST_CODE);
                 return true;
             case R.id.removeCategory:
-            	Intent intent1 = new Intent(this, RemoveCategoryActivity.class);
-            	startActivityForResult(intent1, REMOVE_CATEGORY_REQUEST_CODE);
+            	intent = new Intent(this, RemoveCategoryActivity.class);
+            	startActivityForResult(intent, REMOVE_CATEGORY_REQUEST_CODE);
             	return true;
             case R.id.clearList:
             	adapter.clearData();
+            case R.id.categoryManager:
+            	intent = new Intent(this, CategoryManagerActivity.class);
+            	startActivity(intent);
             default:
                 return super.onOptionsItemSelected(item);
         }
