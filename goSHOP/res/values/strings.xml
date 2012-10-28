@@ -14,6 +14,7 @@
     <string name="text_editCategory">Edit Category</string>
     <string name="text_categoryName">Category Name</string>
     <string name="text_clearList">Clear List</string>
+    <string name="text_categoryManager">Category Manager</string>
     
     <string-array name="valid_colors">
         <item>#1515da</item>
