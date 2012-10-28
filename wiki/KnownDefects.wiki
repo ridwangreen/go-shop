@@ -45,3 +45,15 @@ Style defects this way:
 
 *Clear Checked*: Medium
   * Add a button and behavior to clear the list of all checked items
+
+*Clean up Adapter*: Low
+  * Clean up the behaviors associated with GoShopAdapter and all the sub-adapters
+
+*Add Lifecycle Methods*: Medium-high
+  * Add Activity life-cycle methods to all the activities for reading and writing state
+
+*Back button*: Medium-Low
+  * Add a "Return to Shopping List" button on the category manager
+
+*Long Press*: High
+  * Add long-press behavior to the list items for edit
