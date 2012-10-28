@@ -57,3 +57,6 @@ Style defects this way:
 
 *Long Press*: High
   * Add long-press behavior to the list items for edit
+
+*Clean Up Packages*: Low
+  * Clean up the packages for easier maintainability 
