@@ -18,3 +18,30 @@ Style defects this way:
 *Add Item toast*: Low
   * The main screen displays a toast saying an item is added whenever the "ADD" button is pressed, even if the item isn't actually added
   * Use the boolean returns to check if the add item behavior worked before displaying the toast
+
+*Remove Item*: Very high
+  * The ability to remove an item from the screen and have the change reflected in the back end
+
+*Remove category*: very high
+  * Ability to remove a category and have the change reflected in the back end
+
+*Edit item*: Medium
+  * Ability to edit the name (and category?) of an item and have the change reflected in the back end
+
+*Edit category*: Medium
+  * Ability to edit the name and color of a category, and have the change reflected in the back end
+
+*Category Color Change*: Medium
+  * When a color is selected for a category, change the color of the typed name of the category to the chosen color
+
+*Fonts*: Low
+  * Make the fonts of all the text consistent and easy to read
+
+*Checked Item*: Very High
+  * When an item is checked, make sure the data is stored in the back end so that the checks don't disappear with a redraw. 
+
+*Checked Item Graphic*: Low
+  * Add a graphic to a checked item to make it look "crossed off"
+
+*Clear Checked*: Medium
+  * Add a button and behavior to clear the list of all checked items
