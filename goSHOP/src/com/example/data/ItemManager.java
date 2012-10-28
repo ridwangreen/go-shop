@@ -19,6 +19,8 @@ import android.graphics.Color;
  */
 public class ItemManager implements DataModelInterface{
 	
+	private static ItemManager self;
+	
 	private final int NESTED_CAT_INDEX = 0;		// Categories will always be at index 0 in the nested data
 	private final String DEFAULT_CAT_NAME = "Default";
 	
@@ -28,7 +30,7 @@ public class ItemManager implements DataModelInterface{
 	/**
 	 * Builds the item manager.
 	 */
-	public ItemManager() {
+	private ItemManager() {
 		orderedCategories = new ArrayList<Category>();
 		nestedData = new LinkedList<ArrayList<ListItem>>();
 		
@@ -36,6 +38,13 @@ public class ItemManager implements DataModelInterface{
 		
 		buildFromXML();
 		
+	}
+	
+	public static ItemManager getItemManager(){
+		if(self == null){
+			self = new ItemManager();
+		}
+		return self;
 	}
 	
 	/**
@@ -152,7 +161,7 @@ public class ItemManager implements DataModelInterface{
 	 * @param newName the new name to give it
 	 * @return if the item has been edited successfully. 
 	 */
-	public boolean editItem(String itemName, String newItemName) {
+	public boolean editItem(String itemName, String newItemName, String categoryName) {
 		/*item.editName(newName);
 		if(item.getName().equals(newName)) {
 			return true;
@@ -191,7 +200,7 @@ public class ItemManager implements DataModelInterface{
 	 * Builds the list from the xml file
 	 * @return if the list was built successfully
 	 */
-	public boolean buildFromXML() {
+	private boolean buildFromXML() {
 		//makeShoppingList();	//TODO If we need test cases uncomment this
 		return false;
 	}
@@ -335,12 +344,19 @@ public class ItemManager implements DataModelInterface{
 	}
 	
 	@Override
-	public void clearList() {
+	public void resetData() {
 		// TODO Auto-generated method stub
 		orderedCategories = new ArrayList<Category>();
 		nestedData = new LinkedList<ArrayList<ListItem>>();
 		
 		addCategory("Default");
+		// Write to xml?
+	}
+
+	@Override
+	public boolean removeItem(int positionInShoppingList) {
+		
+		return false;
 	}
 
 }

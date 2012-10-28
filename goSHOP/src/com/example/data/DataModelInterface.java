@@ -64,6 +64,8 @@ public interface DataModelInterface {
 	 */
 	public boolean removeItem(String itemName, String categoryToRemoveFrom);
 	
+	public boolean removeItem(int positionInShoppingList);
+	
 	/**
 	 * 
 	 * @param item to edit
