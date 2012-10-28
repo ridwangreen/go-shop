@@ -1,0 +1,20 @@
+#summary List of known defects
+
+= Introduction =
+
+Style defects this way:
+
+*Defect Name*: 
+  * Detailed description of defect, and steps to recreate (if applicable)
+  * How to fix the defect (if applicable)
+
+
+= Defects =
+
+*Colors in add category*: 
+  * The spinner drop-down list in the Add Category screen currently displays the hex code for the color.
+  * Change the getView method so that it sets the background color of each dropdown item to the hex code, and display no text
+
+*Add Item toast*:
+  * The main screen displays a toast saying an item is added whenever the "ADD" button is pressed, even if the item isn't actually added
+  * Use the boolean returns to check if the add item behavior worked before displaying the toast
