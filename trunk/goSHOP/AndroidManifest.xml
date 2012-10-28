@@ -22,6 +22,7 @@
         </activity>
         <activity android:name="AddCategoryActivity"></activity>
         <activity android:name="RemoveCategoryActivity"></activity>
+        <activity android:name="CategoryManagerActivity"></activity>
     </application>
 
 </manifest>

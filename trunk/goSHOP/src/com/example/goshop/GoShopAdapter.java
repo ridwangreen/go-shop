@@ -16,10 +16,13 @@ import com.example.data.ListItem;
  */
 public class GoShopAdapter{
 
-	protected Context context;
-	protected DataModelInterface data; 
+	private Context context;
+	
+	private DataModelInterface data; 
+	
 	private ShoppingListAdapter shoppingList;
 	private CategoryListAdapter categoryList;
+	private CategoryManagerAdapter categoryManagerList;
 	
 	public GoShopAdapter(Context context) {	
 		this.context = context;
@@ -28,6 +31,7 @@ public class GoShopAdapter{
 		
 		shoppingList = new ShoppingListAdapter(context, data);
 		categoryList = new CategoryListAdapter(context, data);
+		categoryManagerList = new CategoryManagerAdapter(context, data);
 	}
 	
 	public ArrayAdapter<ListItem> getShoppingAdapter(){
@@ -36,6 +40,10 @@ public class GoShopAdapter{
 	
 	public ArrayAdapter<ListItem> getCategoryAdapter(){
 		return categoryList;
+	}
+	
+	public ArrayAdapter<ListItem> getCategoryManagerAdapter(){
+		return categoryManagerList;
 	}
 	
 	public boolean addItem(String itemName, String categoryName){

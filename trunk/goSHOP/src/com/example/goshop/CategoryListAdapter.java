@@ -22,9 +22,9 @@ import com.example.data.ListItem;
  */
 public class CategoryListAdapter extends ArrayAdapter<ListItem>{
 
-	private DataModelInterface data;
-	private Context context;
-	private List<Category> categories;
+	protected DataModelInterface data;
+	protected Context context;
+	protected List<Category> categories;
 	
 	public CategoryListAdapter(Context context, DataModelInterface data) {
 		super(context, android.R.layout.simple_spinner_dropdown_item);
@@ -35,7 +35,6 @@ public class CategoryListAdapter extends ArrayAdapter<ListItem>{
 	
 	@Override
 	public View getView (int position, View convertView, ViewGroup parent){
-		
 
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		
