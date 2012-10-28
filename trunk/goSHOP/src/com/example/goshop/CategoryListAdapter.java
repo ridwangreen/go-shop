@@ -14,23 +14,23 @@ import android.widget.TextView;
 
 import com.example.data.Category;
 import com.example.data.DataModelInterface;
+import com.example.data.ListItem;
 
 /**
  * @author Ross
  *
  */
-public class CategoryListAdapter extends ArrayAdapter<Category>{
+public class CategoryListAdapter extends ArrayAdapter<ListItem>{
 
+	private DataModelInterface data;
 	private Context context;
 	private List<Category> categories;
 	
 	public CategoryListAdapter(Context context, DataModelInterface data) {
 		super(context, android.R.layout.simple_spinner_dropdown_item);
-		// TODO Auto-generated constructor stub
+		this.data = data;
 		this.context = context;
-		categories = data.getCategories();
-		
-		super.addAll(categories);
+		refreshData();
 	}
 	
 	@Override
@@ -56,14 +56,12 @@ public class CategoryListAdapter extends ArrayAdapter<Category>{
 		return getView(position, convertView, parent);
 	}
 	
-	public void addCategory(Category category) {
-		this.add(category);
-		this.categories.add(category);
-	}
-	
-	public void removeCategory(Category category) {
-		this.remove(category);
-		this.categories.remove(category);
+	public void refreshData(){
+		categories = data.getCategories();
+		
+		super.clear();
+		super.addAll(categories);
+		super.notifyDataSetChanged();
 	}
 	
 	public void removeCategory(String name) {

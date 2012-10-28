@@ -9,6 +9,8 @@ import android.widget.Spinner;
 public class RemoveCategoryActivity extends Activity {
 	public static String REMOVE_CATEGORY_ID = "removedCategory";
 	private CategoryListAdapter categoryListAdapter;
+	
+	
 	 @Override
 	 public void onCreate(Bundle savedInstanceState) {
 		 super.onCreate(savedInstanceState);

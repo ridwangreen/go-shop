@@ -1,10 +1,8 @@
 package com.example.goshop;
 
 import java.util.List;
-import java.util.Random;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +13,6 @@ import android.widget.TextView;
 
 import com.example.data.Category;
 import com.example.data.DataModelInterface;
-import com.example.data.ItemManager;
 import com.example.data.ListItem;
 
 public class ShoppingListAdapter extends ArrayAdapter<ListItem>{
@@ -24,22 +21,12 @@ public class ShoppingListAdapter extends ArrayAdapter<ListItem>{
 	private Context context;
 	private List<ListItem> shoppingList;
 	
-	// Used for testing
-	private static final Random randomGen = new Random();		
-	private static final Integer[] colors = {Color.parseColor("#1515da"),  Color.parseColor("#bb0c29"), 
-			Color.parseColor("#15da1a"), Color.parseColor("#6415da")};
-	
 	public ShoppingListAdapter(Context context, DataModelInterface data){
 		super(context, R.layout.goshop_item);
 		this.data = data;
 		this.context = context;
 		shoppingList = data.getShoppingList();
 		super.addAll(shoppingList);
-	}
-	
-	public static int getRandomColor(){
-		int rando = randomGen.nextInt(colors.length + 1);
-		return colors[rando];
 	}
 	
 	@Override
@@ -82,17 +69,12 @@ public class ShoppingListAdapter extends ArrayAdapter<ListItem>{
 	    return rowView;
 	}
 	
-	public void addItem(String newItem, String curCategory){
-		data.addItem(newItem, curCategory);
-		refreshData();
-	}
-	
-	public boolean addCategory(String categoryName, int color){
-		boolean bool = data.addCategory(categoryName, color);
-		refreshData();
-		return bool;
-	}
-	
+	/**
+	 * Takes an index from the flat shopping list, and looks up the ListItem associated
+	 * with it.
+	 * @param index		Index in flat list
+	 * @return			whether ListItem associated with index is of type Category
+	 */
 	public boolean isSelectedListItemCategory(int index){
 		if(index > shoppingList.size() || index < 0) {
 			return false;
@@ -102,7 +84,7 @@ public class ShoppingListAdapter extends ArrayAdapter<ListItem>{
 		}
 	}
 	
-	private void refreshData(){
+	public void refreshData(){
 		shoppingList = data.getShoppingList();
 		super.clear();
 		super.addAll(shoppingList);
@@ -120,18 +102,7 @@ public class ShoppingListAdapter extends ArrayAdapter<ListItem>{
 		return bool;
 	}
 	
-	public boolean removeCategory(String name) {
-		for(int i =0; i < data.getNestedData().size(); i++) {
-			if(data.getNestedData().get(i).get(0).getName().equals(name)) {
-				data.getNestedData().remove(i);
-				
-				refreshData();
-				return true;
-			}
-		}
-		refreshData();
-		return false;
-	}
+	
 	
 	/**
 	 * If the flatIndex 	is for an item, will return its parent's category index.
@@ -160,12 +131,4 @@ public class ShoppingListAdapter extends ArrayAdapter<ListItem>{
 		}
 	}
 	
-	public void save(Context ctx){
-		data.save(ctx);
-	}
-	
-	//TODO Delete after testing
-	public void load(Context ctx) {
-		((ItemManager) data).buildFromXML(ctx);
-	}
 }
