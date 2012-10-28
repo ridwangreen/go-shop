@@ -15,16 +15,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.data.Category;
-import com.example.data.DataModelInterface;
-import com.example.data.ItemManager;
-
 public class GoShopActivity extends Activity {
 	private static int ADD_CATEGORY_REQUEST_CODE = 12354;
 	private static int REMOVE_CATEGORY_REQUEST_CODE = 123456789;
 	public static String DATA_MODEL = "datamodeler";
-	private ShoppingListAdapter shoppingListAdapter;
-	private CategoryListAdapter categoryListAdapter;
+
+	private GoShopAdapter adapter;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,11 +30,7 @@ public class GoShopActivity extends Activity {
        ListView shoppingList = (ListView) findViewById(R.id.shopping_list_view);
        Spinner categoryList = (Spinner) findViewById(R.id.category_list);
               
-       DataModelInterface data = new ItemManager(getApplicationContext());
-       
-       shoppingListAdapter = new ShoppingListAdapter(this, data);
-       categoryListAdapter = new CategoryListAdapter(this, data);
-       
+       adapter = new GoShopAdapter(this);
        
        // TODO this shit doesn't work.
        shoppingList.setOnItemClickListener(new OnItemClickListener() {
@@ -49,12 +41,12 @@ public class GoShopActivity extends Activity {
 			   	  int itemIndex = shoppingList.getSelectedItemPosition();
 			   	   
 			   	  // On Category selection
-			   	  if( shoppingListAdapter.isSelectedListItemCategory(itemIndex)){
+			   	  if( adapter.isSelectedListItemCategory(itemIndex)){
 				   
 			   		  Spinner categoryList = (Spinner) findViewById(R.id.category_list);
 				   
 			   		  // I need to find the category by FLAT LIST index!!!!
-			   		  int catIndex = shoppingListAdapter.getCategoryIndexFromFlatIndex(itemIndex);
+			   		  int catIndex = adapter.getCategoryIndexFromFlatIndex(itemIndex);
 				   
 			   		  categoryList.setSelection(catIndex);
 				   
@@ -64,21 +56,9 @@ public class GoShopActivity extends Activity {
     	      }                 
     	});
        
-       shoppingList.setAdapter(shoppingListAdapter);
-       categoryList.setAdapter(categoryListAdapter);
+       shoppingList.setAdapter(adapter.getShoppingAdapter());
+       categoryList.setAdapter(adapter.getCategoryAdapter());
       
-    }
-    
-    @Override
-    public void onPause() {
-    	super.onPause();
-    	shoppingListAdapter.save(getApplicationContext());
-    }
-    
-    @Override
-    public void onResume() {
-    	super.onResume();
-    	shoppingListAdapter.load(getApplicationContext());
     }
     
 
@@ -101,7 +81,7 @@ public class GoShopActivity extends Activity {
             	startActivityForResult(intent1, REMOVE_CATEGORY_REQUEST_CODE);
             	return true;
             case R.id.clearList:
-            	shoppingListAdapter.clearData();
+            	adapter.clearData();
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -114,16 +94,15 @@ public class GoShopActivity extends Activity {
         	
         	String newCategoryName = data.getStringExtra(AddCategoryActivity.ADDED_CATEGORY_ID);
         	int color = data.getIntExtra(AddCategoryActivity.CATEGORY_COLOR_ID, Color.BLACK);
-        	shoppingListAdapter.addCategory(newCategoryName, color);
-        	categoryListAdapter.addCategory(new Category(newCategoryName, color));
+        	
+        	adapter.addCategory(newCategoryName, color);
         	
         	Toast toast = Toast.makeText(this, "Category Added", Toast.LENGTH_SHORT);
         	toast.show();
 
         } else if (resultCode == RESULT_OK && requestCode == REMOVE_CATEGORY_REQUEST_CODE) {
         	String toRemove = data.getStringExtra(RemoveCategoryActivity.REMOVE_CATEGORY_ID);
-        	shoppingListAdapter.removeCategory(toRemove);
-        	categoryListAdapter.removeCategory(toRemove);
+        	adapter.removeCategory(toRemove);
         	
         	Toast toast = Toast.makeText(this, "Category Removed", Toast.LENGTH_SHORT);
         	toast.show();
@@ -144,7 +123,7 @@ public class GoShopActivity extends Activity {
 	    	butter.show();
     	} else {
 	    	
-	    	shoppingListAdapter.addItem(itemName, categoryName.toString());
+    		adapter.addItem(itemName, categoryName.toString());
 	    	
 	    	editText.setText("");
 	    	int duration = Toast.LENGTH_SHORT;
@@ -155,13 +134,16 @@ public class GoShopActivity extends Activity {
     }   
    
    public void removeQuickItem(View view) {
-	   TextView stringToRemove = (TextView) findViewById(R.id.item_name);
+	   TextView itemName = (TextView) findViewById(R.id.item_name);
+	   ListView listView = (ListView) findViewById(R.id.shopping_list_view);
+	   
+	   int pos = listView.getPositionForView(view);
 	  
-	   System.out.println("Deleting item" + stringToRemove.getText());
-	   System.out.println(findViewById(R.id.item_delete_button));
-	   System.out.println(view.getTag());
-	   shoppingListAdapter.removeItem(view.getTag().toString());
-	   System.out.println(view.getResources());
+	   System.out.println("Deleting item" + itemName.getText());
+	   //System.out.println(findViewById(R.id.item_delete_button));
+	   //System.out.println(view.getTag());
+	   System.out.println("*******ITEM INDEX: " + pos);
+	   adapter.removeItem(pos);
    }
     
 }
