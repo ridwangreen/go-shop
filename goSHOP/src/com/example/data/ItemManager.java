@@ -22,7 +22,7 @@ public class ItemManager implements DataModelInterface{
 	
 	private static ItemManager self;
 	
-	private final int NESTED_CAT_INDEX = 0;		// Categories will always be at index 0 in the nested data
+	private final int NESTED_CAT_INDEX = 0;				// Categories will always be at index 0 in the nested data
 	private final String DEFAULT_CAT_NAME = "Default";
 	
 	protected List<Category> orderedCategories;
@@ -54,10 +54,8 @@ public class ItemManager implements DataModelInterface{
 	 * @param addTo the category to add the item to
 	 * @return if the item was added successfully 
 	 */
-	public boolean addItem(String itemName, String categoryToAdd) {
-		if(itemName != null && !itemName.isEmpty() && categoryToAdd != null && !categoryToAdd.isEmpty()) {
-			
-			int categoryIndex = getCategoryIndex(categoryToAdd);
+	public boolean addItem(String itemName, int categoryIndex) {
+		if(itemName != null && !itemName.isEmpty() && categoryIndex >= 0) {
 			
 			if( categoryIndex < 0 ){ // Category was not found, add to default
 				return addToDefault(itemName);
@@ -75,28 +73,6 @@ public class ItemManager implements DataModelInterface{
 	}
 	
 	
-	/**
-	 * 
-	 * @param item to remove
-	 * @param removeFrom the category to remove the item from (may be null if unknown)
-	 * @return if the item was removed successfully 
-	 */
-	@Override
-	public boolean removeItem(String itemName, String categoryToRemoveFrom) {
-		if(categoryToRemoveFrom != null) {
-			return false;
-		}else {
-			for(int i = 0; i < nestedData.size(); i++ ) {
-				for(int j = 0; j< nestedData.get(i).size(); j++ ) {
-					if(nestedData.get(i).get(j).getName().equals(itemName)) {
-						nestedData.get(i).remove(j);
-						return true;
-					}
-				}
-			}
-			return false;
-		}
-	}
 	
 	/**
 	 * 
@@ -112,8 +88,10 @@ public class ItemManager implements DataModelInterface{
 		if(categoryName != null && !categoryName.isEmpty()) {
 		
 			// If the category already exists, return false
-			if (getCategoryIndex(categoryName) >= 0){
-				return false;
+			for( Category c : orderedCategories){
+				if( c.getName().equals(categoryName)){
+					return false;
+				}
 			}
 			
 			// Create the new Category object
@@ -141,20 +119,12 @@ public class ItemManager implements DataModelInterface{
 	 * @param category to be removed
 	 * @return if the category was removed
 	 */
-	public boolean removeCategory(String categoryToRemove) {
+	public boolean removeCategory(int categoryIndex) {
 		
-		for(int catListIndex = 0; catListIndex < nestedData.size(); catListIndex++ ) {
-			List<ListItem> categoryList = nestedData.get(catListIndex);
-			
-			// If a category is found that matches the category to remove
-			if(categoryList.get(NESTED_CAT_INDEX).getName().equals(categoryToRemove)){
-				nestedData.remove(catListIndex);
-				buildOrderedCategories();
-				return true;
-			}
-		}
+		nestedData.remove(categoryIndex);
+		buildOrderedCategories();
 		
-		return false;
+		return true;
 	}
 	/**
 	 * 
@@ -162,7 +132,7 @@ public class ItemManager implements DataModelInterface{
 	 * @param newName the new name to give it
 	 * @return if the item has been edited successfully. 
 	 */
-	public boolean editItem(String itemName, String newItemName, String categoryName) {
+	public boolean editItem(int itemFlatPosition, int categoryIndex, String newItemName) {
 		/*item.editName(newName);
 		if(item.getName().equals(newName)) {
 			return true;
@@ -178,7 +148,7 @@ public class ItemManager implements DataModelInterface{
 	 * @param newName the new name of the category
 	 * @return if the category has been edited successfully. 
 	 */
-	public boolean editCategory(String categoryToEdit, String newCategoryName) {
+	public boolean editCategory(int categoryToEdit, String newCategoryName, int newColor) {
 		buildOrderedCategories();
 		/*cat.editName(newName);
 		if(cat.equals(newName)) {
@@ -202,13 +172,13 @@ public class ItemManager implements DataModelInterface{
 	 * @return if the list was built successfully
 	 */
 	private boolean buildFromXML() {
-		//makeShoppingList();	//TODO If we need test cases uncomment this
+		makeShoppingList();	//TODO If we need test cases uncomment this
 		return false;
 	}
 
 	@Override
 	public List<ListItem> getShoppingList() {
-		// TODO This shouldn't pass the full category, that's redundant
+
 		ArrayList<ListItem> shoppingList = new ArrayList<ListItem>();
 		
 		for(ArrayList<ListItem> category : nestedData){
@@ -224,30 +194,16 @@ public class ItemManager implements DataModelInterface{
 		String[] categoryNames = {"Dairy", "Fruit", "Vegetables", "Random"};
 		Integer[] colors = {Color.parseColor("#1515da"),  Color.parseColor("#bb0c29"), 
 							Color.parseColor("#15da1a"), Color.parseColor("#6415da")};
-		/*Item i1;
-		Item i2;
-		Item i3;*/
 		
 		int i = 0;
 		for(String cName : categoryNames){
-			/*Category curCat = new Category(cName, colors[i]);
-			i1 = new Item("foo");
-			i2 = new Item("bar");
-			i3 = new Item("fiddly");
-			listCache.add(curCat);
-			listCache.add(i1);
-			listCache.add(i2);
-			listCache.add(i3);*/
 			this.addCategory(cName, colors[i]);
-			this.addItem("foo", cName);
-			this.addItem("bar", cName);
-			this.addItem("fiddly", cName);
+			this.addItem("foo", i+1);
+			this.addItem("bar", i+1);
+			this.addItem("fiddly", i+1);
 			System.out.println(nestedData);
 			i++;
 		}
-	
-		//ListItem[] allItems = new ListItem[listCache.size()];
-		//return listCache;
     	
     }
 
@@ -272,19 +228,6 @@ public class ItemManager implements DataModelInterface{
 		orderedCategories = categories;
 	}
 	
-	public int getCategoryIndex(String categoryName){
-		
-		int catIndex = 0;
-		for(ArrayList<ListItem> cats : nestedData){
-			if(cats.get(NESTED_CAT_INDEX).getName().equals(categoryName)){
-				return catIndex;
-			}
-			catIndex++;
-		}
-		
-		return -1;
-	}
-	
 	private boolean addToDefault(String itemName){
 		ArrayList<ListItem> defaultList;
 		boolean rebuildCategories = false;
@@ -307,6 +250,7 @@ public class ItemManager implements DataModelInterface{
 		// Add the new item to the default list. If the default list
 		// had to be created, rebuild the category list
 		defaultList.add(new Item(itemName));
+		
 		if ( rebuildCategories ){
 			buildOrderedCategories();
 		}
@@ -314,38 +258,11 @@ public class ItemManager implements DataModelInterface{
 		return true;
 	}
 	
-	public LinkedList<ArrayList<ListItem>> getNestedData() {
-		return nestedData;
-	}
-
-	@Override
-	public List<ListItem> findCategoryList(String name) {
-		if(name == null || name.isEmpty()){
-			name = DEFAULT_CAT_NAME;
-		}
-		
-		int catIndex = getCategoryIndex(name);
-		return nestedData.get(catIndex);
-	}
-	
-	public void moveAllItemsToCategory(String categoryToPullFrom, String categoryToGoTo){
-		List<ListItem> fromCategory = findCategoryList(categoryToPullFrom);
-		List<ListItem> toCategory = findCategoryList(categoryToGoTo);
-		
-		for( ListItem item : fromCategory){
-			if(item instanceof Item){
-				toCategory.add(item);
-			}
-		}
-		
-		Category fromCatObject = (Category) fromCategory.get(NESTED_CAT_INDEX);
-		fromCategory = new ArrayList<ListItem>();
-		fromCategory.add(fromCatObject);
-		
-	}
-	
-	
-	public void resetData() {
+	/**
+	 * This will clear the list of ALL user-entered items and ALL user-entered categories.
+	 * The default category will be rebuilt. This should only be a development debugging tool.
+	 */
+	public void deleteData() {
 		// TODO Auto-generated method stub
 		orderedCategories = new ArrayList<Category>();
 		nestedData = new LinkedList<ArrayList<ListItem>>();
@@ -355,27 +272,39 @@ public class ItemManager implements DataModelInterface{
 	}
 
 	@Override
-	public boolean removeItem(int positionInShoppingList) {
-		
-		return false;
+	public boolean removeItem(int positionInShoppingList, int categoryIndex) {
+		ArrayList<ListItem> items = nestedData.get(categoryIndex);
+		items.remove(flatIndexToNestedIndex(positionInShoppingList, categoryIndex));
+		return true;
 	}
 
-	@Override
-	public boolean editItem(String itemName, String newItemName) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 	@Override
-	public void clearList() {
+	public void deleteCheckedItems() {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
-	public void save(Context ctx) {
-		// TODO Auto-generated method stub
+	/**
+	 * Returns an index of the item WITHIN ITS CATEGORY. The category index
+	 * needs to be found for a full nested address.
+	 * @param flatIndex
+	 * @return
+	 */
+	private int flatIndexToNestedIndex(int flatIndex, int categoryIndex){
 		
+		int itemCounter = 0;
+		int catPosition = 0;
+		for( ArrayList<ListItem> category : nestedData){
+			
+			if( catPosition == categoryIndex){
+				break;
+			}
+			
+			itemCounter += category.size();
+		}
+		
+		return flatIndex - itemCounter;
 	}
-
+	
 }

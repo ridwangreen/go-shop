@@ -46,7 +46,7 @@ public interface DataModelInterface {
 	 * @param newName the new name of the category
 	 * @return if the category was edited
 	 */
-	public boolean editCategory(String categoryToEdit, String newCategoryName);
+	public boolean editCategory(int categoryToEdit, String newCategoryName, int newColor);
 	
 	/**
 	 * 
@@ -54,25 +54,18 @@ public interface DataModelInterface {
 	 * @param toAdd the category to add it to
 	 * @return if it was added
 	 */
-	public boolean addItem(String itemName, String categoryToAdd);
+	public boolean addItem(String itemName, int categoryToAdd);
+	
+	public boolean removeItem(int positionInShoppingList, int categoryIndex);
 	
 	/**
 	 * 
-	 * @param item to remove
-	 * @param toRemove the category to remove it from (may be null)
-	 * @return if it was removed
+	 * @param itemFlatPosition
+	 * @param categoryIndex
+	 * @param newItemName
+	 * @return
 	 */
-	public boolean removeItem(String itemName, String categoryToRemoveFrom);
-	
-	public boolean removeItem(int positionInShoppingList);
-	
-	/**
-	 * 
-	 * @param item to edit
-	 * @param newName the new name of the item
-	 * @return  if the item was edited
-	 */
-	public boolean editItem(String itemName, String newItemName);
+	public boolean editItem(int itemFlatPosition, int categoryIndex, String newItemName);
 	
 	/**
 	 * 
@@ -82,15 +75,11 @@ public interface DataModelInterface {
 	public List<ListItem> getShoppingList();
 	
 	public List<Category> getCategories();
+
 	
-	public int getCategoryIndex(String categoryName);
+	public void deleteCheckedItems();
 	
-	public LinkedList<ArrayList<ListItem>> getNestedData();
-	
-	public List<ListItem> findCategoryList(String name);
-	
-	public void clearList();
-	
-	public void save(Context ctx);
+	public void deleteData();
+
 	
 }
