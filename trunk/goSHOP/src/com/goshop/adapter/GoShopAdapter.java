@@ -6,6 +6,7 @@ package com.goshop.adapter;
 import android.content.Context;
 import android.widget.ArrayAdapter;
 
+import com.example.data.Category;
 import com.example.data.DataModelInterface;
 import com.example.data.ItemManager;
 import com.example.data.ListItem;
@@ -46,14 +47,20 @@ public class GoShopAdapter{
 		return categoryManagerList;
 	}
 	
-	public boolean addItem(String itemName, String categoryName){
-		boolean success = data.addItem(itemName, categoryName);
+	public boolean addItem(String itemName, int categoryPosition){
+		boolean success = data.addItem(itemName, categoryPosition);
 		refreshAdapterData(false);
 		return success;
 	}
 	
+	/**
+	 * Find the category index and then remove first instance of that item?
+	 * @param flatIndex
+	 * @return
+	 */
 	public boolean removeItem(int flatIndex){
-		
+		int catIndex = getCategoryIndexFromFlatIndex(flatIndex);
+		data.removeItem(flatIndex, catIndex);
 		return false;
 	}
 
@@ -64,6 +71,25 @@ public class GoShopAdapter{
 	}
 	
 	public int getCategoryIndexFromFlatIndex(int flatIndex){
+		
+		ListItem listItem = shoppingList.getListItemFromFlatIndex(flatIndex);
+		
+		if( listItem instanceof Category){
+			
+			return data.getCategoryIndex(flatIndex);
+			
+		}else{
+			flatIndex--;
+			while( flatIndex >= 0){
+				listItem = shoppingList.get(flatIndex);
+				if( listItem instanceof Category){
+					return data.getCategoryIndex(listItem.getName());
+				}
+			}
+			// ERROR there was, for some reason, no parent category
+			return 0;
+		}
+		
 		return shoppingList.getCategoryIndexFromFlatIndex(flatIndex);
 	}
 	
@@ -94,11 +120,13 @@ public class GoShopAdapter{
 	}
 	
 	public void clearData(){
-		data.clearList();
+		data.deleteData();
 		refreshAdapterData();
 	}
 	
+
 	public boolean removeCategory(int categoryPosition) {
+
 		
 		// Find the index of the category in the nested data and just
 		// delete it from the nested data. Then refresh data
