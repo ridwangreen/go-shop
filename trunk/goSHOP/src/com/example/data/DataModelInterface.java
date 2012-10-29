@@ -38,7 +38,7 @@ public interface DataModelInterface {
 	 * @param toRemove the category to remove
 	 * @return if the category was removed
 	 */
-	public boolean removeCategory(String categoryToRemove);
+	public boolean removeCategory(int categoryPosition);
 	
 	/**
 	 * 
