@@ -93,14 +93,9 @@ public class ShoppingListAdapter extends ArrayAdapter<ListItem>{
 		super.addAll(shoppingList);
 		super.notifyDataSetChanged();
 	}
-
-	public void clearData(){
-		data.clearList();
-		refreshData();
-	}
 	
-	public boolean removeItem(String name) {
-		boolean bool = data.removeItem(name, null);
+	public boolean removeItem(int flatPosition) {
+		boolean bool = data.removeItem(flatPosition, getCategoryIndexFromFlatIndex(flatPosition));
 		refreshData();
 		return bool;
 	}
@@ -119,7 +114,7 @@ public class ShoppingListAdapter extends ArrayAdapter<ListItem>{
 		
 		if( listItem instanceof Category){
 			
-			return data.getCategoryIndex(listItem.getName());
+			return data.getCategoryIndex(flatIndex);
 			
 		}else{
 			flatIndex--;
@@ -132,6 +127,10 @@ public class ShoppingListAdapter extends ArrayAdapter<ListItem>{
 			// ERROR there was, for some reason, no parent category
 			return 0;
 		}
+	}
+	
+	public ListItem getListItemFromFlatIndex(int index){
+		return shoppingList.get(index);
 	}
 	
 }
