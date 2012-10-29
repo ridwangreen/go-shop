@@ -38,23 +38,18 @@ public class GoShopActivity extends Activity {
               
        adapter = new GoShopAdapter(this);
        
-       // TODO this shit doesn't work.
+       // For changing the current category with a click
        shoppingList.setOnItemClickListener(new OnItemClickListener() {
     	      public void onItemClick(AdapterView<?> myAdapter, View myView, int position, long mylng) {
-    	    	  
-				  ListView shoppingList = (ListView) findViewById(R.id.shopping_list_view);
-			   
-			   	  int itemIndex = shoppingList.getSelectedItemPosition();
-			   	   
+  
 			   	  // On Category selection
-			   	  if( adapter.isSelectedListItemCategory(itemIndex)){
+			   	  if( adapter.isSelectedListItemCategory(position)){
 				   
 			   		  Spinner categoryList = (Spinner) findViewById(R.id.category_list);
 				   
-			   		  // I need to find the category by FLAT LIST index!!!!
-			   		  int catIndex = adapter.getCategoryIndexFromFlatIndex(itemIndex);
+			   		  int catIndex = adapter.getCategoryIndexFromFlatIndex(position);
 				   
-			   		  categoryList.setSelection(catIndex);
+			   		  categoryList.setSelection(catIndex, true);
 				   
 				   }else{
 					  return;  // On item selection
@@ -110,14 +105,7 @@ public class GoShopActivity extends Activity {
         	Toast toast = Toast.makeText(this, "Category Added", Toast.LENGTH_SHORT);
         	toast.show();
 
-        } else if (resultCode == RESULT_OK && requestCode == REMOVE_CATEGORY_REQUEST_CODE) {
-        	String toRemove = data.getStringExtra(RemoveCategoryActivity.REMOVE_CATEGORY_ID);
-        	adapter.removeCategory(toRemove);
-        	
-        	Toast toast = Toast.makeText(this, "Category Removed", Toast.LENGTH_SHORT);
-        	toast.show();
-
-        }
+        } 
     }
     
    public void addQuickItem(View view){
@@ -125,15 +113,15 @@ public class GoShopActivity extends Activity {
     	Spinner categoryList = (Spinner) findViewById(R.id.category_list);
     	
     	String itemName = editText.getText().toString();
-    	Object categoryName = categoryList.getSelectedItem();
+    	int categoryPosition = categoryList.getSelectedItemPosition();
     	
     	//TODO It's technically fine if the category name is null, just add it to default
-    	if(categoryName == null) {
+    	if(categoryPosition < 0) {
 	    	Toast butter = Toast.makeText(this, "Could not add Item, no category found.", Toast.LENGTH_LONG);
 	    	butter.show();
     	} else {
 	    	
-    		adapter.addItem(itemName, categoryName.toString());
+    		adapter.addItem(itemName, categoryPosition);
 	    	
 	    	editText.setText("");
 	    	int duration = Toast.LENGTH_SHORT;
