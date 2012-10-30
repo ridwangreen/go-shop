@@ -27,12 +27,12 @@
 	    android:layout_height="wrap_content" 
 	    android:orientation="horizontal"
 	    android:layout_weight="1">
-	    
+	    
 	    <Button
 	        android:layout_width="fill_parent"
 	        android:layout_height="fill_parent"
 	        android:background="@color/color_addButton"
-	        android:onClick="addQuickItem"
+	        android:onClick="addCategory"
 	        android:text="@string/text_addQuickItem"
 	        android:typeface="serif" />
 	    

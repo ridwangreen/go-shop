@@ -4,6 +4,7 @@
 package com.goshop.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +15,7 @@ import android.widget.TextView;
 import com.example.data.Category;
 import com.example.data.DataModelInterface;
 import com.example.goshop.R;
-import com.example.goshop.R.id;
-import com.example.goshop.R.layout;
+import com.goshop.activity.AddCategoryActivity;
 
 /**
  * @author Ross
@@ -62,5 +62,6 @@ public class CategoryManagerAdapter extends CategoryListAdapter {
 	    
 	    return rowView;
 	}
+
 
 }
