@@ -16,23 +16,22 @@ import com.example.data.ListItem;
  *
  */
 public class GoShopAdapter{
-
-	private Context context;
 	
 	private DataModelInterface data; 
 	
 	private ShoppingListAdapter shoppingList;
 	private CategoryListAdapter categoryList;
 	private CategoryManagerAdapter categoryManagerList;
+	private ColorListAdapter colorList;
 	
 	public GoShopAdapter(Context context) {	
-		this.context = context;
 		
 		data = ItemManager.getItemManager();
 		
 		shoppingList = new ShoppingListAdapter(context, data);
 		categoryList = new CategoryListAdapter(context, data);
 		categoryManagerList = new CategoryManagerAdapter(context, data);
+		colorList = new ColorListAdapter(context);
 	}
 	
 	public ArrayAdapter<ListItem> getShoppingAdapter(){
@@ -45,6 +44,10 @@ public class GoShopAdapter{
 	
 	public ArrayAdapter<ListItem> getCategoryManagerAdapter(){
 		return categoryManagerList;
+	}
+	
+	public ArrayAdapter<String> getColorListAdapter(){
+		return colorList;
 	}
 	
 	public boolean addItem(String itemName, int categoryPosition){
@@ -60,9 +63,13 @@ public class GoShopAdapter{
 	 */
 	public boolean removeItem(int flatIndex){
 		int catIndex = getCategoryIndexFromFlatIndex(flatIndex);
-		data.removeItem(flatIndex, catIndex);
-		return false;
+		boolean success = data.removeItem(flatIndex, catIndex);
+		
+		refreshAdapterData();
+
+		return success;
 	}
+	
 
 	public boolean addCategory(String categoryName, int color){
 		boolean success = data.addCategory(categoryName, color);
@@ -76,27 +83,20 @@ public class GoShopAdapter{
 		
 		if( listItem instanceof Category){
 			
-			return data.getCategoryIndex(flatIndex);
+			return categoryList.findCategoryIndexFromName(listItem.getName());
 			
 		}else{
 			flatIndex--;
 			while( flatIndex >= 0){
-				listItem = shoppingList.get(flatIndex);
+				listItem = shoppingList.getListItemFromFlatIndex(flatIndex);
 				if( listItem instanceof Category){
-					return data.getCategoryIndex(listItem.getName());
+					return categoryList.findCategoryIndexFromName(listItem.getName());
 				}
 			}
 			// ERROR there was, for some reason, no parent category
-			return 0;
+			return -1;
 		}
 		
-		return shoppingList.getCategoryIndexFromFlatIndex(flatIndex);
-	}
-	
-	public String getCategoryNameFromFlatIndex(int flatIndex){
-		int catPos = getCategoryIndexFromFlatIndex(flatIndex);
-		
-		return "";
 	}
 	
 	/**

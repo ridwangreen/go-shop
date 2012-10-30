@@ -94,41 +94,6 @@ public class ShoppingListAdapter extends ArrayAdapter<ListItem>{
 		super.notifyDataSetChanged();
 	}
 	
-	public boolean removeItem(int flatPosition) {
-		boolean bool = data.removeItem(flatPosition, getCategoryIndexFromFlatIndex(flatPosition));
-		refreshData();
-		return bool;
-	}
-	
-	
-	
-	/**
-	 * If the flatIndex 	is for an item, will return its parent's category index.
-	 * If the flatIndex 	is for a Category, will return the category index.
-	 * @param flatIndex 	index for the item in the flat listItem array
-	 * @return				Category index
-	 */
-	public int getCategoryIndexFromFlatIndex(int flatIndex){
-		
-		ListItem listItem = shoppingList.get(flatIndex);
-		
-		if( listItem instanceof Category){
-			
-			return data.getCategoryIndex(flatIndex);
-			
-		}else{
-			flatIndex--;
-			while( flatIndex >= 0){
-				listItem = shoppingList.get(flatIndex);
-				if( listItem instanceof Category){
-					return data.getCategoryIndex(listItem.getName());
-				}
-			}
-			// ERROR there was, for some reason, no parent category
-			return 0;
-		}
-	}
-	
 	public ListItem getListItemFromFlatIndex(int index){
 		return shoppingList.get(index);
 	}

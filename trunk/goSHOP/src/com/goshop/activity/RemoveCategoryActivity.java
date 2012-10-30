@@ -1,15 +1,13 @@
 package com.goshop.activity;
 
-import com.example.goshop.R;
-import com.example.goshop.R.id;
-import com.example.goshop.R.layout;
-import com.goshop.adapter.CategoryListAdapter;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Spinner;
+
+import com.example.goshop.R;
+import com.goshop.adapter.CategoryListAdapter;
 
 public class RemoveCategoryActivity extends Activity {
 	public static String REMOVE_CATEGORY_ID = "removedCategory";

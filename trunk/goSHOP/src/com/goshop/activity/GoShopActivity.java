@@ -1,11 +1,5 @@
 package com.goshop.activity;
 
-import com.example.goshop.R;
-import com.example.goshop.R.id;
-import com.example.goshop.R.layout;
-import com.example.goshop.R.menu;
-import com.goshop.adapter.GoShopAdapter;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -20,6 +14,9 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.goshop.R;
+import com.goshop.adapter.GoShopAdapter;
 
 public class GoShopActivity extends Activity {
 	private static int ADD_CATEGORY_REQUEST_CODE = 12354;

@@ -72,5 +72,9 @@ public class CategoryListAdapter extends ArrayAdapter<ListItem>{
 			}
 		}
 	}
+	
+	public int findCategoryIndexFromName(String categoryName){
+		return categories.indexOf(categoryName);
+	}
 
 }
