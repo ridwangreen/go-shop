@@ -25,6 +25,8 @@ public class ColorListAdapter extends ArrayAdapter<String>{
 	public ColorListAdapter(Context context){
 		super(context, android.R.layout.simple_spinner_item);
 		
+		this.context = context;
+		
 		Resources res = context.getResources();
 		String[] colors = res.getStringArray(R.array.valid_colors);
 		
@@ -37,20 +39,18 @@ public class ColorListAdapter extends ArrayAdapter<String>{
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
 	    View rowView = inflater.inflate(android.R.layout.simple_spinner_item, parent, false);
-	    /*System.out.println("Dropdown found");
-	    //TextView textView = (TextView) rowView.findViewById(android.R.id.text1);
+	    TextView textView = (TextView) rowView.findViewById(android.R.id.text1);
 	    
 		int color = Color.parseColor(getItem(position));
-		//textView.setText("");
+		textView.setText("");
 		 
-		rowView.setBackgroundColor(color);*/
+		rowView.setBackgroundColor(color);
 	    
 	    return rowView;
 	}
 	
 	@Override
 	public View getDropDownView(int position, View convertView, ViewGroup parent){
-		System.out.println("DROPDOWN*******************************");
 		return getView(position, convertView, parent);
 	}
 }
