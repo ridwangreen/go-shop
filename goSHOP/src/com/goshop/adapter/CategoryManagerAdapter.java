@@ -62,6 +62,10 @@ public class CategoryManagerAdapter extends CategoryListAdapter {
 	    
 	    return rowView;
 	}
+	
+	public void refreshData(){
+		super.refreshData();
+	}
 
 
 }

@@ -109,6 +109,7 @@ public class GoShopAdapter{
 		shoppingList.refreshData();
 		if( refreshCategories ){
 			categoryList.refreshData();
+			categoryManagerList.refreshData();
 		}
 	}
 	
@@ -116,7 +117,7 @@ public class GoShopAdapter{
 		return shoppingList.isSelectedListItemCategory(index);
 	}
 	
-	private void refreshAdapterData(){
+	public void refreshAdapterData(){
 		refreshAdapterData(true);
 	}
 	
