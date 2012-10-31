@@ -135,5 +135,11 @@ public class GoShopActivity extends Activity {
 	  
 	   adapter.removeItem(pos);
    }
+   
+   public void onResume(){
+	   super.onResume();
+	   
+	   adapter.refreshAdapterData();
+   }
     
 }

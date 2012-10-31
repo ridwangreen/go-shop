@@ -284,8 +284,9 @@ public class ItemManager implements DataModelInterface{
 		
 		ArrayList<ListItem> items = nestedData.get(categoryIndex);
 		System.out.println("["+categoryIndex+","+listItemIndex+"]");
-		items.remove(listItemIndex);
-		return true;
+		
+		ListItem removed = items.remove(listItemIndex);
+		return removed != null;
 	}
 
 
