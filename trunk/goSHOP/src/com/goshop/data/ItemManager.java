@@ -1,13 +1,14 @@
 /**ItemManager.java
  * 
  */
-package com.example.data;
+package com.goshop.data;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import android.graphics.Color;
+import android.graphics.Point;
 
 
 
@@ -271,9 +272,19 @@ public class ItemManager implements DataModelInterface{
 	}
 
 	@Override
-	public boolean removeItem(int positionInShoppingList, int categoryIndex) {
+	public boolean removeItem(int positionInShoppingList) {
+		
+		Point nestedIndex = flatIndexToNestedIndex(positionInShoppingList);
+		int categoryIndex = nestedIndex.x;
+		int listItemIndex = nestedIndex.y;
+		
+		if ( listItemIndex == NESTED_CAT_INDEX){
+			return removeCategory(categoryIndex);
+		}
+		
 		ArrayList<ListItem> items = nestedData.get(categoryIndex);
-		items.remove(flatIndexToNestedIndex(positionInShoppingList, categoryIndex));
+		System.out.println("["+categoryIndex+","+listItemIndex+"]");
+		items.remove(listItemIndex);
 		return true;
 	}
 
@@ -287,23 +298,30 @@ public class ItemManager implements DataModelInterface{
 	/**
 	 * Returns an index of the item WITHIN ITS CATEGORY. The category index
 	 * needs to be found for a full nested address.
-	 * @param flatIndex
-	 * @return
+	 * @param		 flatIndex
+	 * @return		 Point object. X value refers to the category index.
+	 * 				 Y value refers to the list item index in that category
 	 */
-	private int flatIndexToNestedIndex(int flatIndex, int categoryIndex){
+	private Point flatIndexToNestedIndex(int flatIndex){
 		
 		int itemCounter = 0;
-		int catPosition = 0;
+		int catIndex = 0;
+		int curSize;
 		for( ArrayList<ListItem> category : nestedData){
+			curSize = category.size();
 			
-			if( catPosition == categoryIndex){
+			if( itemCounter + curSize > flatIndex){
 				break;
 			}
 			
-			itemCounter += category.size();
+			itemCounter = itemCounter + curSize;
+			catIndex++;
 		}
 		
-		return flatIndex - itemCounter;
+		int subIndex = flatIndex - itemCounter;
+		Point nestedIndex = new Point(catIndex, subIndex);
+		
+		return nestedIndex;
 	}
 	
 }

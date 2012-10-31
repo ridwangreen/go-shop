@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.example.data;
+package com.goshop.data;
 
 
 /**

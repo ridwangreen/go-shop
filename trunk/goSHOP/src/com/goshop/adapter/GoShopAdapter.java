@@ -6,10 +6,11 @@ package com.goshop.adapter;
 import android.content.Context;
 import android.widget.ArrayAdapter;
 
-import com.example.data.Category;
-import com.example.data.DataModelInterface;
-import com.example.data.ItemManager;
-import com.example.data.ListItem;
+import com.goshop.data.Category;
+import com.goshop.data.DataModelInterface;
+import com.goshop.data.Item;
+import com.goshop.data.ItemManager;
+import com.goshop.data.ListItem;
 
 /**
  * @author Ross
@@ -62,8 +63,9 @@ public class GoShopAdapter{
 	 * @return
 	 */
 	public boolean removeItem(int flatIndex){
-		int catIndex = getCategoryIndexFromFlatIndex(flatIndex);
-		boolean success = data.removeItem(flatIndex, catIndex);
+		//int catIndex = getCategoryIndexFromFlatIndex(flatIndex);
+		//System.out.println("******************** CATINDEX: " + catIndex);
+		boolean success = data.removeItem(flatIndex);
 		
 		refreshAdapterData();
 
@@ -80,22 +82,21 @@ public class GoShopAdapter{
 	public int getCategoryIndexFromFlatIndex(int flatIndex){
 		
 		ListItem listItem = shoppingList.getListItemFromFlatIndex(flatIndex);
+		int shoppingIndex = flatIndex;
 		
-		if( listItem instanceof Category){
-			
-			return categoryList.findCategoryIndexFromName(listItem.getName());
-			
-		}else{
-			flatIndex--;
-			while( flatIndex >= 0){
-				listItem = shoppingList.getListItemFromFlatIndex(flatIndex);
-				if( listItem instanceof Category){
-					return categoryList.findCategoryIndexFromName(listItem.getName());
-				}
+		while(listItem instanceof Item){
+			System.out.println("\t"+listItem.getName() + " index: " + shoppingIndex);
+			shoppingIndex--; 
+			if( shoppingIndex < 0){
+				return -1;
 			}
-			// ERROR there was, for some reason, no parent category
-			return -1;
+			listItem = shoppingList.getListItemFromFlatIndex(shoppingIndex);
 		}
+		
+		int catIndex = categoryList.findCategoryIndexFromName(listItem.getName());
+		System.out.println("CATEGORY INDEX: " + catIndex);
+		
+		return catIndex;
 		
 	}
 	

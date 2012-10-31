@@ -12,7 +12,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.goshop.R;
@@ -129,15 +128,11 @@ public class GoShopActivity extends Activity {
     }   
    
    public void removeQuickItem(View view) {
-	   TextView itemName = (TextView) findViewById(R.id.item_name);
+	   //TextView itemName = (TextView) findViewById(R.id.item_name);
 	   ListView listView = (ListView) findViewById(R.id.shopping_list_view);
 	   
 	   int pos = listView.getPositionForView(view);
 	  
-	   System.out.println("Deleting item" + itemName.getText());
-	   //System.out.println(findViewById(R.id.item_delete_button));
-	   //System.out.println(view.getTag());
-	   System.out.println("*******ITEM INDEX: " + pos);
 	   adapter.removeItem(pos);
    }
     

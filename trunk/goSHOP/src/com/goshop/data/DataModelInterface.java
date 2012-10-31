@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.example.data;
+package com.goshop.data;
 
 import java.util.List;
 
@@ -52,7 +52,8 @@ public interface DataModelInterface {
 	 */
 	public boolean addItem(String itemName, int categoryToAdd);
 	
-	public boolean removeItem(int positionInShoppingList, int categoryIndex);
+	public boolean removeItem(int positionInShoppingList);
+	
 	
 	/**
 	 * 
