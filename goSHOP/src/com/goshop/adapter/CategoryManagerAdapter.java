@@ -12,10 +12,10 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-import com.example.data.Category;
-import com.example.data.DataModelInterface;
 import com.example.goshop.R;
 import com.goshop.activity.AddCategoryActivity;
+import com.goshop.data.Category;
+import com.goshop.data.DataModelInterface;
 
 /**
  * @author Ross

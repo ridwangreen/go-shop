@@ -11,12 +11,12 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-import com.example.data.Category;
-import com.example.data.DataModelInterface;
-import com.example.data.ListItem;
 import com.example.goshop.R;
 import com.example.goshop.R.id;
 import com.example.goshop.R.layout;
+import com.goshop.data.Category;
+import com.goshop.data.DataModelInterface;
+import com.goshop.data.ListItem;
 
 public class ShoppingListAdapter extends ArrayAdapter<ListItem>{
 
