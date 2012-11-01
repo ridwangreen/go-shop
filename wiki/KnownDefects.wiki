@@ -11,7 +11,7 @@ Style defects this way:
 
 = Defects =
 
-*Colors in add category*: High
+_COMPLETE_ *Colors in add category*: High
   * The spinner drop-down list in the Add Category screen currently displays the hex code for the color.
   * Change the getView method so that it sets the background color of each dropdown item to the hex code, and display no text
 
@@ -19,10 +19,10 @@ Style defects this way:
   * The main screen displays a toast saying an item is added whenever the "ADD" button is pressed, even if the item isn't actually added
   * Use the boolean returns to check if the add item behavior worked before displaying the toast
 
-*Remove Item*: Very high
+_COMPLETE_ *Remove Item*: Very high
   * The ability to remove an item from the screen and have the change reflected in the back end
 
-*Remove category*: very high
+_COMPLETE_ *Remove category*: very high
   * Ability to remove a category and have the change reflected in the back end
 
 *Edit item*: Medium
@@ -58,5 +58,5 @@ Style defects this way:
 *Long Press*: High
   * Add long-press behavior to the list items for edit
 
-*Clean Up Packages*: Low
+_COMPLETED_ *Clean Up Packages*: Low
   * Clean up the packages for easier maintainability 
