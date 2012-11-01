@@ -60,3 +60,9 @@ _COMPLETE_ *Remove category*: very high
 
 _COMPLETED_ *Clean Up Packages*: Low
   * Clean up the packages for easier maintainability 
+
+*Disable Add*: Medium
+  * Disable the Add Quick Item button if there is no text entered
+
+*Dropdown Distinguishability*: Medium-Low
+  * Make the category spinner more easy to identify as a dropdown menu
