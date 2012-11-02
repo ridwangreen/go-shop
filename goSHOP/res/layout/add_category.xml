@@ -8,15 +8,14 @@
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1">
+        android:layout_weight="10">
         
         <TextView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_gravity="center_horizontal"
-        android:background="#83de7c"
         android:gravity="center"
-        android:text="@string/text_addCategory"
+        android:text="@string/btext_addCategory"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:typeface="serif" />
 
@@ -27,7 +26,7 @@
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_weight="15"
+        android:layout_weight="25"
         android:layout_marginTop="10dp">
 
         <TextView 
@@ -49,19 +48,22 @@
 	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
-	    android:layout_weight="45">
-	    
-	    <TextView 
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:text="Color:"/>
-	    
-	    <Spinner xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:layout_weight="45"
+	    android:orientation="vertical">
+	    
+	    <TextView
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:gravity="center"
+	        android:text="@string/text_chooseColor"
+	        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+	    <Spinner
+	        xmlns:android="http://schemas.android.com/apk/res/android"
 	        android:id="@+id/color_selector"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
-	        android:entries="@array/valid_colors">
+	        android:entries="@array/valid_colors" >
 	    
 	    </Spinner>
 	    
@@ -76,7 +78,8 @@
 	        android:id="@+id/button_addCategory"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
-	        android:text="Save"
+	        android:text="@string/text_save"
+	        android:background="@color/color_addButton"
 	        android:onClick="addCategory">
 	       
 	    </Button>
