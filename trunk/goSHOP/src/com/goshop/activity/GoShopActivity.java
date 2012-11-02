@@ -137,7 +137,10 @@ public class GoShopActivity extends Activity {
    }
    
    public void toggleCheckbox(View view){
-	   System.out.println("Checkbox toggled");
+	   
+	   ListView listView = (ListView) findViewById(R.id.shopping_list_view);
+	   int pos = listView.getPositionForView(view);
+	   System.out.println("Checkbox "+pos+" toggled");
    }
    
    public void onResume(){
