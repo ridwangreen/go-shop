@@ -12,9 +12,11 @@ package com.goshop.data;
  */
 public class Item extends ListItem{
 
+	private boolean checked;
 	
 	public Item(String name){
 		super(name);
+		checked = false;
 	}
 	
 	@Override
@@ -25,6 +27,18 @@ public class Item extends ListItem{
 		}else{
 			return false;
 		}
+	}
+	
+	public boolean isChecked(){
+		return checked;
+	}
+	
+	public void setChecked(boolean isChecked){
+		checked = isChecked;
+	}
+	
+	public void toggleChecked(){
+		checked = checked ? false : true;
 	}
 	
 	public String toString(){

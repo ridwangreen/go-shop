@@ -63,8 +63,6 @@ public class GoShopAdapter{
 	 * @return
 	 */
 	public boolean removeItem(int flatIndex){
-		//int catIndex = getCategoryIndexFromFlatIndex(flatIndex);
-		//System.out.println("******************** CATINDEX: " + catIndex);
 		boolean success = data.removeItem(flatIndex);
 		
 		refreshAdapterData();
@@ -75,8 +73,13 @@ public class GoShopAdapter{
 
 	public boolean addCategory(String categoryName, int color){
 		boolean success = data.addCategory(categoryName, color);
+		
 		refreshAdapterData();
 		return success;
+	}
+	
+	public int getNumberCategories(){
+		return categoryList.getCount();
 	}
 	
 	public int getCategoryIndexFromFlatIndex(int flatIndex){
@@ -126,6 +129,11 @@ public class GoShopAdapter{
 		refreshAdapterData();
 	}
 	
+	public void checkItem(int flatIndex){
+		data.checkItem(flatIndex);
+		
+		refreshAdapterData(false);
+	}
 
 	public boolean removeCategory(int categoryPosition) {
 
@@ -140,6 +148,11 @@ public class GoShopAdapter{
 		}
 
 		return result;
+	}
+	
+	public void clearCheckedItems(){
+		data.deleteCheckedItems();
+		refreshAdapterData(false);
 	}
 	
 }

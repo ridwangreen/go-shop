@@ -19,7 +19,6 @@ import com.goshop.adapter.GoShopAdapter;
 
 public class GoShopActivity extends Activity {
 	private static int ADD_CATEGORY_REQUEST_CODE = 12354;
-	private static int REMOVE_CATEGORY_REQUEST_CODE = 123456789;
 	public static String DATA_MODEL = "datamodeler";
 
 	private GoShopAdapter adapter;
@@ -74,15 +73,13 @@ public class GoShopActivity extends Activity {
             	intent = new Intent(this, AddCategoryActivity.class);
             	startActivityForResult(intent, ADD_CATEGORY_REQUEST_CODE);
                 return true;
-            case R.id.removeCategory:
-            	intent = new Intent(this, RemoveCategoryActivity.class);
-            	startActivityForResult(intent, REMOVE_CATEGORY_REQUEST_CODE);
-            	return true;
             case R.id.clearList:
             	adapter.clearData();
             case R.id.categoryManager:
             	intent = new Intent(this, CategoryManagerActivity.class);
             	startActivity(intent);
+            case R.id.clearChecked:
+            	clearCheckedItems();
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -98,10 +95,17 @@ public class GoShopActivity extends Activity {
         	
         	adapter.addCategory(newCategoryName, color);
         	
+        	Spinner catList = (Spinner) findViewById(R.id.category_list);
+        	catList.setSelection(adapter.getNumberCategories() - 1, true);
+        	
         	Toast toast = Toast.makeText(this, "Category Added", Toast.LENGTH_SHORT);
         	toast.show();
 
         } 
+    }
+    
+    private void clearCheckedItems(){
+    	adapter.clearCheckedItems();
     }
     
    public void addQuickItem(View view){
@@ -116,6 +120,12 @@ public class GoShopActivity extends Activity {
 	    	Toast butter = Toast.makeText(this, "Could not add Item, no category found.", Toast.LENGTH_LONG);
 	    	butter.show();
     	} else {
+    		
+    		if( itemName.isEmpty() ){
+    			Toast toast = Toast.makeText(this, "Enter Item Name Before Adding", Toast.LENGTH_SHORT);
+    			toast.show();
+    			return;
+    		}
 	    	
     		adapter.addItem(itemName, categoryPosition);
 	    	
@@ -140,7 +150,8 @@ public class GoShopActivity extends Activity {
 	   
 	   ListView listView = (ListView) findViewById(R.id.shopping_list_view);
 	   int pos = listView.getPositionForView(view);
-	   System.out.println("Checkbox "+pos+" toggled");
+	   
+	   adapter.checkItem(pos);
    }
    
    public void onResume(){
@@ -148,5 +159,7 @@ public class GoShopActivity extends Activity {
 	   
 	   adapter.refreshAdapterData();
    }
+   
+   
     
 }

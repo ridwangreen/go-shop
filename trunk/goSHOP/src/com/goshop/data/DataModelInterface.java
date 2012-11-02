@@ -73,6 +73,7 @@ public interface DataModelInterface {
 	
 	public List<Category> getCategories();
 
+	public boolean checkItem(int position);
 	
 	public void deleteCheckedItems();
 	

@@ -292,8 +292,14 @@ public class ItemManager implements DataModelInterface{
 
 	@Override
 	public void deleteCheckedItems() {
-		// TODO Auto-generated method stub
-		
+		for( ArrayList<ListItem> list : nestedData ){
+			for(int i=1; i<list.size(); i++){
+				Item item = (Item) list.get(i);
+				if( item.isChecked() ){
+					list.remove(i);
+				}
+			}
+		}	
 	}
 
 	/**
@@ -324,5 +330,22 @@ public class ItemManager implements DataModelInterface{
 		
 		return nestedIndex;
 	}
+	
+	public boolean checkItem(int flatPosition){
+		Point nestedIndex = flatIndexToNestedIndex(flatPosition);
+		int categoryIndex = nestedIndex.x;
+		int listItemIndex = nestedIndex.y;
+		
+		ListItem listItem = nestedData.get(categoryIndex).get(listItemIndex);
+		if ( listItem instanceof Category){
+			return false;
+		}
+		
+		Item toToggle = (Item) listItem;
+		toToggle.toggleChecked();
+		
+		return true; 
+	}
+
 	
 }

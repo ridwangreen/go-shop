@@ -42,6 +42,9 @@ public class CategoryListAdapter extends ArrayAdapter<ListItem>{
 	    
 	    TextView textView = (TextView) rowView.findViewById(android.R.id.text1);
 	    
+	    // Find a background color to distinguish it as a dropdown
+	    //textView.setBackgroundColor(Color.GRAY);
+	    
 	    Category curCategory = categories.get(position);
 	    textView.setText(curCategory.getName());
 	    textView.setTextColor(curCategory.getColor());
