@@ -22,6 +22,8 @@ public class CategoryManagerActivity extends Activity{
 
 	GoShopAdapter adapter;
 	private static int ADD_CATEGORY_REQUEST_CODE = 98765;
+	private static int EDIT_CATEGORY_REQUEST_CODE = 98764;
+
 	
 	 public void onCreate(Bundle savedInstanceState) {
 		   super.onCreate(savedInstanceState);

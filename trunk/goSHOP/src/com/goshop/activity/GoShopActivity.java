@@ -136,6 +136,10 @@ public class GoShopActivity extends Activity {
 	   adapter.removeItem(pos);
    }
    
+   public void toggleCheckbox(View view){
+	   System.out.println("Checkbox toggled");
+   }
+   
    public void onResume(){
 	   super.onResume();
 	   
