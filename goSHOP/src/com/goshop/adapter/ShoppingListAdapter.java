@@ -3,6 +3,7 @@ package com.goshop.adapter;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +13,9 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.example.goshop.R;
-import com.example.goshop.R.id;
-import com.example.goshop.R.layout;
 import com.goshop.data.Category;
 import com.goshop.data.DataModelInterface;
+import com.goshop.data.Item;
 import com.goshop.data.ListItem;
 
 public class ShoppingListAdapter extends ArrayAdapter<ListItem>{
@@ -45,28 +45,26 @@ public class ShoppingListAdapter extends ArrayAdapter<ListItem>{
 	    TextView textView = (TextView) rowView.findViewById(R.id.item_name);
 	    textView.setText(listItem.getName());
 	    Button deleteButton = (Button) rowView.findViewById(R.id.item_delete_button);
-    	
-	    deleteButton.setTag(textView.getText());
-    	/*deleteButton.setOnClickListener(new OnClickListener(){
-
-			@Override
-			public void onClick(View v) {
-				System.out.println(this);
-				System.out.println(v.getResources());
-				System.out.println();
-				
-			}
-    		
-    	}); */
-	    if(shoppingList.get(position) instanceof Category){
+	    
+	    View divider = rowView.findViewById(R.id.category_border);
+	    
+	    CheckBox checkbox = (CheckBox) rowView.findViewById(R.id.item_checkbox);
+	    
+	    if(listItem instanceof Category){
 	    	Category curCategory = (Category) listItem;
-	    	CheckBox checkbox = (CheckBox) rowView.findViewById(R.id.item_checkbox);
+	    	
+	    	divider.setBackgroundColor(curCategory.getColor());
 	    	
 	    	checkbox.setVisibility(View.GONE);
 	    	deleteButton.setVisibility(View.GONE);
 	    	
 	    	textView.setTextSize(32);
 	    	textView.setTextColor(curCategory.getColor());
+	    }else{
+	    	Item item = (Item) listItem;
+	    	checkbox.setChecked(item.isChecked());
+	    	
+	    	divider.setVisibility(View.GONE);
 	    }
 	    
 	    return rowView;

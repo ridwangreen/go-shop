@@ -9,9 +9,7 @@
         
     </item>
     
-    <item android:id="@+id/removeCategory" android:title="@string/text_removeCategory" android:orderInCategory="100">
-        
-    </item>
+    <item android:id="@+id/clearChecked" android:title="@string/text_clearChecked" android:orderInCategory="100"> </item>
     
     <item android:id="@+id/clearList" android:title="@string/text_clearList" android:orderInCategory="101">
         

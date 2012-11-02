@@ -22,6 +22,7 @@
     
     <string name="text_categoryName">Category Name</string>
     <string name="text_clearList">Clear List</string>
+    <string name="text_clearChecked">Clear Checked Items</string>
     <string name="text_categoryManager">Category Manager</string>
     
     <string-array name="valid_colors">
