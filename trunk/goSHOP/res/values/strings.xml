@@ -10,8 +10,16 @@
     <string name="text_addQuickItem">+Add</string>
     <string name="text_emptyItemName">&lt;NO_NAME&gt;</string>
     <string name="text_removeCategory">Remove Category</string>
+    
+    <string name="btext_addCategory"><b><u>Add Category</u></b></string>
     <string name="text_addCategory">Add Category</string>
+    
+    <string name="text_chooseColor">Choose Color:</string>
+    <string name="btext_chooseColor"><b>Choose Color:</b></string>
+    
     <string name="text_editCategory">Edit Category</string>
+    <string name="btext_editCategory"><b>Edit Category</b></string>
+    
     <string name="text_categoryName">Category Name</string>
     <string name="text_clearList">Clear List</string>
     <string name="text_categoryManager">Category Manager</string>
@@ -29,5 +37,6 @@
         <item>Kitchen Supplies</item>
         <item>Frozen Food</item>
     </string-array>
+    <string name="text_save">Save</string>
     
 </resources>
