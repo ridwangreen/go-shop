@@ -35,13 +35,15 @@ public class ColorListAdapter extends ArrayAdapter<String>{
 	
 	@Override
 	public View getView (int position, View convertView, ViewGroup parent){
-		System.out.println("GET VIEW " + context);
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
 	    View rowView = inflater.inflate(android.R.layout.simple_spinner_item, parent, false);
 	    TextView textView = (TextView) rowView.findViewById(android.R.id.text1);
 	    
 		int color = Color.parseColor(getItem(position));
+		
+		textView.setTextSize(24);
+		
 		textView.setText("");
 		 
 		rowView.setBackgroundColor(color);
