@@ -42,7 +42,7 @@ public interface DataModelInterface {
 	 * @param newName the new name of the category
 	 * @return if the category was edited
 	 */
-	public boolean editCategory(int categoryToEdit, String newCategoryName, int newColor);
+	public boolean editCategory(int oldPosition, Category newCat);
 	
 	/**
 	 * 
@@ -62,7 +62,7 @@ public interface DataModelInterface {
 	 * @param newItemName
 	 * @return
 	 */
-	public boolean editItem(int itemFlatPosition, int categoryIndex, String newItemName);
+	public boolean editItem(int oldPosition, Item newItem);
 	
 	/**
 	 * 

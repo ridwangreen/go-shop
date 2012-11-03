@@ -57,6 +57,24 @@ public class GoShopAdapter{
 		return success;
 	}
 	
+	public boolean editItem(String itemName, int editItemIndex){
+		Item newItem = new Item(itemName);
+		boolean success = data.editItem(editItemIndex, newItem);
+		refreshAdapterData(false);
+		return success;
+	}
+	
+	public boolean editCategory(String catName, int color, int editCatIndex){
+		Category newCat = new Category(catName, color);
+		boolean success = data.editCategory(editCatIndex, newCat);
+		refreshAdapterData();
+		return success;
+	}
+	
+	public ListItem getListItem(int flatIndex){
+		return shoppingList.getItem(flatIndex);
+	}
+	
 	/**
 	 * Find the category index and then remove first instance of that item?
 	 * @param flatIndex

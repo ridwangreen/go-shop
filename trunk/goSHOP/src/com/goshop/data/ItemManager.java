@@ -148,15 +148,29 @@ public class ItemManager implements DataModelInterface{
 	 * @param newName the new name of the category
 	 * @return if the category has been edited successfully. 
 	 */
-	public boolean editCategory(int categoryToEdit, String newCategoryName, int newColor) {
+	public boolean editCategory(int oldPosition, Category newCat) {
+		
+		Point nestedPos = flatIndexToNestedIndex(oldPosition);
+		int catIndex = nestedPos.x;
+		int catPos = nestedPos.y;
+		
+		ArrayList<ListItem> catList = nestedData.get(catIndex);
+		catList.remove(catPos);
+		catList.add(catPos, newCat);
+		
 		buildOrderedCategories();
-		/*cat.editName(newName);
-		if(cat.equals(newName)) {
-			return true;
-		} else {
-			return false;			IMPLEMENT LATER
-		}*/
-		return false;
+		return true;
+	}
+	
+	public boolean editItem(int oldPosition, Item newItem){
+		Point nestedPos = flatIndexToNestedIndex(oldPosition);
+		int catIndex = nestedPos.x;
+		int itemPos = nestedPos.y;
+		
+		ArrayList<ListItem> catList = nestedData.get(catIndex);
+		catList.remove(itemPos);
+		catList.add(itemPos, newItem);
+		return true;
 	}
 	
 	/**
