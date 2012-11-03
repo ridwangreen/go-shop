@@ -29,7 +29,7 @@ public class ColorListAdapter extends ArrayAdapter<String>{
 		this.context = context;
 		
 		Resources res = context.getResources();
-		String[] colors = res.getStringArray(R.array.valid_colors);
+		colors = res.getStringArray(R.array.valid_colors);
 		
 		addAll(colors);
 	}
@@ -59,6 +59,7 @@ public class ColorListAdapter extends ArrayAdapter<String>{
 			if( curColor == color){
 				return i;
 			}
+			System.out.println("Color: " + curColor);
 		}
 		return -1;
 	}

@@ -18,10 +18,10 @@
     <string name="btext_chooseColor"><b>Choose Color:</b></string>
     
     <string name="text_editCategory">Edit Category</string>
-    <string name="btext_editCategory"><b>Edit Category</b></string>
+    <string name="btext_editCategory"><b><u>Edit Category</u></b></string>
     
     <string name="text_editItem">Edit Item</string>
-    <string name="btext_editItem"><b>Edit Item</b></string>
+    <string name="btext_editItem"><b><u>Edit Item</u></b></string>
     
     <string name="text_categoryName">Category Name</string>
     <string name="text_itemName">Item Name</string>
