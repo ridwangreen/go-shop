@@ -15,6 +15,7 @@
         android:layout_height="fill_parent"
         android:layout_gravity="center_horizontal"
         android:gravity="center"
+        android:id="@+id/edit_listitem_title"
         android:text="@string/btext_addCategory"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:typeface="serif" />
@@ -31,17 +32,17 @@
 
         <TextView 
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/label_categoryName"
+            android:id="@+id/label_listItemName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/text_categoryName"
        		android:layout_centerHorizontal="true"/>
         
         <AutoCompleteTextView
-            android:id="@+id/editText_categoryName"
+            android:id="@+id/editText_listItemName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/label_categoryName" />
+            android:layout_below="@+id/label_listItemName" />
 
     </RelativeLayout>
 	
@@ -52,6 +53,7 @@
 	    android:orientation="vertical">
 	    
 	    <TextView
+	        android:id="@+id/label_chooseColor"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:gravity="center"
@@ -80,7 +82,7 @@
 	        android:layout_height="wrap_content"
 	        android:text="@string/text_save"
 	        android:background="@color/color_addButton"
-	        android:onClick="addCategory">
+	        android:onClick="addListItem">
 	       
 	    </Button>
 	    

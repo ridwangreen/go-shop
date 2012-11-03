@@ -13,7 +13,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.example.goshop.R;
-import com.goshop.activity.AddCategoryActivity;
+import com.goshop.activity.ListItemActivity;
 import com.goshop.data.Category;
 import com.goshop.data.DataModelInterface;
 

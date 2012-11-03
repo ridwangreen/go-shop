@@ -47,8 +47,8 @@ public class CategoryManagerActivity extends Activity{
 	 
 		
 	public void addCategory(View view){
-		Intent intent = new Intent(this, AddCategoryActivity.class);
-		
+		Intent intent = new Intent(this, ListItemActivity.class);
+		intent.putExtra(ListItemActivity.EDIT_INTENTION, ListItemActivity.ADD_CATEGORY_INTENT);
 		startActivityForResult(intent, ADD_CATEGORY_REQUEST_CODE);
 	}
 	
@@ -57,8 +57,8 @@ public class CategoryManagerActivity extends Activity{
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == ADD_CATEGORY_REQUEST_CODE) {
         	
-        	String newCategoryName = data.getStringExtra(AddCategoryActivity.ADDED_CATEGORY_ID);
-        	int color = data.getIntExtra(AddCategoryActivity.CATEGORY_COLOR_ID, Color.BLACK);
+        	String newCategoryName = data.getStringExtra(ListItemActivity.ADDED_NAME_ID);
+        	int color = data.getIntExtra(ListItemActivity.CATEGORY_COLOR_ID, Color.BLACK);
         	
         	adapter.addCategory(newCategoryName, color);
         	

@@ -21,6 +21,7 @@ import com.example.goshop.R;
 public class ColorListAdapter extends ArrayAdapter<String>{
 
 	private Context context;
+	private String[] colors;
 	
 	public ColorListAdapter(Context context){
 		super(context, android.R.layout.simple_spinner_item);
@@ -49,6 +50,17 @@ public class ColorListAdapter extends ArrayAdapter<String>{
 		rowView.setBackgroundColor(color);
 	    
 	    return rowView;
+	}
+	
+	public int findPositionByColor(int color){
+		
+		for(int i=0; i<colors.length; i++){
+			int curColor = Color.parseColor(getItem(i));
+			if( curColor == color){
+				return i;
+			}
+		}
+		return -1;
 	}
 	
 	@Override
