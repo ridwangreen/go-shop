@@ -20,7 +20,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.goshop.activity.AddCategoryActivity"></activity>
+        <activity android:name="com.goshop.activity.ListItemActivity"></activity>
         <activity android:name="com.goshop.activity.RemoveCategoryActivity"></activity> 
         <activity android:name="com.goshop.activity.CategoryManagerActivity"></activity>
     </application>

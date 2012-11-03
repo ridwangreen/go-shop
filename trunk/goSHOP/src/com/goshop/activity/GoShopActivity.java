@@ -70,7 +70,8 @@ public class GoShopActivity extends Activity {
     	Intent intent;
         switch (item.getItemId()) {
             case R.id.addCategory1:
-            	intent = new Intent(this, AddCategoryActivity.class);
+            	intent = new Intent(this, ListItemActivity.class);
+            	intent.putExtra(ListItemActivity.EDIT_INTENTION, ListItemActivity.ADD_CATEGORY_INTENT);
             	startActivityForResult(intent, ADD_CATEGORY_REQUEST_CODE);
                 return true;
             case R.id.clearList:
@@ -90,8 +91,8 @@ public class GoShopActivity extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK && requestCode == ADD_CATEGORY_REQUEST_CODE) {
         	
-        	String newCategoryName = data.getStringExtra(AddCategoryActivity.ADDED_CATEGORY_ID);
-        	int color = data.getIntExtra(AddCategoryActivity.CATEGORY_COLOR_ID, Color.BLACK);
+        	String newCategoryName = data.getStringExtra(ListItemActivity.ADDED_NAME_ID);
+        	int color = data.getIntExtra(ListItemActivity.CATEGORY_COLOR_ID, Color.BLACK);
         	
         	adapter.addCategory(newCategoryName, color);
         	
@@ -100,7 +101,6 @@ public class GoShopActivity extends Activity {
         	
         	Toast toast = Toast.makeText(this, "Category Added", Toast.LENGTH_SHORT);
         	toast.show();
-
         } 
     }
     
