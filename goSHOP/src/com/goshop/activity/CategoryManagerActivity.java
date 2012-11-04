@@ -67,4 +67,14 @@ public class CategoryManagerActivity extends Activity{
 
         } 
     }
+	
+	public void onPause() {
+		super.onPause();
+		adapter.save(getApplicationContext());
+	}
+	
+	public void onResume() {
+		super.onResume();
+		adapter.load(getApplicationContext());
+	}
 }

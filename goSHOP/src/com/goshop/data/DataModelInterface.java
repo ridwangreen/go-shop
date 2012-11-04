@@ -5,6 +5,8 @@ package com.goshop.data;
 
 import java.util.List;
 
+import android.content.Context;
+
 
 /**
  * This is the interface that the controller for Go SHOP must adhere too.
@@ -78,6 +80,10 @@ public interface DataModelInterface {
 	public void deleteCheckedItems();
 	
 	public void deleteData();
+	
+	public void save(Context ctx);
+	
+	public void load(Context ctx);
 
 	
 }

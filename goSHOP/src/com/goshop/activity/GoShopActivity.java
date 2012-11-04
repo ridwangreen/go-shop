@@ -212,10 +212,16 @@ public class GoShopActivity extends Activity {
 	   adapter.checkItem(pos);
    }
    
+   public void onPause() {
+	   super.onPause();
+	   
+	   adapter.save(getApplicationContext());
+   }
    public void onResume(){
 	   super.onResume();
 	   
 	   adapter.refreshAdapterData();
+	   //adapter.load(getApplicationContext());
    }
    
    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo){

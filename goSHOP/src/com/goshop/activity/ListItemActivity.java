@@ -110,13 +110,11 @@ public class ListItemActivity extends Activity{
 		 }
 		 
 		 spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-			    @Override
 			    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
 			    	EditText catName = (EditText) findViewById(R.id.editText_listItemName);
 			        catName.setTextColor(Color.parseColor(adapter.getItem(position)));
 			    }
 
-			    @Override
 			    public void onNothingSelected(AdapterView<?> parentView) {
 			        // your code here
 			    }
