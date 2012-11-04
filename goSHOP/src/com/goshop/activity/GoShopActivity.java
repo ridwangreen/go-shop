@@ -221,7 +221,6 @@ public class GoShopActivity extends Activity {
 	   super.onResume();
 	   
 	   adapter.refreshAdapterData();
-	   //adapter.load(getApplicationContext());
    }
    
    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo){

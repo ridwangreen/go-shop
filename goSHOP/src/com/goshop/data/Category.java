@@ -15,24 +15,15 @@ public class Category extends ListItem{
 
 	public static final Category DEFAULT_CATEGORY = new Category("General", Color.BLACK);
 	
-	private int color;
-	
 	public Category(String name, int color){
-		super(name);
-		this.color = color;
+		super(name, color);
 		this.setCategory(true);
 	}
 	
 	public Category(String name){
-		super(name);
-		this.color = Color.BLACK;
+		super(name, Color.BLACK);
 	}
 	
-	
-	public int getColor(){
-		return color;
-	}
-
 	public String toString(){
 		return getName();
 	}

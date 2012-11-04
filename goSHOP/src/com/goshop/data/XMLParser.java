@@ -37,14 +37,15 @@ public class XMLParser {
             return doc;
     }
 	
-	public List<String> getValue(Element item, String str) {
+	public List<Item> getValue(Element item) {
 	    NodeList items = item.getChildNodes();
-	    List<String> itemsNames = new ArrayList<String>();
+	    List<Item> itemsNames = new ArrayList<Item>();
 	    for(int i = 0; i < items.getLength(); i++) {
 	    	if(items.item(i).getNodeType() == Node.ELEMENT_NODE) {
 	    		Element e = ((Element) items.item(i));
-		    	String name = e.getAttribute(str);
-		    	itemsNames.add(name);
+		    	String name = e.getAttribute("name");
+		    	String checked = e.getAttribute("checked");
+		    	itemsNames.add(new Item(name).setChecked(Boolean.parseBoolean(checked)));
 	    	}
 	    }
 	    return itemsNames;
