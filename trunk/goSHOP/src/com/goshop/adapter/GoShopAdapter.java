@@ -27,7 +27,7 @@ public class GoShopAdapter{
 	
 	public GoShopAdapter(Context context) {	
 		
-		data = ItemManager.getItemManager();
+		data = ItemManager.getItemManager(context);
 		
 		shoppingList = new ShoppingListAdapter(context, data);
 		categoryList = new CategoryListAdapter(context, data);
@@ -171,6 +171,14 @@ public class GoShopAdapter{
 	public void clearCheckedItems(){
 		data.deleteCheckedItems();
 		refreshAdapterData(false);
+	}
+	
+	public void save(Context ctx) {
+		data.save(ctx);
+	}
+	
+	public void load(Context ctx) {
+		data.load(ctx);
 	}
 	
 }

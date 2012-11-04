@@ -3,10 +3,28 @@
  */
 package com.goshop.data;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Point;
 
@@ -19,7 +37,7 @@ import android.graphics.Point;
  *
  */
 public class ItemManager implements DataModelInterface{
-	
+	private static String FILE_NAME = "goShop.xml";
 	private static ItemManager self;
 	
 	private final int NESTED_CAT_INDEX = 0;				// Categories will always be at index 0 in the nested data
@@ -31,19 +49,19 @@ public class ItemManager implements DataModelInterface{
 	/**
 	 * Builds the item manager.
 	 */
-	private ItemManager() {
+	private ItemManager(Context ctx) {
 		orderedCategories = new ArrayList<Category>();
 		nestedData = new LinkedList<ArrayList<ListItem>>();
 		
 		addCategory("Default");
 		
-		buildFromXML();
+		buildFromXML(ctx);
 		
 	}
 	
-	public static ItemManager getItemManager(){
+	public static ItemManager getItemManager(Context ctx){
 		if(self == null){
-			self = new ItemManager();
+			self = new ItemManager(ctx);
 		}
 		return self;
 	}
@@ -59,7 +77,7 @@ public class ItemManager implements DataModelInterface{
 			
 			if( categoryIndex < 0 ){ // Category was not found, add to default
 				return addToDefault(itemName);
-		
+				
 			}else{
 				
 				// Find the category list and add to it
@@ -70,6 +88,16 @@ public class ItemManager implements DataModelInterface{
 		} 
 		
 		return false;	// Either the item name or the category ID was null or empty
+	}
+	
+	public boolean addItem(String itemName, String categoryName) {
+		for(List<ListItem> list : nestedData) { 
+			if(list.get(0).getName().equals(categoryName) && !list.contains(itemName)) {
+				list.add(new Item(itemName));
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	
@@ -173,11 +201,69 @@ public class ItemManager implements DataModelInterface{
 		return true;
 	}
 	
+	public void save(Context ctx) {
+		writeToXML(ctx);
+	}
+	
+	public void load(Context ctx) {
+		buildFromXML(ctx);
+	}
+	
 	/**
 	 * Writes the current list to the xml file
 	 * @return if the file wrote successfully
 	 */
-	public boolean writeToXML(){
+	public boolean writeToXML(Context ctx){
+		try {
+			DocumentBuilderFactory dbfac = DocumentBuilderFactory.newInstance();
+			DocumentBuilder docBuilder = dbfac.newDocumentBuilder();
+			Document doc = docBuilder.newDocument();
+
+			Element root = doc.createElement("list");
+			doc.appendChild(root);
+
+			// This adds a category to the DOM
+			for (int i = 0; i < nestedData.size(); i++) {
+				Element catElement = doc.createElement("category");
+				catElement.setAttribute("name", nestedData.get(i).get(0)
+						.getName());
+				root.appendChild(catElement);
+				for (int j = 1; j < nestedData.get(i).size(); j++) {
+					Element itemElement = doc.createElement("item");
+					itemElement.setAttribute("name", nestedData.get(i).get(j)
+							.getName());
+					catElement.appendChild(itemElement);
+				}
+
+			}
+
+			// Output the XML
+
+			// set up a transformer
+			TransformerFactory transfac = TransformerFactory.newInstance();
+			Transformer trans = transfac.newTransformer();
+			trans.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+			trans.setOutputProperty(OutputKeys.INDENT, "yes");
+
+			// create string from xml tree
+			StringWriter sw = new StringWriter();
+			StreamResult result = new StreamResult(sw);
+			DOMSource source = new DOMSource(doc);
+			trans.transform(source, result);
+			String xmlString = sw.toString();
+
+			// print xml
+			System.out.println("Here's the xml:\n\n" + xmlString);
+
+			// Write to Android
+			
+			FileOutputStream fos = ctx.openFileOutput(FILE_NAME, Context.MODE_PRIVATE);
+			fos.write(xmlString.getBytes());
+			fos.close();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return false;
 	}
 	
@@ -185,12 +271,39 @@ public class ItemManager implements DataModelInterface{
 	 * Builds the list from the xml file
 	 * @return if the list was built successfully
 	 */
-	private boolean buildFromXML() {
-		makeShoppingList();	//TODO If we need test cases uncomment this
+	private boolean buildFromXML(Context ctx) {
+		this.deleteData();
+		XMLParser xmlParser = new XMLParser();
+		try {
+			FileInputStream xml = ctx.openFileInput(FILE_NAME);
+			Document doc = xmlParser.getDomElement(xml);
+			if(doc == null) {
+				return false;
+			}
+			NodeList categories = doc.getElementsByTagName("category");
+			System.out.println("Categories: " + categories.getLength());
+			for(int i = 0; i < categories.getLength(); i++ ) { 
+				String categoryName = ((Element) categories.item(i)).getAttribute("name");
+				System.out.println(categoryName);
+				if(categories.item(i).getNodeType() == Node.ELEMENT_NODE) {
+					Element e = (Element) categories.item(i);
+					List<String> items = xmlParser.getValue(e, "name");
+					System.out.println(items);
+					addCategory(categoryName);
+					for(String item : items) { 
+						addItem(item, categoryName);
+					}
+				}else {
+					
+				}
+				
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 		return false;
 	}
 
-	@Override
 	public List<ListItem> getShoppingList() {
 
 		ArrayList<ListItem> shoppingList = new ArrayList<ListItem>();
@@ -221,7 +334,6 @@ public class ItemManager implements DataModelInterface{
     	
     }
 
-	@Override
 	public List<Category> getCategories() {
 		return this.orderedCategories;
 	}
@@ -277,7 +389,6 @@ public class ItemManager implements DataModelInterface{
 	 * The default category will be rebuilt. This should only be a development debugging tool.
 	 */
 	public void deleteData() {
-		// TODO Auto-generated method stub
 		orderedCategories = new ArrayList<Category>();
 		nestedData = new LinkedList<ArrayList<ListItem>>();
 		
@@ -285,7 +396,6 @@ public class ItemManager implements DataModelInterface{
 		// Write to xml?
 	}
 
-	@Override
 	public boolean removeItem(int positionInShoppingList) {
 		
 		Point nestedIndex = flatIndexToNestedIndex(positionInShoppingList);
@@ -304,7 +414,6 @@ public class ItemManager implements DataModelInterface{
 	}
 
 
-	@Override
 	public void deleteCheckedItems() {
 		for( ArrayList<ListItem> list : nestedData ){
 			for(int i=1; i<list.size(); i++){
