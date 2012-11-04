@@ -3,6 +3,8 @@
  */
 package com.goshop.data;
 
+import android.graphics.Color;
+
 
 /**
  * Data holder for each individual shopping list item.
@@ -15,7 +17,7 @@ public class Item extends ListItem{
 	private boolean checked;
 	
 	public Item(String name){
-		super(name);
+		super(name, Color.BLACK);
 		checked = false;
 	}
 	
@@ -33,8 +35,9 @@ public class Item extends ListItem{
 		return checked;
 	}
 	
-	public void setChecked(boolean isChecked){
+	public Item setChecked(boolean isChecked){
 		checked = isChecked;
+		return this;
 	}
 	
 	public void toggleChecked(){

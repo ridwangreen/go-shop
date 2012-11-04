@@ -90,10 +90,10 @@ public class ItemManager implements DataModelInterface{
 		return false;	// Either the item name or the category ID was null or empty
 	}
 	
-	public boolean addItem(String itemName, String categoryName) {
+	public boolean addItem(Item item, String categoryName) {
 		for(List<ListItem> list : nestedData) { 
-			if(list.get(0).getName().equals(categoryName) && !list.contains(itemName)) {
-				list.add(new Item(itemName));
+			if(list.get(0).getName().equals(categoryName) && !list.contains(item.getName())) {
+				list.add(item);
 				return true;
 			}
 		}
@@ -227,11 +227,13 @@ public class ItemManager implements DataModelInterface{
 				Element catElement = doc.createElement("category");
 				catElement.setAttribute("name", nestedData.get(i).get(0)
 						.getName());
+				catElement.setAttribute("color", "" + nestedData.get(i).get(0).getColor());
 				root.appendChild(catElement);
 				for (int j = 1; j < nestedData.get(i).size(); j++) {
 					Element itemElement = doc.createElement("item");
 					itemElement.setAttribute("name", nestedData.get(i).get(j)
 							.getName());
+					itemElement.setAttribute("checked", "" + ((Item) nestedData.get(i).get(j)).isChecked());
 					catElement.appendChild(itemElement);
 				}
 
@@ -284,13 +286,20 @@ public class ItemManager implements DataModelInterface{
 			System.out.println("Categories: " + categories.getLength());
 			for(int i = 0; i < categories.getLength(); i++ ) { 
 				String categoryName = ((Element) categories.item(i)).getAttribute("name");
+				String color = ((Element) categories.item(i)).getAttribute("color");
+				if(!color.equals("")) {
+					int categoryColor = Integer.parseInt(((Element) categories.item(i)).getAttribute("color"));
+					addCategory(categoryName, categoryColor);
+				} else {
+					addCategory(categoryName);
+				}
 				System.out.println(categoryName);
 				if(categories.item(i).getNodeType() == Node.ELEMENT_NODE) {
 					Element e = (Element) categories.item(i);
-					List<String> items = xmlParser.getValue(e, "name");
+					List<Item> items = xmlParser.getValue(e);
 					System.out.println(items);
-					addCategory(categoryName);
-					for(String item : items) { 
+					
+					for(Item item : items) { 
 						addItem(item, categoryName);
 					}
 				}else {
