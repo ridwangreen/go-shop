@@ -213,7 +213,7 @@ public class ItemManager implements DataModelInterface{
 	 * Writes the current list to the xml file
 	 * @return if the file wrote successfully
 	 */
-	public boolean writeToXML(Context ctx){
+	private boolean writeToXML(Context ctx){
 		try {
 			DocumentBuilderFactory dbfac = DocumentBuilderFactory.newInstance();
 			DocumentBuilder docBuilder = dbfac.newDocumentBuilder();
