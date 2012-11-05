@@ -212,14 +212,13 @@ public class GoShopActivity extends Activity {
 	   adapter.checkItem(pos);
    }
    
-   public void onPause() {
-	   super.onPause();
-	   
-	   adapter.save(getApplicationContext());
-   }
+//  public void onPause() {
+//	   super.onPause();
+//	   
+//	   adapter.save(getApplicationContext());
+//   }
    public void onResume(){
 	   super.onResume();
-	   
 	   adapter.refreshAdapterData();
    }
    
