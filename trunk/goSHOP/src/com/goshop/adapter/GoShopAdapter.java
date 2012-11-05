@@ -148,8 +148,10 @@ public class GoShopAdapter{
 	}
 	
 	public void checkItem(int flatIndex){
-		data.checkItem(flatIndex);
-		
+		boolean success = data.checkItem(flatIndex);
+		if(!success){
+			System.out.println("******ERROR: CATEGORY WAS CHECKED");
+		}
 		refreshAdapterData(false);
 	}
 
@@ -170,7 +172,7 @@ public class GoShopAdapter{
 	
 	public void clearCheckedItems(){
 		data.deleteCheckedItems();
-		refreshAdapterData(false);
+		refreshAdapterData();
 	}
 	
 	public void save(Context ctx) {

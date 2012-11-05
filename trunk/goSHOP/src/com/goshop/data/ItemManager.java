@@ -338,7 +338,7 @@ public class ItemManager implements DataModelInterface{
 			this.addItem("foo", i+1);
 			this.addItem("bar", i+1);
 			this.addItem("fiddly", i+1);
-			System.out.println(nestedData);
+			//System.out.println(nestedData);
 			i++;
 		}
     	
@@ -425,12 +425,23 @@ public class ItemManager implements DataModelInterface{
 
 
 	public void deleteCheckedItems() {
+
 		for( ArrayList<ListItem> list : nestedData ){
-			for(int i=1; i<list.size(); i++){
-				Item item = (Item) list.get(i);
-				if( item.isChecked() ){
-					list.remove(i);
+			List<Integer> toDelete = new LinkedList<Integer>(); 
+			for(int i=0; i<list.size(); i++){
+				ListItem curItem = list.get(i);
+				if (curItem instanceof Item){
+					Item item = (Item)  list.get(i);
+					if( item.isChecked() ){
+						toDelete.add(i);
+					}
 				}
+			}
+			int deleted =0;
+			for(int deletionIndex : toDelete){
+				System.out.print(deletionIndex + " ");
+				list.remove(deletionIndex - deleted);
+				deleted++;
 			}
 		}	
 	}
