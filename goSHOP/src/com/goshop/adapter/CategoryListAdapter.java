@@ -10,8 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.goshop.R;
 import com.goshop.data.Category;
 import com.goshop.data.DataModelInterface;
 import com.goshop.data.ListItem;
@@ -27,7 +29,7 @@ public class CategoryListAdapter extends ArrayAdapter<ListItem>{
 	protected List<Category> categories;
 	
 	public CategoryListAdapter(Context context, DataModelInterface data) {
-		super(context, android.R.layout.simple_spinner_dropdown_item);
+		super(context, R.layout.category_spinner);
 		this.data = data;
 		this.context = context;
 		refreshData();
@@ -38,9 +40,9 @@ public class CategoryListAdapter extends ArrayAdapter<ListItem>{
 
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		
-	    View rowView = inflater.inflate(android.R.layout.simple_spinner_dropdown_item, parent, false);
+	    View rowView = inflater.inflate(R.layout.category_spinner, parent, false);
 	    
-	    TextView textView = (TextView) rowView.findViewById(android.R.id.text1);
+	    TextView textView = (TextView) rowView.findViewById(R.id.cat_spinner_text);
 	    
 	    // Find a background color to distinguish it as a dropdown
 	    //textView.setBackgroundColor(Color.GRAY);
@@ -55,7 +57,22 @@ public class CategoryListAdapter extends ArrayAdapter<ListItem>{
 	
 	@Override
 	public View getDropDownView(int position, View convertView, ViewGroup parent){
-		return getView(position, convertView, parent);
+		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		
+	    View rowView = inflater.inflate(R.layout.category_spinner, parent, false);
+	    
+	    ImageView catImage = (ImageView) rowView.findViewById(R.id.cat_spinner_image);
+	    ImageView dropImage = (ImageView) rowView.findViewById(R.id.cat_spinner_dropImage);
+	    TextView textView = (TextView) rowView.findViewById(R.id.cat_spinner_text);
+	    
+	    Category curCategory = categories.get(position);
+	    textView.setText(curCategory.getName());
+	    textView.setTextColor(curCategory.getColor());
+	    textView.setTextSize(36);
+	    
+	    catImage.setVisibility(View.GONE);
+	    dropImage.setVisibility(View.GONE);
+		return rowView;
 	}
 	
 	public void refreshData(){
