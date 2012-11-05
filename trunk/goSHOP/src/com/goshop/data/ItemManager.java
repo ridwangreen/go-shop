@@ -55,7 +55,8 @@ public class ItemManager implements DataModelInterface{
 		
 		addCategory("Default");
 		
-		buildFromXML(ctx);
+		//buildFromXML(ctx);
+		makeShoppingList();
 		
 	}
 	
