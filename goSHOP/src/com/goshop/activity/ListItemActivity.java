@@ -85,8 +85,7 @@ public class ListItemActivity extends Activity{
 		 
 		 TextView title = (TextView) findViewById(R.id.edit_listitem_title);
 		 TextView editName = (TextView) findViewById(R.id.label_listItemName);
-		 
-		 
+
 		 editName.setText(getResources().getString(R.string.text_categoryName));
 		 
 		 if(edit){
