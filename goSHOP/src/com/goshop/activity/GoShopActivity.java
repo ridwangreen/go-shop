@@ -77,7 +77,7 @@ public class GoShopActivity extends Activity {
     
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
+        // Handle item selectio
     	Intent intent;
         switch (item.getItemId()) {
             case R.id.addCategory1:
@@ -91,8 +91,10 @@ public class GoShopActivity extends Activity {
             case R.id.categoryManager:
             	intent = new Intent(this, CategoryManagerActivity.class);
             	startActivity(intent);
+            	return true;
             case R.id.clearChecked:
             	clearCheckedItems();
+            	return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
